@@ -1,0 +1,15 @@
+service com.google.android.desktop.super-partition-utils /system_ext/bin/hw/com.google.android.desktop.super-partition-utils
+    class hal
+    user root
+    group root
+    interface aidl com.google.android.desktop.ISuperPartitionUtils/default
+    disabled
+    oneshot
+
+on property:vendor.desktop.super_partition_utils.action=mount
+    mount ext4 /dev/block/mapper/super_partition_utils_${vendor.desktop.super_partition_utils.name} /mnt/super_partition_utils/${vendor.desktop.super_partition_utils.name} rw context=u:object_r:super_partition_utils_mntpoint:s0
+    setprop vendor.desktop.super_partition_utils.state mounted
+
+on property:vendor.desktop.super_partition_utils.action=umount
+    umount /mnt/super_partition_utils/${vendor.desktop.super_partition_utils.name}
+    setprop vendor.desktop.super_partition_utils.state unmounted

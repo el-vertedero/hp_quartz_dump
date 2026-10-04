@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This XML file declares which signature|privileged permissions to grant to
+privileged apps that come with the platform in the system_ext partition. -->
+<permissions>
+     <privapp-permissions package="com.google.android.desktop.prewarm">
+        <permission name="android.permission.RECEIVE_BOOT_COMPLETED" />
+     </privapp-permissions>
+
+    <privapp-permissions package="com.google.android.apps.wallpaper">
+        <permission name="android.permission.CHANGE_OVERLAY_PACKAGES" />
+        <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+        <permission name="android.permission.UPDATE_THEME_SETTINGS" />
+        <permission name="android.permission.MODIFY_DAY_NIGHT_MODE" />
+        <permission name="android.permission.BIND_WALLPAPER" />
+        <permission name="android.permission.SET_WALLPAPER_COMPONENT" />
+        <permission name="android.permission.SET_WALLPAPER_DIM_AMOUNT" />
+        <permission name="android.permission.READ_WALLPAPER_INTERNAL" />
+    </privapp-permissions>
+
+    <privapp-permissions package="com.google.android.desktop.repairmode">
+        <permission name="android.permission.INSTALL_DYNAMIC_SYSTEM" />
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+        <permission name="android.permission.REBOOT" />
+    </privapp-permissions>
+
+    <privapp-permissions package="com.google.android.snapshotservice">
+        <permission name="android.permission.DUMP" />
+        <permission name="android.permission.MANAGE_USERS" />
+        <permission name="android.permission.PACKAGE_USAGE_STATS" />
+        <permission name="android.permission.READ_LOGS" />
+    </privapp-permissions>
+</permissions>

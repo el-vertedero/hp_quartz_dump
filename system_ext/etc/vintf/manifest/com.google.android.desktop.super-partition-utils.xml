@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/super-partition-utils/com.google.android.desktop.super-partition-utils.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>com.google.android.desktop</name>
+        <fqname>ISuperPartitionUtils/default</fqname>
+    </hal>
+</manifest>

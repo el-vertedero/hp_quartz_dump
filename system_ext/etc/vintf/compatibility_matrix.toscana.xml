@@ -1,0 +1,13 @@
+<!--
+    Input:
+        vendor/google/desktop/face/compatibility_matrix_system_ext.xml
+-->
+<compatibility-matrix version="9.0" type="framework">
+    <hal format="aidl">
+        <name>com.android.desktop.face.toscana</name>
+        <interface>
+            <name>IMicrodroid</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</compatibility-matrix>

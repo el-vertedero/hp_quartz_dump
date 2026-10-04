@@ -1,0 +1,7 @@
+service com.google.android.desktop.procfs-reader /system_ext/bin/com.google.android.desktop.procfs-reader
+    class hal
+    user system
+    group system readproc
+    interface aidl com.google.android.desktop.procfs_reader.IProcfsReader/default
+    disabled
+    oneshot

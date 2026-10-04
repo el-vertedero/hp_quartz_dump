@@ -1,0 +1,7 @@
+on post-fs
+    mkdir /metadata/repairmode 0770 root system
+    mkdir /metadata/repairmode/config 0770 root system
+
+on boot && property:ro.gsid.dsu_slot=repairmode.lock
+    # Turn off modem logs to save space
+    setprop persist.vendor.sys.modem.logging.enable false

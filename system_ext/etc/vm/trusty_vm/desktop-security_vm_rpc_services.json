@@ -1,0 +1,32 @@
+[
+  {
+    "port": 11,
+    "accessor_name": "android.os.IAccessor/ICommService/security_vm_keymint",
+    "internal_rpc_service_name": "android.trusty.commservice.ICommService/security_vm_keymint"
+  },
+  {
+    "port": 12,
+    "accessor_name": "android.os.IAccessor/IKeyMintProvisioningService/security_vm_keymint",
+    "internal_rpc_service_name": "com.android.trusty.rust.KeyMintProvisioningService.V1"
+  },
+  {
+    "port": 14,
+    "accessor_name": "android.os.IAccessor/sharedsecret/security_vm_shared_secret",
+    "internal_rpc_service_name": "android.hardware.security.sharedsecret.ISharedSecret/security_vm"
+  },
+  {
+    "port": 15,
+    "accessor_name": "android.os.IAccessor/IFingerGuard/security_vm_fingerguard",
+    "internal_rpc_service_name": "android.desktop.security.finger_guard.IFingerGuard/default"
+  },
+  {
+    "port": 19,
+    "accessor_name": "android.os.IAccessor/IVmAttestation/default",
+    "internal_rpc_service_name": "android.trusty.vm_attestation.IVmAttestation/default"
+  },
+  {
+    "port": 23,
+    "accessor_name": "android.os.IAccessor/IHatSeedProvisioning/security_vm_keymint",
+    "internal_rpc_service_name": "com.android.trusty.face.HatSeedProvisioning.V1"
+  }
+]

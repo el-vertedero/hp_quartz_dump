@@ -1,0 +1,11 @@
+on post-fs-data
+    mkdir /data/misc/toscana_ta/ 0700 system system
+
+service toscana_runner /system_ext/bin/toscana_runner
+    interface aidl android.hardware.security.authgraph.IAuthGraphKeyExchange/face
+    interface aidl android.hardware.security.secureclock.ISecureClock/toscana
+    interface aidl com.android.desktop.face.toscana.IMicrodroid/default
+    user system
+    group system
+    oneshot
+    disabled

@@ -1,0 +1,8 @@
+service com.google.desktop.serviceability.diag.diag-service /system_ext/bin/com.google.desktop.serviceability.diag.diag-service
+    class main
+    user system
+    group system
+    rlimit memlock unlimited unlimited
+    interface aidl com.google.desktop.serviceability.diag.IDiagnosticsService/default
+    disabled
+    oneshot

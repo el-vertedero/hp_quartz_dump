@@ -1,0 +1,18 @@
+<!--
+    Input:
+        vendor/google/desktop/face/toscana_runner/vintf_fragments.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>android.hardware.security.authgraph</name>
+        <fqname>IAuthGraphKeyExchange/face</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>android.hardware.security.secureclock</name>
+        <fqname>ISecureClock/toscana</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>com.android.desktop.face.toscana</name>
+        <fqname>IMicrodroid/default</fqname>
+    </hal>
+</manifest>

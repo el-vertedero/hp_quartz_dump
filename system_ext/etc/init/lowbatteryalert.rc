@@ -1,0 +1,11 @@
+
+service lowbatteryalert /system_ext/bin/desktop-lowbatteryalert
+    user graphics
+    group graphics
+    disabled
+    oneshot
+    ioprio rt 0
+    task_profiles SCHED_SP_TOP_APP
+
+on shutdown
+    exec_start lowbatteryalert
