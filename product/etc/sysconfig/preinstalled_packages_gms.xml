@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Allowlist for system packages included in gms.mk -->
+<config>
+    <!--  Chrome (Chrome) -->
+    <install-in-user-type package="com.android.chrome">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!--  Wellbeing App (WellbeingPrebuilt) -->
+    <install-in-user-type package="com.google.android.apps.wellbeing">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  GMS Core Kids Prebuilt (KidsSupervisionStub) -->
+    <install-in-user-type package="com.google.android.gms.supervision">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!--  TalkBack Accessibility Service (TalkBack) -->
+    <install-in-user-type package="com.google.android.marvin.talkback">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- NFC (TagGoogle) -->
+    <install-in-user-type package="com.google.android.tag">
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+
+    <!-- Config Updater (ConfigUpdater) -->
+    <install-in-user-type package="com.google.android.configupdater">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Google Location History (LocationHistoryPrebuilt) -->
+    <install-in-user-type package="com.google.android.gms.location.history">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Search Selector app (SearchSelectorPrebuilt) -->
+    <install-in-user-type package="com.google.android.apps.setupwizard.searchselector">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!-- Google Restore (RELEASE_PACKAGE_GOOGLE_RESTORE) -->
+    <install-in-user-type package="com.google.android.apps.restore">
+        <!-- SYSTEM user is required because DefaultPermissionGrantPolicy runs as user 0
+             and skips default permissions if the package is missing. -->
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Google-branded WebView provider (WebViewGoogle)  -->
+    <install-in-user-type package="com.google.android.webview">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+
+    <!--  Static shared library used by WebView in some configurations (TrichromeLibrary)  -->
+    <install-in-user-type package="com.google.android.trichromelibrary">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+
+    <!-- Partner Setup (PartnerSetupPrebuilt) -->
+    <install-in-user-type package="com.google.android.partnersetup">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+
+    <!-- Workspace Editors -->
+    <install-in-user-type package="com.google.android.apps.docs.editors.docs">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.google.android.apps.docs.editors.sheets">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.google.android.apps.docs.editors.slides">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- YouTube Music -->
+    <install-in-user-type package="com.google.android.apps.youtube.music">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+</config>

@@ -1,0 +1,14 @@
+# Android fstab file.
+#
+# Try to mount factory preloads partition first, if it fails, then follows
+# Android APK caching logic to mount system_other.
+#
+#<src>                                        <mnt_point>  <type> <mnt_flags and options>                                                 <fs_mgr_flags>
+super_partition_utils_factorypreload          /postinstall ext4   ro,nosuid,nodev,noexec,context=u:object_r:factory_preloads_mntpoint:s0  logical
+super_partition_utils_factorypreload          /postinstall erofs  ro,nosuid,nodev,noexec,context=u:object_r:factory_preloads_mntpoint:s0  logical
+system                                        /postinstall ext4   ro,nosuid,nodev,noexec                                                   slotselect_other,logical
+system                                        /postinstall erofs  ro,nosuid,nodev,noexec                                                   slotselect_other,logical
+/dev/block/by-name/system                     /postinstall ext4   ro,nosuid,nodev,noexec                                                   slotselect_other
+/dev/block/by-name/system                     /postinstall erofs  ro,nosuid,nodev,noexec                                                   slotselect_other
+/dev/block/mapper/system                      /postinstall ext4   ro,nosuid,nodev,noexec                                                   slotselect_other
+/dev/block/mapper/system                      /postinstall erofs  ro,nosuid,nodev,noexec                                                   slotselect_other

@@ -1,0 +1,223 @@
+####################################
+# from generate-common-build-props
+# These properties identify this partition image.
+####################################
+ro.product.product.brand=HP
+ro.product.product.device=quartz
+ro.product.product.manufacturer=HP
+ro.product.product.model=HP Googlebook 14
+ro.product.product.name=quartz
+ro.product.build.date=Tue Sep 29 16:41:03 UTC 2026
+ro.product.build.date.utc=1790700063
+ro.product.build.fingerprint=HP/quartz/quartz:17/CL3B.260622.273.R1/16471258:user/release-keys
+ro.product.build.id=CL3B.260622.273.R1
+ro.product.build.uuid=mYF_zvSqwu7LB1-QwmsqsFYPh9WvTSjhtCiuNWNKv_4
+ro.product.build.tags=release-keys
+ro.product.build.type=user
+ro.product.build.version.incremental=16471258
+ro.product.build.version.release=17
+ro.product.build.version.release_or_codename=17
+ro.product.build.version.sdk=37
+ro.product.build.version.sdk_full=37.1
+####################################
+# from gen_build_prop.py:generate_build_info
+####################################
+# begin build properties
+ro.build.id=CL3B.260622.273.R1
+ro.build.uuid=mYF_zvSqwu7LB1-QwmsqsFYPh9WvTSjhtCiuNWNKv_4
+ro.build.display.id=CL3B.260622.273.R1
+ro.build.version.incremental=16471258
+ro.build.version.sdk=37
+ro.build.version.sdk_full=37.1
+ro.build.version.preview_sdk=0
+ro.build.version.preview_sdk_fingerprint=REL
+ro.build.version.codename=REL
+ro.build.version.all_codenames=REL
+ro.build.version.known_codenames=Base,Base11,Cupcake,Donut,Eclair,Eclair01,EclairMr1,Froyo,Gingerbread,GingerbreadMr1,Honeycomb,HoneycombMr1,HoneycombMr2,IceCreamSandwich,IceCreamSandwichMr1,JellyBean,JellyBeanMr1,JellyBeanMr2,Kitkat,KitkatWatch,Lollipop,LollipopMr1,M,N,NMr1,O,OMr1,P,Q,R,S,Sv2,Tiramisu,UpsideDownCake,VanillaIceCream,Baklava,CANARY,CinnamonBun
+ro.build.version.release=17
+ro.build.version.release_or_codename=17
+ro.build.version.release_or_preview_display=17
+ro.build.version.security_patch=2026-09-01
+ro.build.version.base_os=
+ro.build.version.min_supported_target_sdk=28
+ro.build.date=Tue Sep 29 16:41:03 UTC 2026
+ro.build.date.utc=1790700063
+ro.build.type=user
+ro.build.user=android-build
+ro.build.host=d4a9c20ab9a3
+ro.build.tags=release-keys
+ro.build.flavor=quartz-user
+# ro.product.cpu.abi and ro.product.cpu.abi2 are obsolete,
+# use ro.product.cpu.abilist instead.
+ro.product.cpu.abi=arm64-v8a
+ro.product.locale=en-US
+ro.wifi.channels=
+# Do not try to parse description or thumbprint
+ro.build.description=quartz-user 17 CL3B.260622.273.R1 16471258 release-keys
+# end build properties
+####################################
+# from device/google/desktop/bluey/bluetooth.prop
+####################################
+# A2DP codec priorities
+# bluetooth.a2dp.source.aac_priority.config=2001
+# bluetooth.a2dp.source.aptx_priority.config=3001
+# bluetooth.a2dp.source.aptx_hd_priority.config=4001
+# bluetooth.a2dp.source.ldac_priority.config=5001
+# A2DP offload support
+bluetooth.a2dp_offload.supported=true
+bluetooth.a2dp_offload.disabled=false
+# LEAudio offload support disabled
+ro.bluetooth.leaudio_offload.supported=false
+persist.bluetooth.leaudio_offload.disabled=true
+bluetooth.core.le_audio.codec_extension_aidl.enabled=false
+# Disable LE audio settings
+persist.bluetooth.leaudio.toggle_visible=false
+bluetooth.profile.bap.broadcast.assist.enabled=false
+bluetooth.profile.bap.broadcast.source.enabled=false
+bluetooth.profile.bap.unicast.client.enabled=false
+bluetooth.profile.ccp.server.enabled=false
+bluetooth.profile.hap.client.enabled=false
+bluetooth.profile.csip.set_coordinator.enabled=false
+bluetooth.profile.vcp.controller.enabled=false
+bluetooth.profile.mcp.server.enabled=false
+ro.bluetooth.leaudio.le_audio_connection_by_default=false
+ro.bluetooth.leaudio_switcher.supported=false
+####################################
+# from device/google/desktop/common/bluetooth/bluetooth.prop
+####################################
+# Removed by post_process_props.py because overridden by ro.bluetooth.leaudio_offload.supported=false
+#ro.bluetooth.leaudio_offload.supported?=false
+# Removed by post_process_props.py because overridden by ro.bluetooth.leaudio_switcher.supported=false
+#ro.bluetooth.leaudio_switcher.supported?=true
+# Removed by post_process_props.py because overridden by persist.bluetooth.leaudio_offload.disabled=true
+#persist.bluetooth.leaudio_offload.disabled?=true
+persist.bluetooth.leaudio.allow_list=SM-R510,G5,AG5
+bluetooth.leaudio.dual_bidirection_swb.supported=true
+bluetooth.leaudio.toggle_visible=true
+bluetooth.ble.allow_enc_with_bredr=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.bap.unicast.client.enabled=false
+#bluetooth.profile.bap.unicast.client.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.ccp.server.enabled=false
+#bluetooth.profile.ccp.server.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.hap.client.enabled=false
+#bluetooth.profile.hap.client.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.csip.set_coordinator.enabled=false
+#bluetooth.profile.csip.set_coordinator.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.vcp.controller.enabled=false
+#bluetooth.profile.vcp.controller.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.mcp.server.enabled=false
+#bluetooth.profile.mcp.server.enabled?=true
+# ro.bluetooth.leaudio.le_audio_connection_by_default?=true
+bluetooth.profile.asha.central.enabled=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.a2dp.source.enabled=true
+#bluetooth.profile.a2dp.source.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.avrcp.target.enabled=true
+#bluetooth.profile.avrcp.target.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.bas.client.enabled=true
+#bluetooth.profile.bas.client.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.gatt.enabled=true
+#bluetooth.profile.gatt.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.hfp.ag.enabled=true
+#bluetooth.profile.hfp.ag.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.hid.device.enabled=false
+#bluetooth.profile.hid.device.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.hid.host.enabled=true
+#bluetooth.profile.hid.host.enabled?=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.map.server.enabled=true
+#bluetooth.profile.map.server.enabled?=false
+bluetooth.profile.map.client.enabled=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.opp.enabled=true
+#bluetooth.profile.opp.enabled?=true
+bluetooth.profile.pan.nap.enabled=true
+bluetooth.profile.pan.panu.enabled=true
+# Removed by post_process_props.py because overridden by bluetooth.profile.pbap.server.enabled=true
+#bluetooth.profile.pbap.server.enabled?=false
+bluetooth.profile.pbap.client.enabled=true
+bluetooth.profile.sap.server.enabled=true
+# Removed by post_process_props.py because overridden by bluetooth.a2dp_offload.supported=true
+#bluetooth.a2dp_offload.supported?=false
+# Removed by post_process_props.py because overridden by bluetooth.a2dp_offload.disabled=false
+#bluetooth.a2dp_offload.disabled?=true
+# Disable all A2DP codecs but SBC
+# TODO(b/356936107): Disable them to facilitate development. Enable them
+# will be separated effort in the future.
+bluetooth.a2dp.source.aac_priority.config=-1
+bluetooth.a2dp.source.aptx_priority.config=-1
+bluetooth.a2dp.source.aptx_hd_priority.config=-1
+bluetooth.a2dp.source.ldac_priority.config=-1
+bluetooth.a2dp.source.opus_priority.config=-1
+bluetooth.a2dp.source.lhdcv5_priority.config=-1
+# Bluetooth adapter suspend management
+bluetooth.power.suspend.disconnect_acl.enabled=true
+bluetooth.power.suspend.scan_mode_none.enabled=true
+bluetooth.power.suspend.stop_le_scan.enabled=true
+bluetooth.power.suspend.pause_advertisement.enabled=true
+# Sysprop: Bluetooth wakelock timeout at resume
+bluetooth.core.acl.wakelock_timeout=5000
+# MSFT Extension hardware scanning offload
+bluetooth.core.le.use_msft_hci_ext=true
+# Intel=0xFC1E
+bluetooth.hci.msft_vendor_opcode=64542
+# COD: Service=None, Major=Computer, Minor=Laptop
+bluetooth.device.class_of_device=0,1,12
+####################################
+# from variable ADDITIONAL_PRODUCT_PROPERTIES
+####################################
+ro.product.page_size=4096
+ro.build.characteristics=desktop
+ro.product.ab_ota_partitions=bluetooth,boot,dsp,dtbo,init_boot,modem,product,pvmfw,system,system_dlkm,system_ext,vbmeta,vendor,vendor_boot,vendor_dlkm
+ro.product.cpu.pagesize.max=16384
+ro.product.build.no_bionic_page_size_macro=true
+# Value overridden by post_process_props.py. Original value: default
+ro.dalvik.vm.enable_uffd_gc=true
+####################################
+# from variable PRODUCT_PRODUCT_PROPERTIES
+####################################
+remote_provisioning.strongbox.rkp_only=1
+android.transparency.roots_url=https://android.googleapis.com/attestation/root
+persist.wm.extensions.enabled=true
+setupwizard.theme=glif_expressive
+ro.opa.eligible_device=true
+ro.com.google.gmsversion=13_beta
+setupwizard.feature.baseline_setupwizard_enabled=true
+setupwizard.feature.enable_minors_setup_flow=true
+setupwizard.feature.enable_quick_start_flow=true
+setupwizard.feature.enable_restore_anytime=true
+setupwizard.feature.ethernet_handling=true
+setupwizard.feature.enable_suw_without_main_user=true
+setupwizard.feature.locale_agnostic_enabled=true
+setupwizard.feature.quick_start_network_entry_point=true
+setupwizard.feature.enable_parental_notice_activity=true
+setupwizard.feature.enable_parental_setup=true
+setupwizard.feature.enable_gil_logging=true
+ro.quick_start.oem_id=00e0
+ro.quick_start.device_id=laptop
+persist.sys.display.enable_hdr_mode_splitting=true
+persist.sys.settings.hide_hdr_brightness_slider=true
+persist.wallpapercolors.threshold=55
+persist.wallpapercolors.max_dark_area=12
+traced.relay_producer_port=vsock://-1:2010
+persist.wm.extensions.activity_embedding_guard_with_android_15=false
+persist.settings.large_screen_opt.enabled=true
+ro.boot.vendor.overlay.theme=com.android.internal.systemui.navbar.gestural;com.google.android.systemui.gxoverlay
+persist.vendor.desktop.diagnostics.record.enable=true
+remote_provisioning.tee.rkp_only=1
+ro.setupwizard.require_network=any
+remote_provisioning.hostname=remoteprovisioning.googleapis.com
+ro.audio.track_realtime_priority=1
+ro.audio.dras.audioflinger_input_realtime_priority=1
+ro.postinstall.fstab.prefix=/product
+bluetooth.profile.a2dp.source.enabled=true
+bluetooth.profile.avrcp.target.enabled=true
+bluetooth.profile.avrcp.controller.enabled=true
+bluetooth.profile.hfp.ag.enabled=true
+bluetooth.profile.gatt.enabled=true
+bluetooth.profile.hid.host.enabled=true
+bluetooth.profile.hid.device.enabled=false
+bluetooth.profile.map.server.enabled=true
+bluetooth.profile.opp.enabled=true
+bluetooth.profile.pbap.server.enabled=true
+bluetooth.profile.bas.client.enabled=true
+bluetooth.device_id.vendor_id=0x001D
+# end of file
+

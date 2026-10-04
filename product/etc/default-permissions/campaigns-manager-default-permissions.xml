@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<exceptions>
+    <!-- Authorizing Campaigns Manager with notification permissions by default. -->
+    <exception package="com.google.android.desktop.growth">
+        <permission name="android.permission.POST_NOTIFICATIONS" fixed="false"/>
+    </exception>
+</exceptions>

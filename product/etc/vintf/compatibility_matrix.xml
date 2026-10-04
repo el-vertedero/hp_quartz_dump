@@ -1,0 +1,13 @@
+<!--
+    Input:
+        vendor/google/desktop/power/thermal_profile_setter/thermal_profile_setter.compat.xml
+-->
+<compatibility-matrix version="9.0" type="framework">
+    <hal format="aidl">
+        <name>vendor.google.thermal_profile</name>
+        <interface>
+            <name>IThermalProfileSetter</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</compatibility-matrix>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- System packages to preinstall on all desktop devices, per user type.
+     Documentation at frameworks/base/data/etc/preinstalled-packages-platform.xml
+-->
+
+<!-- TODO(b/406863453): these packages should be allow-listed in XML on their own project -->
+
+<config>
+   <!-- System apps -->
+   <install-in-user-type package="com.google.android.desktop.identity.login">
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.android.desktop.sar">
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.aicore">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.alai">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+      <!-- TODO(b/339691844): Consider removing this once AICore issue is fixed. -->
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Device Intelligence / "Magic Cue" (PixelSensePrebuilt) -->
+   <install-in-user-type package="com.google.android.apps.pixel.psi">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+      <!-- This is required due to implementation of PsiModelServiceModule -->
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- GPointer / "Magic Pointer" (ContextualCursorPrebuilt) -->
+   <install-in-user-type package="com.google.android.desktop.gpointer.app">
+      <install-in user-type="FULL" />
+      <!-- This is required due to implementation of ContextualCursorModule -->
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Create My Widget (GenUX Widgets) -->
+   <install-in-user-type package="com.google.android.apps.yourwidget">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Interactive user apps -->
+   <install-in-user-type package="com.google.android.apps.internal.betterbug">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.apps.betterbug.partners">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.backpack.client">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.camera">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+      <install-in user-type="android.os.usertype.profile.PRIVATE" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.growth">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.feedback">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.ioshub">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.texteditor">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.tips">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.apps.antigravity">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Manufacturing / Repair / Serviceability apps -->
+   <install-in-user-type package="com.google.android.desktop.repairmode">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.desktop.repairmode.resources">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.diagnostics">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.taskmanager">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.hwdescriptor">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.launcher">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.launcher.config_overlay">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.hwdescriptor.oem_part_number_database">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.repair">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.factory.postmanufacturing">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Wallpaper apps -->
+   <install-in-user-type package="com.google.android.apps.aiwallpapers">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.apps.emojiwallpaper">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.wallpaper.effects">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.pixel.livewallpaper">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Screen saver apps -->
+   <install-in-user-type package="com.google.assistant.hubui">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Workspace PWA apps -->
+   <install-in-user-type package="com.google.android.keep">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.apps.dynamite">
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+   </install-in-user-type>
+   <install-in-user-type package="com.google.android.apps.tachyon">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+   </install-in-user-type>
+   <!-- Audio recorder app -->
+   <install-in-user-type package="com.google.android.apps.recorder">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Serviceability App -->
+   <install-in-user-type package="vendor.google.desktop.serviceability">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Gemini app -->
+   <install-in-user-type package="com.google.android.apps.bard">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+   <!-- Factory app -->
+   <install-in-user-type package="com.google.android.factory.factory">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Factory Launcher -->
+   <install-in-user-type package="com.google.android.factory.factorylauncher">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+   <!-- Printing app -->
+   <install-in-user-type package="com.android.desktop.printservice">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.CLONE" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+      <install-in user-type="android.os.usertype.profile.PRIVATE" />
+   </install-in-user-type>
+
+   <!-- RRO (Runtime Resource Overlay) packages -->
+
+   <!-- SettingsProvider overlay for all users (SettingsProviderDesktopOverlay) -->
+   <install-in-user-type package="com.android.providers.settings.overlay.desktop">
+      <install-in user-type="FULL" />
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+
+   <!-- SettingsProvider overlay for just the HSU / login screen (SettingsProviderDesktopSystemUserOverlay) -->
+<!-- TODO(b/513026723): currently removed from build due to a race condition initializing the overay for new users.
+
+   <install-in-user-type package="com.android.providers.settings.overlay.desktop.system_user">
+      <install-in user-type="SYSTEM" />
+   </install-in-user-type>
+-->
+    <!-- Packages below were copied and modified from
+        vendor/google/data/etc/sysconfig/preinstalled-packages-product-pixel-2017-and-newer.xml
+   -->
+
+    <!-- Screenshots app -->
+    <install-in-user-type package="com.google.android.apps.pixel.agent">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Pixel Studio app -->
+    <install-in-user-type package="com.google.android.apps.pixel.creativeassistant">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Pixel play auto-install (PAI) stub app. Enables phonesky to install
+      certain app prebuilts on device setup or when the first account is added to the user.
+      Preventing stub app installation disables PAI for the user -->
+    <install-in-user-type package="android.autoinstalls.config.google.nexus">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Pixel play auto-install (PAI) stub app for desktop Android. Same
+         requirements as android.autoinstalls.config.google.nexus. -->
+    <install-in-user-type package="android.autoinstalls.config.google.desktop">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- BetterBug external app Android Beta Feedback is not used on desktop devices. Desktop
+    devices instead uses com.google.android.apps.internal.betterbug and
+    com.google.android.apps.betterbug.partners for BetterBug and Android Tester Feedback
+    respectively. These apps are preinstalled through the config above. -->
+
+    <!-- syncadapters is needed on full user because calendar is implemented as TWA -->
+    <!-- TODO(b/469110208): move to its own XML -->
+    <!-- TODO(b/469110208): add same entry for com.android.providers.calendar as well? -->
+    <install-in-user-type package="com.google.android.syncadapters.calendar">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+   <!-- Packages below were initially copied "as-is" from
+        vendor/google/data/etc/sysconfig/preinstalled-packages-product-pixel-2017-and-newer.xml.
+        Apps not needed on desktop have been removed.
+   -->
+    <!-- Wallpaper Picker (WallpaperPickerGoogleRelease) -->
+    <install-in-user-type package="com.google.android.apps.wallpaper">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!--  Google Wallpaper Images  -->
+    <install-in-user-type package="com.google.android.apps.wallpaper.nexus">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Live Wallpaper Picker (LiveWallpapersPicker) -->
+    <install-in-user-type package="com.android.wallpaper.livepicker">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Pixel Themes Stub (PixelThemesStub) -->
+    <install-in-user-type package="com.google.android.apps.customization.pixel">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- SystemUI clocks -->
+    <install-in-user-type package="com.android.systemui.clocks.bignum">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.calligraphy">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.growth">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.inflate">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.metro">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.numoverlap">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <install-in-user-type package="com.android.systemui.clocks.weather">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Pixel Launcher (NexusLauncher) -->
+    <install-in-user-type package="com.google.android.apps.nexuslauncher">
+    <!-- TODO(b/456525459): needed for Recents and secondary display HOME -->
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Pixel LauncherConnector (PixelSearchPrebuilt) -->
+    <install-in-user-type package="com.google.android.apps.pixel.launcherconnector">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!--  Calculator (CalculatorGooglePrebuilt) -->
+    <install-in-user-type package="com.google.android.calculator">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!--  Calendar (CalendarGooglePrebuilt) -->
+    <install-in-user-type package="com.google.android.calendar">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Camera (GoogleCamera) -->
+    <install-in-user-type package="com.google.android.GoogleCamera">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!--  Contacts (GoogleContacts) -->
+    <install-in-user-type package="com.google.android.contacts">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Clock (PrebuiltDeskClockGoogle) -->
+    <install-in-user-type package="com.google.android.deskclock">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!--  DocumentsUIGoogle
+    TODO(b/267617358): This config should be loaded by mainline_modules_handheld.mk but has been
+    added here because adding it to mainline_modules_handheld.mk fails with go/artifact-error -->
+    <install-in-user-type package="com.google.android.documentsui">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Theme overlay for DocumentsUIGoogle (DocumentsUIGoogleOverlay) -->
+    <install-in-user-type package="com.google.android.documentsui.theme.pixel">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Drive (Drive) -->
+    <install-in-user-type package="com.google.android.apps.docs">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Docs (WorkspacePreloadsDocs) -->
+    <install-in-user-type package="com.google.android.apps.editors.docs">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Sheets (WorkspacePreloadsSheets) -->
+    <install-in-user-type package="com.google.android.apps.editors.sheets">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Slides (WorkspacePreloadsSlides) -->
+    <install-in-user-type package="com.google.android.apps.editors.slides">
+      <install-in user-type="FULL" />
+      <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Gboard (LatinIMEGoogleDesktopPrebuilt) -->
+    <install-in-user-type package="com.google.android.inputmethod.latin">
+        <install-in user-type="FULL" />
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Gmail (PrebuiltGmail) -->
+    <install-in-user-type package="com.google.android.gm">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Google Search (GoogleSearchPrebuilt) -->
+    <install-in-user-type package="com.google.android.googlequicksearchbox">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Messages (PrebuiltBugle) -->
+    <install-in-user-type package="com.google.android.apps.messaging">
+        <install-in user-type="FULL" />
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Photos (Photos) -->
+    <install-in-user-type package="com.google.android.apps.photos">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Play Store (PhoneSky)
+    TODO(b/259299438) Check if this should be preinstalled on SYSTEM user -->
+    <install-in-user-type package="com.android.vending">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- YouTube (YouTube) TODO: Loaded from vendor/google/products/google_apis_common.mk-->
+    <install-in-user-type package="com.google.android.youtube">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!-- Weather app -->
+    <install-in-user-type package="com.google.android.apps.weather">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
+
+    <!--  Settings (Settings app) -->
+    <!--  Settings app allowlisting for SYSTEM user for interactive HSUM.Other
+        User type allowlists are inherited from generic Android allowlisting -->
+    <install-in-user-type package="com.android.settings">
+        <install-in user-type="SYSTEM" />
+    </install-in-user-type>
+
+    <!-- SettingsIntelligence (SettingsIntelligenceGooglePrebuilt) -->
+    <install-in-user-type package="com.google.android.settings.intelligence">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!-- ChromePrewarm App -->
+    <!-- User type allowlists keeps same with com.android.chrome package
+        in preinstalled_packages_gms.xml -->
+    <install-in-user-type package="com.google.android.desktop.prewarm">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!-- Cross-Device Services -->
+   <install-in-user-type package="com.google.ambient.streaming">
+      <install-in user-type="FULL" />
+   </install-in-user-type>
+
+    <!--  Pixel Sound Picker app (SoundPickerPrebuilt) -->
+    <install-in-user-type package="com.google.android.soundpicker">
+        <install-in user-type="FULL" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+        <install-in user-type="android.os.usertype.profile.PRIVATE" />
+    </install-in-user-type>
+
+    <!-- Accessibility Services -->
+    <!-- Voice Access (VoiceAccessPrebuilt) -->
+    <install-in-user-type package="com.google.android.apps.accessibility.voiceaccess">
+        <!-- Needed on the login screen, so installing on SYSTEM user -->
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <!-- TalkBack & Select to Speak (TalkBack) -->
+    <install-in-user-type package="com.google.android.marvin.talkback">
+        <!-- Needed on the login screen, so installing on SYSTEM user -->
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+    <!-- Live Transcribe & Sound Notifications (ScribePrebuilt) -->
+    <install-in-user-type package="com.google.audio.hearing.visualization.accessibility.scribe">
+        <!-- Not needed on the login screen, so not installing on SYSTEM user -->
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- On-device Abuse Detection (OdadPrebuilt) -->
+    <install-in-user-type package="com.google.android.odad">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+
+    <!-- Pixel Retail Demo Core Stub (RetailDemoGooglePrebuilt)-->
+    <install-in-user-type package="com.google.android.retaildemo">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- DisplayCaptureService for contextual cursor -->
+    <install-in-user-type package="com.google.android.desktop.display_capture_service">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+
+    <!-- Resets corrupted PackageManager state after update from FSI to FAU -->
+    <install-in-user-type package="com.google.android.desktop.fauresetpreferences">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="FULL" />
+        <install-in user-type="PROFILE" />
+    </install-in-user-type>
+</config>

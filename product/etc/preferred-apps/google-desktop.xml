@@ -1,0 +1,414 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<!-- Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!--
+    These are a set of preferred apps for desktop devices out of the box.
+
+    To generate new entries, set whatever app you want to be the default as
+    normal through the UI, and then use "adb shell dumpsys package preferred-xml"
+    to get the XML structure for the current preferred apps.
+ -->
+<preferred-activities>
+    <item name="com.google.android.desktop.backpack.client/.app.gateway">
+        <filter>
+            <action name="android.intent.action.VIEW" />
+            <cat name="android.intent.category.DEFAULT" />
+            <!-- We are specific about the scheme to make sure when PackageManager is querying
+                 activities that compete with this filter, it'll find intent filters that specify
+                 scheme too. Otherwise the competing filters inside the PreferredActivity will be
+                 different to what PackageManager find on file opening and PackageManager will think
+                 there is a new activity and ignores this PreferredActivity. -->
+            <scheme name="content" />
+
+            <type name="application/pdf" />
+        </filter>
+
+
+        <!-- Based on MIME types supported by DefaultMimeMapFactory which is
+             populated from frameworks/base/mime/java-res/android.mime.types
+             and external/mime-support/mime.types{,-alt}. -->
+
+        <!-- Image types based on what is supported by NDK ImageDecoder. -->
+        <filter>
+            <action name="android.intent.action.VIEW" />
+            <cat name="android.intent.category.DEFAULT" />
+            <!-- We are specific about the scheme to make sure when PackageManager is querying
+                 activities that compete with this filter, it'll find intent filters that specify
+                 scheme too. Otherwise the competing filters inside the PreferredActivity will be
+                 different to what PackageManager find on file opening and PackageManager will think
+                 there is a new activity and ignores this PreferredActivity. -->
+            <scheme name="content" />
+
+            <type name="application/pdf" />
+            <!-- file extension(s): avif hif -->
+            <type name="image/avif" />
+            <!-- file extension(s): bmp -->
+            <type name="image/bmp" />
+            <!-- file extension(s): gif -->
+            <type name="image/gif" />
+            <!-- file extension(s): heic -->
+            <type name="image/heic" />
+            <!-- file extension(s): heics -->
+            <type name="image/heic-sequence" />
+            <!-- file extension(s): heif hif -->
+            <type name="image/heif" />
+            <!-- file extension(s): heifs -->
+            <type name="image/heif-sequence" />
+            <!-- file extension(s): jfif jpe jpeg jpg -->
+            <type name="image/jpeg" />
+            <!-- file extension(s): png -->
+            <type name="image/png" />
+            <!-- file extension(s): ico -->
+            <type name="image/vnd.microsoft.icon" />
+            <!-- file extension(s): wbmp -->
+            <type name="image/vnd.wap.wbmp" />
+            <!-- file extension(s): webp -->
+            <type name="image/webp" />
+            <!-- file extension(s): dng -->
+            <type name="image/x-adobe-dng" />
+            <!-- file extension(s): cr2 -->
+            <type name="image/x-canon-cr2" />
+            <!-- file extension(s): raf -->
+            <type name="image/x-fuji-raf" />
+            <!-- file extension(s): ico -->
+            <type name="image/x-icon" />
+            <!-- file extension(s): bmp -->
+            <type name="image/x-ms-bmp" />
+            <!-- file extension(s): nef -->
+            <type name="image/x-nikon-nef" />
+            <!-- file extension(s): nrw -->
+            <type name="image/x-nikon-nrw" />
+            <!-- file extension(s): orf -->
+            <type name="image/x-olympus-orf" />
+            <!-- file extension(s): rw2 -->
+            <type name="image/x-panasonic-rw2" />
+            <!-- file extension(s): pef -->
+            <type name="image/x-pentax-pef" />
+            <!-- file extension(s): srw -->
+            <type name="image/x-samsung-srw" />
+            <!-- file extension(s): arw -->
+            <type name="image/x-sony-arw" />
+        </filter>
+
+        <!-- All video types for now. TODO(b/457842444): Refine this list. -->
+        <filter>
+            <action name="android.intent.action.VIEW" />
+            <cat name="android.intent.category.DEFAULT" />
+            <!-- We are specific about the scheme to make sure when PackageManager is querying
+                 activities that compete with this filter, it'll find intent filters that specify
+                 scheme too. Otherwise the competing filters inside the PreferredActivity will be
+                 different to what PackageManager find on file opening and PackageManager will think
+                 there is a new activity and ignores this PreferredActivity. -->
+            <scheme name="content" />
+
+            <!-- file extension(s): 3gp 3gpp -->
+            <type name="video/3gpp" />
+            <!-- file extension(s): 3g2 3gp2 3gpp2 -->
+            <type name="video/3gpp2" />
+            <!-- file extension(s): ts -->
+            <type name="video/MP2T" />
+            <!-- file extension(s): axv -->
+            <type name="video/annodex" />
+            <!-- file extension(s): avi -->
+            <type name="video/avi" />
+            <!-- file extension(s): dl -->
+            <type name="video/dl" />
+            <!-- file extension(s): dif dv -->
+            <type name="video/dv" />
+            <!-- file extension(s): fli -->
+            <type name="video/fli" />
+            <!-- file extension(s): gl -->
+            <type name="video/gl" />
+            <!-- file extension(s): m4s -->
+            <type name="video/iso.segment" />
+            <!-- file extension(s): m4v -->
+            <type name="video/m4v" />
+            <!-- file extension(s): mj2 mjp2 -->
+            <type name="video/mj2" />
+            <!-- file extension(s): mpeg -->
+            <type name="video/mp2p" />
+            <!-- file extension(s): m2ts mts -->
+            <type name="video/mp2t" />
+            <!-- file extension(s): ts -->
+            <type name="video/mp2ts" />
+            <!-- file extension(s): f4v m4v mp4 mp4v mpeg4 mpg4 -->
+            <type name="video/mp4" />
+            <!-- file extension(s): m1v m2t m2v mp1v mp2v mpe mpeg mpeg1 mpeg2 mpg mpv1 mpv2 -->
+            <type name="video/mpeg" />
+            <!-- file extension(s): ogv -->
+            <type name="video/ogg" />
+            <!-- file extension(s): mov qt -->
+            <type name="video/quicktime" />
+            <!-- file extension(s): uvh uvvh -->
+            <type name="video/vnd.dece.hd" />
+            <!-- file extension(s): uvm uvvm -->
+            <type name="video/vnd.dece.mobile" />
+            <!-- file extension(s): uvu uvvu -->
+            <type name="video/vnd.dece.mp4" />
+            <!-- file extension(s): uvp uvvp -->
+            <type name="video/vnd.dece.pd" />
+            <!-- file extension(s): uvs uvvs -->
+            <type name="video/vnd.dece.sd" />
+            <!-- file extension(s): uvv uvvv -->
+            <type name="video/vnd.dece.video" />
+            <!-- file extension(s): dvb -->
+            <type name="video/vnd.dvb.file" />
+            <!-- file extension(s): fvt -->
+            <type name="video/vnd.fvt" />
+            <!-- file extension(s): m4u mxu -->
+            <type name="video/vnd.mpegurl" />
+            <!-- file extension(s): pyv -->
+            <type name="video/vnd.ms-playready.media.pyv" />
+            <!-- file extension(s): nim -->
+            <type name="video/vnd.nokia.interleaved-multimedia" />
+            <!-- file extension(s): bik bk2 -->
+            <type name="video/vnd.radgamettools.bink" />
+            <!-- file extension(s): smk -->
+            <type name="video/vnd.radgamettools.smacker" />
+            <!-- file extension(s): s11 smpg -->
+            <type name="video/vnd.sealed.mpeg1" />
+            <!-- file extension(s): s14 -->
+            <type name="video/vnd.sealed.mpeg4" />
+            <!-- file extension(s): ssw sswf -->
+            <type name="video/vnd.sealed.swf" />
+            <!-- file extension(s): s1q smo smov -->
+            <type name="video/vnd.sealedmedia.softseal.mov" />
+            <!-- file extension(s): viv -->
+            <type name="video/vnd.vivo" />
+            <!-- file extension(s): yt -->
+            <type name="video/vnd.youtube.yt" />
+            <!-- file extension(s): webm -->
+            <type name="video/webm" />
+            <!-- file extension(s): flv -->
+            <type name="video/x-flv" />
+            <!-- file extension(s): lsf lsx -->
+            <type name="video/x-la-asf" />
+            <!-- file extension(s): mkv mpv -->
+            <type name="video/x-matroska" />
+            <!-- file extension(s): mng -->
+            <type name="video/x-mng" />
+            <!-- file extension(s): asf asx -->
+            <type name="video/x-ms-asf" />
+            <!-- file extension(s): wm -->
+            <type name="video/x-ms-wm" />
+            <!-- file extension(s): wmv -->
+            <type name="video/x-ms-wmv" />
+            <!-- file extension(s): wmx -->
+            <type name="video/x-ms-wmx" />
+            <!-- file extension(s): wvx -->
+            <type name="video/x-ms-wvx" />
+            <!-- file extension(s): avi -->
+            <type name="video/x-msvideo" />
+            <!-- file extension(s): movie -->
+            <type name="video/x-sgi-movie" />
+            <!-- file extension(s): wrf -->
+            <type name="video/x-webex" />
+        </filter>
+
+        <!-- All audio types for now. TODO(b/457842444): Refine this list. -->
+        <filter>
+            <action name="android.intent.action.VIEW" />
+            <cat name="android.intent.category.DEFAULT" />
+            <!-- We are specific about the scheme to make sure when PackageManager is querying
+                 activities that compete with this filter, it'll find intent filters that specify
+                 scheme too. Otherwise the competing filters inside the PreferredActivity will be
+                 different to what PackageManager find on file opening and PackageManager will think
+                 there is a new activity and ignores this PreferredActivity. -->
+            <scheme name="content" />
+
+            <!-- file extension(s): 726 -->
+            <type name="audio/32kadpcm" />
+            <!-- file extension(s): 3ga 3gpp -->
+            <type name="audio/3gpp" />
+            <!-- file extension(s): AMR amr -->
+            <type name="audio/AMR" />
+            <!-- file extension(s): AWB awb -->
+            <type name="audio/AMR-WB" />
+            <!-- file extension(s): aal -->
+            <type name="audio/ATRAC-ADVANCED-LOSSLESS" />
+            <!-- file extension(s): atx -->
+            <type name="audio/ATRAC-X" />
+            <!-- file extension(s): aa3 at3 omg -->
+            <type name="audio/ATRAC3" />
+            <!-- file extension(s): evc -->
+            <type name="audio/EVRC" />
+            <!-- file extension(s): QCP qcp -->
+            <type name="audio/EVRC-QCP" />
+            <!-- file extension(s): evb -->
+            <type name="audio/EVRCB" />
+            <!-- file extension(s): enw -->
+            <type name="audio/EVRCNW" />
+            <!-- file extension(s): evw -->
+            <type name="audio/EVRCWB" />
+            <!-- file extension(s): l16 -->
+            <type name="audio/L16" />
+            <!-- file extension(s): smv -->
+            <type name="audio/SMV" />
+            <!-- file extension(s): aac adt adts ass -->
+            <type name="audio/aac" />
+            <!-- file extension(s): aac -->
+            <type name="audio/aac-adts" />
+            <!-- file extension(s): a52 ac3 -->
+            <type name="audio/ac3" />
+            <!-- file extension(s): amr -->
+            <type name="audio/amr" />
+            <!-- file extension(s): awb -->
+            <type name="audio/amr-wb" />
+            <!-- file extension(s): axa -->
+            <type name="audio/annodex" />
+            <!-- file extension(s): acn -->
+            <type name="audio/asc" />
+            <!-- file extension(s): au snd -->
+            <type name="audio/basic" />
+            <!-- file extension(s): csd orc sco -->
+            <type name="audio/csound" />
+            <!-- file extension(s): dls -->
+            <type name="audio/dls" />
+            <!-- file extension(s): flac -->
+            <type name="audio/flac" />
+            <!-- file extension(s): lbc -->
+            <type name="audio/iLBC" />
+            <!-- file extension(s): imy -->
+            <type name="audio/imelody" />
+            <!-- file extension(s): mhas -->
+            <type name="audio/mhas" />
+            <!-- file extension(s): kar mid midi rtttl rtx xmf -->
+            <type name="audio/midi" />
+            <!-- file extension(s): mxmf -->
+            <type name="audio/mobile-xmf" />
+            <!-- file extension(s): mp3 -->
+            <type name="audio/mp3" />
+            <!-- file extension(s): f4a f4b f4p m4a m4b m4p -->
+            <type name="audio/mp4" />
+            <!-- file extension(s): m4a m4r mp1 mp2 mp3 mpa mpega mpga -->
+            <type name="audio/mpeg" />
+            <!-- file extension(s): m3u -->
+            <type name="audio/mpegurl" />
+            <!-- file extension(s): oga ogg opus spx -->
+            <type name="audio/ogg" />
+            <!-- file extension(s): psid sid -->
+            <type name="audio/prs.sid" />
+            <!-- file extension(s): sofa -->
+            <type name="audio/sofa" />
+            <!-- file extension(s): mid smf -->
+            <type name="audio/sp-midi" />
+            <!-- file extension(s): loas xhe -->
+            <type name="audio/usac" />
+            <!-- file extension(s): koz -->
+            <type name="audio/vnd.audiokoz" />
+            <!-- file extension(s): uva uvva -->
+            <type name="audio/vnd.dece.audio" />
+            <!-- file extension(s): eol -->
+            <type name="audio/vnd.digital-winds" />
+            <!-- file extension(s): mlp -->
+            <type name="audio/vnd.dolby.mlp" />
+            <!-- file extension(s): dts -->
+            <type name="audio/vnd.dts" />
+            <!-- file extension(s): dtshd -->
+            <type name="audio/vnd.dts.hd" />
+            <!-- file extension(s): plj -->
+            <type name="audio/vnd.everad.plj" />
+            <!-- file extension(s): lvp -->
+            <type name="audio/vnd.lucent.voice" />
+            <!-- file extension(s): pya -->
+            <type name="audio/vnd.ms-playready.media.pya" />
+            <!-- file extension(s): vbk -->
+            <type name="audio/vnd.nortel.vbk" />
+            <!-- file extension(s): ecelp4800 -->
+            <type name="audio/vnd.nuera.ecelp4800" />
+            <!-- file extension(s): ecelp7470 -->
+            <type name="audio/vnd.nuera.ecelp7470" />
+            <!-- file extension(s): ecelp9600 -->
+            <type name="audio/vnd.nuera.ecelp9600" />
+            <!-- file extension(s): multitrack -->
+            <type name="audio/vnd.presonus.multitrack" />
+            <!-- file extension(s): rip -->
+            <type name="audio/vnd.rip" />
+            <!-- file extension(s): s1m smp smp3 -->
+            <type name="audio/vnd.sealedmedia.softseal.mpeg" />
+            <!-- file extension(s): aif aifc aiff -->
+            <type name="audio/x-aiff" />
+            <!-- file extension(s): gsm -->
+            <type name="audio/x-gsm" />
+            <!-- file extension(s): mka -->
+            <type name="audio/x-matroska" />
+            <!-- file extension(s): mp3 -->
+            <type name="audio/x-mpeg" />
+            <!-- file extension(s): m3u m3u8 -->
+            <type name="audio/x-mpegurl" />
+            <!-- file extension(s): wax -->
+            <type name="audio/x-ms-wax" />
+            <!-- file extension(s): wma -->
+            <type name="audio/x-ms-wma" />
+            <!-- file extension(s): ra ram rm -->
+            <type name="audio/x-pn-realaudio" />
+            <!-- file extension(s): ra -->
+            <type name="audio/x-realaudio" />
+            <!-- file extension(s): pls -->
+            <type name="audio/x-scpls" />
+            <!-- file extension(s): sd2 -->
+            <type name="audio/x-sd2" />
+            <!-- file extension(s): wav -->
+            <type name="audio/x-wav" />
+        </filter>
+    </item>
+    <item name="com.google.android.desktop.texteditor/.MainActivity">
+        <filter>
+            <action name="android.intent.action.VIEW" />
+            <cat name="android.intent.category.DEFAULT" />
+            <scheme name="content" />
+            <type name="application/javascript" />
+            <type name="application/json" />
+            <type name="application/ld+json" />
+            <type name="text/comma-separated-values" />
+            <type name="text/css" />
+            <type name="text/csv" />
+            <type name="text/html" />
+            <type name="text/javascript" />
+            <type name="text/markdown" />
+            <type name="text/plain" />
+            <type name="text/x-go" />
+            <type name="text/x-java" />
+            <type name="text/x-kotlin" />
+            <type name="text/x-python" />
+            <type name="text/x-rust" />
+            <type name="text/xml" />
+        </filter>
+    </item>
+    <item name="com.google.android.desktop.texteditor/.MainActivity">
+        <filter>
+            <action name="android.intent.action.EDIT" />
+            <cat name="android.intent.category.DEFAULT" />
+            <scheme name="content" />
+            <type name="application/javascript" />
+            <type name="application/json" />
+            <type name="application/ld+json" />
+            <type name="text/comma-separated-values" />
+            <type name="text/css" />
+            <type name="text/csv" />
+            <type name="text/html" />
+            <type name="text/javascript" />
+            <type name="text/markdown" />
+            <type name="text/plain" />
+            <type name="text/x-go" />
+            <type name="text/x-java" />
+            <type name="text/x-kotlin" />
+            <type name="text/x-python" />
+            <type name="text/x-rust" />
+            <type name="text/xml" />
+        </filter>
+    </item>
+</preferred-activities>
