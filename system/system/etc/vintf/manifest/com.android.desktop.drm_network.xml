@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/desktop-services/drm_network/com.android.desktop.drm_network.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>com.android.desktop.drm_network</name>
+        <fqname>IDrmNetworkService/default</fqname>
+    </hal>
+</manifest>

@@ -1,0 +1,9 @@
+# Copyright (C) 2024 The Android Open Source Project
+
+service ec_crash_collector /system/bin/ec_crash_collector
+    user system
+    group system cros_ec
+    oneshot
+
+on property:sys.boot_completed=1
+    start ec_crash_collector

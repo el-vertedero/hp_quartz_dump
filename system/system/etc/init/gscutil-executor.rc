@@ -1,0 +1,7 @@
+service com.google.android.system.desktop.gscutil-executor /system/bin/com.google.android.system.desktop.gscutil-executor
+    class hal
+    user hsm
+    group hsm misc
+    interface aidl com.google.android.system.desktop.IGscutilExecutor/default
+    disabled
+    oneshot

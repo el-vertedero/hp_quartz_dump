@@ -1,0 +1,10 @@
+<!--
+    Input:
+        system/desktop/security/gscd/manifest_gscd.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>android.system.desktop.security.gsc</name>
+        <fqname>IGsc/default</fqname>
+    </hal>
+</manifest>

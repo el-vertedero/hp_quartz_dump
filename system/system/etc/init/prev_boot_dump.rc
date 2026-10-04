@@ -1,0 +1,213 @@
+## Permissions to allow system-wide tracing to the persistent trace buffer.
+## Based on frameworks/native/cmds/atrace/atrace.rc
+##
+on late-init
+# Allow writing to the kernel trace log.
+    chmod 0222 /sys/kernel/tracing/instances/boot_mapped/trace_marker
+
+# Grant unix world read/write permissions to kernel tracepoints.
+# Access control to these files is now entirely in selinux policy.
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/trace_clock
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/buffer_percent
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/options/overwrite
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/options/print-tgid
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/options/record-tgid
+
+    # Persistent trace buffer can not change the size.
+    chmod 0444 /sys/kernel/tracing/instances/boot_mapped/buffer_size_kb
+
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_switch/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_wakeup/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_blocked_reason/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_cpu_hotplug/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_pi_setprio/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_process_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_process_free/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_waking/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sched/sched_wakeup_new/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cgroup/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/cpu_frequency/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/cpu_idle/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/clock_enable/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/clock_disable/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/clock_set_rate/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/cpu_frequency_limits/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cpuhp/cpuhp_enter/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cpuhp/cpuhp_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cpuhp/cpuhp_pause/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/gpu_frequency/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/gpu_work_period/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/suspend_resume/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cpufreq_interactive/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/vmscan/mm_vmscan_direct_reclaim_begin/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/vmscan/mm_vmscan_direct_reclaim_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/vmscan/mm_vmscan_kswapd_wake/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/vmscan/mm_vmscan_kswapd_sleep/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/tracing_on
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_transaction/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_transaction_received/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_transaction_alloc_buf/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_lock/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_locked/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_unlock/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_set_priority/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_command/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/binder/binder_return/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/i2c_read/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/i2c_write/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/i2c_result/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/i2c_reply/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/smbus_read/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/smbus_write/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/smbus_result/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/i2c/smbus_reply/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/lowmemorykiller/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/sync/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/fence/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/dma_fence/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/kmem/rss_stat/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/kmem/ion_heap_grow/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/kmem/ion_heap_shrink/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ion/ion_stat/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/mm_event/mm_event_record/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/signal/signal_generate/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/signal/signal_deliver/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/mm_event/mm_event_record/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/lowmemorykiller/lowmemory_kill/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/oom/oom_score_adj_update/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/oom/mark_victim/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/task/task_rename/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/task/task_newtask/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/gpu_mem/gpu_mem_total/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/irq_handler_entry/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/irq_handler_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/softirq_entry/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/softirq_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/softirq_raise/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/tasklet_entry/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/tasklet_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/tasklet_hi_entry/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/irq/tasklet_hi_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ipi/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ipi/ipi_entry/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ipi/ipi_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ipi/ipi_raise/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/clk/clk_disable/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/clk/clk_enable/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/clk/clk_set_rate/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/printk/console/enable
+
+    # filesystem and disk
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_get_data_block/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_iget/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_iostat/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_sync_file_enter/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_sync_file_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_write_begin/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_write_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_da_write_begin/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_da_write_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_es_lookup_extent_enter/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_es_lookup_extent_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_load_inode/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_sync_file_enter/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ext4/ext4_sync_file_exit/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/block/block_rq_issue/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/block/block_rq_complete/enable
+
+    # filemap
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/filemap/mm_filemap_add_to_page_cache/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/filemap/mm_filemap_delete_from_page_cache/enable
+
+    # thermal
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/thermal/thermal_temperature/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/thermal/cdev_update/enable
+
+# Read and truncate the kernel trace and per-CPU kernel trace.
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu0/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu1/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu2/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu3/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu4/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu5/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu6/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu7/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu8/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu9/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu10/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu11/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu12/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu13/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu14/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu15/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu16/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu17/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu18/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu19/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu20/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu21/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu22/trace
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/per_cpu/cpu23/trace
+
+    chmod 0666 /sys/kernel/tracing/instances/backup/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu0/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu1/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu2/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu3/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu4/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu5/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu6/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu7/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu8/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu9/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu10/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu11/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu12/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu13/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu14/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu15/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu16/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu17/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu18/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu19/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu20/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu21/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu22/trace
+    chmod 0666 /sys/kernel/tracing/instances/backup/per_cpu/cpu23/trace
+
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/cma/cma_alloc_start/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/compaction/mm_compaction_begin/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/compaction/mm_compaction_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_background_gc/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_gc_begin/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_gc_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_iostat/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_iostat_latency/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/f2fs/f2fs_sync_fs/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/wakeup_source_activate/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/power/wakeup_source_deactivate/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/ufs/ufshcd_command/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/workqueue/workqueue_activate_work/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/workqueue/workqueue_execute_end/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/workqueue/workqueue_execute_start/enable
+    chmod 0666 /sys/kernel/tracing/instances/boot_mapped/events/workqueue/workqueue_queue_work/enable
+
+# dump previous boot trace data for bugreport
+service perfetto_prev_boot_dump_for_bugreport /system/bin/perfetto -c /vendor/etc/perfetto/prev_boot_dump.pbtxt --txt -o /data/misc/perfetto-traces/bugreport/prev_boot_dump.trace
+    disabled
+    gentle_kill
+    oneshot
+    user shell
+    group system
+
+# try to dump the previous boot trace data. If traced is not enabled, the
+# service will be gently killed.
+on property:sys.boot_completed=1
+    start perfetto_prev_boot_dump_for_bugreport
+
+on property:init.svc.perfetto_prev_boot_dump_for_bugreport=stopped
+    chmod 640 /data/misc/perfetto-traces/bugreport/prev_boot_dump.trace

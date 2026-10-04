@@ -1,0 +1,19 @@
+
+(
+!supportsDynamicRenderingLocalReadÜÅ
+,
+*convertLowpAndMediumpFloatUniformsTo16Bits
+$
+supportsExternalFormatResolveÜÅ
+
+supportsGlobalPriorityµ'
+2
+)allowMultisampledRenderToTextureEmulationÜÅ@
+com.valvesoftware.underlords 
+disableSeparateShaderObjectsE
+$com.futuremark.dmandroid.application
+preferSubmitAtFBOBoundaryL
+!com.wb.goog.injustice.brawler2017'
+supportsShaderFramebufferFetchÜÅH
+com.MOBGames.PoppyMobileChap1'
+supportsShaderFramebufferFetchÜÅ

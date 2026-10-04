@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!--
+  The settings in this file provides the defaults of system features.
+  Individual boards may have their per-SKU or dynamically generated settings
+  created in /oem/etc/permissions/platform.xml and override features defined
+  here.
+-->
+<permissions>
+    <!-- Enable AL specific features in GMS Core -->
+    <feature name="com.google.desktop.gms" />
+    <!-- Enable AL specific features for AICore GPU implementation -->
+    <feature name="com.google.desktop.AICORE_CROS_GPU" />
+    <!-- Enable Circle-to-search -->
+    <feature name="com.google.android.feature.CONTEXTUAL_SEARCH" />
+    <!-- Enable Circle-to-search Live Translate -->
+    <feature name="com.google.android.feature.CONTEXTUAL_SEARCH_LIVE_TRANSLATE"/>
+    <!-- Enable Gemini as the default assistant. -->
+    <feature name="com.google.android.feature.GEMINI_EXPERIENCE" />
+
+    <!-- Indicates full CTS compatibility, used by CTS tests. -->
+    <feature name="android.software.cts" />
+
+    <feature name="android.hardware.audio.output" />
+    <feature name="android.hardware.bluetooth" />
+    <feature name="android.hardware.faketouch" />
+    <feature name="android.hardware.microphone" />
+    <feature name="android.hardware.screen.portrait" />
+    <feature name="android.hardware.screen.landscape" />
+    <feature name="android.hardware.location" />
+    <feature name="android.hardware.location.network" />
+
+    <!-- Indicate support for the Android security model per the CDD. -->
+    <feature name="android.hardware.security.model.compatible" />
+
+    <!-- Basic system services -->
+    <feature name="android.software.app_widgets" />
+    <feature name="android.software.voice_recognizers" />
+    <feature name="android.software.backup" />
+    <feature name="android.software.home_screen" />
+    <feature name="android.software.input_methods" />
+    <feature name="android.software.picture_in_picture" />
+    <feature name="android.software.activities_on_secondary_displays" />
+    <feature name="android.software.print" />
+    <feature name="android.software.companion_device_setup" />
+    <feature name="android.software.autofill" />
+    <feature name="android.software.cant_save_state" />
+    <feature name="android.software.secure_lock_screen" />
+    <feature name="android.software.window_magnification" />
+
+    <!-- Feature to specify if the device supports controls. -->
+    <feature name="android.software.controls" />
+
+    <!-- The feature identifying devices which are able to use the device-to-device migration
+        over cable provided by the Pixelmigrate app. -->
+    <feature name="com.google.android.feature.D2D_CABLE_MIGRATION_FEATURE" />
+
+    <!-- Feature to specify if the device supports freeform. -->
+    <feature name="android.software.freeform_window_management" />
+    <feature name="android.hardware.type.pc" />
+
+    <!-- This is the standard set of features for devices that support the Telecom API. -->
+    <feature name="android.software.telecom" />
+
+    <!-- Feature to declare the support for the verified boot. -->
+    <feature name="android.software.verified_boot" />
+
+    <!-- AL is not designed to have GPS support by default -->
+    <unavailable-feature name="android.hardware.location.gps" />
+
+    <!--
+      AL requires this feature in order to provide access to Pixel GMSCore modules.
+    -->
+    <feature name="com.google.android.feature.PIXEL_EXPERIENCE" />
+
+    <!--
+      AL requires this feature in order to provide access to Pixel Recorder App.
+    -->
+    <feature name="com.google.android.feature.PIXEL_2017_EXPERIENCE" />
+
+    <!--
+      AL requires this feature in order to provide access to Pixel GPP Services.
+    -->
+    <feature name="com.google.android.feature.PIXEL_2018_EXPERIENCE" />
+
+    <!--
+      AL requires this feature in order to provide access to Pixel Screenshot.
+    -->
+    <feature name="com.google.android.feature.PIXEL_2024_EXPERIENCE" />
+
+    <!--
+      AL requires this feature in order to provide access to AiAi features.
+    -->
+    <feature name="com.google.android.feature.PIXEL_2025_EXPERIENCE" />
+
+    <!--
+      Recorder app checks this flag to ensure it isn't running on unsupported devices, e.g. by
+      sideloading it. This flag is also used to control Desktop-only features or behaviors.
+    -->
+    <feature name="com.google.android.desktop.recorder" />
+
+    <!--
+      Magic Pointer should only target AL devices, so add a feature to allow Play Store targeting.
+    -->
+    <feature name="com.google.android.feature.contextual_cursor" />
+
+    <!-- Get the "Satin", or Pixel, version of AGSA from Play Store. -->
+    <feature name="com.google.android.feature.NEXT_GENERATION_ASSISTANT" />
+
+    <!-- AL declares the support for Game Controls. -->
+    <feature name="com.google.android.gaming.game_controls" />
+
+    <!-- Allow ODAD to associate with Private Compute Services APK. -->
+    <allow-association target="com.google.android.odad" allowed="com.google.android.as.oss" />
+    <allow-association target="com.google.android.odad" allowed="com.android.providers.telephony" />
+
+</permissions>

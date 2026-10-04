@@ -1,0 +1,14 @@
+# Start the timberslide daemon.
+# Timberslide shall run as user system and groups system and cros_ec.
+#
+# See system/core/init/README.md for information on the init.rc language.
+
+# Ensure /data/misc/timberslide/ folder exists
+on post-fs-data
+    mkdir /data/misc/timberslide/ 0750 system system
+
+service timberslide /system/bin/timberslide --name cros_ec --log-to-logcat --log-to-file /data/misc/timberslide/cros_ec.log --period-ms 4000
+   user system
+   group system cros_ec
+
+   class core

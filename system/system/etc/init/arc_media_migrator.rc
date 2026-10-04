@@ -1,0 +1,7 @@
+service arc_media_migrator /system/bin/arc-media-migrator
+    user system
+    group media_rw ext_data_rw ext_obb_rw
+    interface aidl arc_media_migrator
+    disabled
+    oneshot
+    capabilities CHOWN

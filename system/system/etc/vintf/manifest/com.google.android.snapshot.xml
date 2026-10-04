@@ -1,0 +1,15 @@
+<!--
+    Input:
+        vendor/google/desktop/desktop-services/snapshot/com.google.android.snapshot.xml
+-->
+<manifest version="9.0" type="framework">
+    <hal format="aidl">
+        <name>com.google.android.aqueduct</name>
+        <fqname>IAqueduct/default</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>com.google.android.snapshot</name>
+        <version>5</version>
+        <fqname>ISnapshot/default</fqname>
+    </hal>
+</manifest>

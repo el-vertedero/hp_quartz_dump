@@ -1,0 +1,5 @@
+service chrome_data_migrator /system/bin/chrome-data-migrator
+    user root
+    interface aidl chrome_data_migrator
+    disabled
+    oneshot

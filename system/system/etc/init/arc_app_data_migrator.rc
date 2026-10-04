@@ -1,0 +1,5 @@
+service arc_app_data_migrator /system/bin/arc-app-data-migrator
+    user root
+    interface aidl arc_app_data_migrator
+    disabled
+    oneshot

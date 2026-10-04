@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These are configurations that should exist on Google's desktop devices. -->
+<config>
+    <!-- Enable DreamOverlayService to display ambient information such as time and weather -->
+    <component-override package="com.android.systemui" >
+        <component class=".dreams.DreamOverlayService" enabled="true" />
+    </component-override>
+
+    <!-- Hide and disable default screen saver options , user should use Dreams apk instead. -->
+    <component-override package="com.android.dreams.basic" >
+        <component class="com.android.dreams.basic.Colors" enabled="false" />
+    </component-override>
+    <component-override package="com.google.android.deskclock">
+        <component class="com.android.deskclock.Screensaver" enabled="false" />
+    </component-override>
+    <component-override package="com.google.android.apps.photos">
+        <component class="com.google.android.apps.photos.daydream.PhotosDreamService" enabled="false" />
+    </component-override>
+
+    <!-- Protect GMS Core from being disabled by admin users -->
+    <prevent-disable package="com.google.android.gms" />
+
+    <!-- ACTION_MANAGE_STORAGE handled by DocumentsUI on Desktop -->
+    <component-override package="com.android.storagemanager" >
+        <component class="com.android.storagemanager.deletionhelper.DeletionHelperActivity" enabled="false" />
+    </component-override>
+</config>
