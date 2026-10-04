@@ -1,0 +1,5 @@
+service vendor.oemlock-default /vendor/bin/hw/vendor.google.desktop.oemlock-service
+    class hal
+    user root
+    group root ap_firmware system
+    interface aidl android.hardware.oemlock.IOemLock/default

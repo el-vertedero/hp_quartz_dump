@@ -1,0 +1,12 @@
+# Save the device variant information in system properties (setprop)
+service vendor.set_power_symlinks /vendor/bin/set_power_symlinks
+    class default
+    user root
+    group root
+    oneshot
+    disabled
+
+on boot
+    mkdir /dev/power 0755 root root
+    mkdir /dev/power/irq-by-name 0755 root root
+    start vendor.set_power_symlinks

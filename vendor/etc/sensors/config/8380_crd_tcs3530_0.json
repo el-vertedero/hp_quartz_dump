@@ -1,0 +1,289 @@
+{
+  "config": {
+    "hw_platform": ["IDP", "CRD", "MTP"],
+    "soc_id": ["615", "555"],
+    "ro.product.device": ["mica"]
+  },
+  "tcs3530_0_physical": {
+    "owner": "sns_tcs3530",
+    ".config": {
+      "owner": "sns_tcs3530",
+      "is_dri": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "hw_id": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "res_idx": {
+        "type": "int",
+        "ver": "0",
+        "data": "1"
+      },
+      "sync_stream": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      }
+    }
+  },
+  "tcs3530_0_platform": {
+    "owner": "sns_tcs3530",
+    ".config": {
+      "owner": "sns_tcs3530",
+      "bus_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "bus_instance": {
+        "type": "int",
+        "ver": "0",
+        "data": "7"
+      },
+      "slave_config": {
+        "type": "int",
+        "ver": "0",
+        "data": "57"
+      },
+      "min_bus_speed_khz": {
+        "type": "int",
+        "ver": "0",
+        "data": "400"
+      },
+      "max_bus_speed_khz": {
+        "type": "int",
+        "ver": "0",
+        "data": "400"
+      },
+      "reg_addr_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "dri_irq_num": {
+        "type": "int",
+        "ver": "0",
+        "data": "93"
+      },
+      "irq_pull_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "irq_is_chip_pin": {
+        "type": "int",
+        "ver": "0",
+        "data": "1"
+      },
+      "irq_drive_strength": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "irq_trigger_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "1"
+      },
+      "num_rail": {
+        "type": "int",
+        "ver": "0",
+        "data": "2"
+      },
+      "rail_on_state": {
+        "type": "int",
+        "ver": "0",
+        "data": "2"
+      },
+      "vdd_rail": {
+        "type": "str",
+        "ver": "0",
+        "data": "/pmic/client/sensor_vdd"
+      },
+      "vddio_rail": {
+        "type": "str",
+        "ver": "0",
+        "data": "/pmic/client/sensor_vddio"
+      },
+      "rigid_body_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      }
+    },
+    ".sensor_config": {
+      "owner": "sns_tcs3530",
+      "sample_time_usec": {
+        "type": "int",
+        "ver": "0",
+        "data": "250"
+      },
+      "als_nr_samples": {
+        "type": "int",
+        "ver": "0",
+        "data": "39"
+      },
+      "wtime": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "mod_trigger_timing": {
+        "type": "int",
+        "ver": "0",
+        "data": "0"
+      },
+      "agc_type": {
+        "type": "int",
+        "ver": "0",
+        "data": "1"
+      },
+      "agc_nr_samples": {
+        "type": "int",
+        "ver": "0",
+        "data": "19"
+      },
+      "als_pers": {
+        "type": "int",
+        "ver": "0",
+        "data": "1"
+      },
+      "als_thrs_halfwidth": {
+        "type": "int",
+        "ver": "0",
+        "data": "10"
+      }
+    },
+    ".als": {
+      "owner": "sns_tcs3530",
+      ".fac_cal": {
+        "owner": "sns_tcs3530",
+        "scale_factor_lux": {
+          "type": "str",
+          "ver": "1",
+          "data": "10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0"
+        }
+      },
+      ".cal_target": {
+        "owner": "sns_tcs3530",
+        "lux_cal_scale_min": {
+          "type": "flt",
+          "ver": "0",
+          "data": "0.6"
+        },
+        "lux_cal_target_ref": {
+          "type": "flt",
+          "ver": "0",
+          "data": "300.0"
+        },
+        "lux_cal_scale_max": {
+          "type": "flt",
+          "ver": "0",
+          "data": "1.8"
+        }
+      },
+	  ".on_change": {
+        "owner": "sns_tcs3530",
+        "cct_threshold": {
+          "type": "flt",
+          "ver": "0",
+          "data": "5.0"
+        }
+      }
+    },
+    ".color": {
+      "owner": "sns_tcs3530",
+      ".fac_cal": {
+        "owner": "sns_tcs3530",
+        "scale_factor_x": {
+          "type": "str",
+          "ver": "0",
+          "data": "1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0"
+        },
+        "scale_factor_y": {
+          "type": "str",
+          "ver": "0",
+          "data": "1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0"
+        },
+        "scale_factor_z": {
+          "type": "str",
+          "ver": "0",
+          "data": "1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0"
+        }
+      },
+      ".cal_target": {
+        "owner": "sns_tcs3530",
+        "x_cal_scale_min": {
+          "type": "flt",
+          "ver": "0",
+          "data": "0.6"
+        },
+        "x_cal_target_ref": {
+          "type": "flt",
+          "ver": "0",
+          "data": "300.0"
+        },
+        "x_cal_scale_max": {
+          "type": "flt",
+          "ver": "0",
+          "data": "1.8"
+        },
+        "y_cal_scale_min": {
+          "type": "flt",
+          "ver": "0",
+          "data": "0.6"
+        },
+        "y_cal_target_ref": {
+          "type": "flt",
+          "ver": "0",
+          "data": "300.0"
+        },
+        "y_cal_scale_max": {
+          "type": "flt",
+          "ver": "0",
+          "data": "1.8"
+        },
+        "z_cal_scale_min": {
+          "type": "flt",
+          "ver": "0",
+          "data": "0.6"
+        },
+        "z_cal_target_ref": {
+          "type": "flt",
+          "ver": "0",
+          "data": "300.0"
+        },
+        "z_cal_scale_max": {
+          "type": "flt",
+          "ver": "0",
+          "data": "1.8"
+        },
+        "cal_light_type_ref": {
+          "type": "int",
+          "ver": "0",
+          "data": "255"
+        }
+      },
+	  ".on_change": {
+        "owner": "sns_tcs3530",
+        "cct_threshold": {
+          "type": "flt",
+          "ver": "0",
+          "data": "5.0"
+        }
+      }
+    },
+    ".scale_muxing": {
+      "owner": "sns_tcs3530",
+      "scale_select_gpios": {
+        "type": "str",
+        "ver": "0",
+        "data": "80,66,81"
+      }
+    }
+  }
+}

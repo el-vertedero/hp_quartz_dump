@@ -1,0 +1,7 @@
+service vendor.google.desktop.i2cexecutor.i2c-executor /vendor/bin/hw/vendor.google.desktop.i2cexecutor.i2c-executor
+    class hal
+    user root
+    group root
+    interface aidl vendor.google.desktop.i2cexecutor.II2CExecutor/default
+    disabled
+    oneshot

@@ -1,0 +1,11 @@
+<!--
+    Input:
+        vendor/google/desktop/futility-executor/vendor.google.desktop.futility-executor.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop</name>
+        <version>2</version>
+        <fqname>IFutilityExecutor/default</fqname>
+    </hal>
+</manifest>

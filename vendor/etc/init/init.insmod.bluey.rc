@@ -1,0 +1,10 @@
+on init
+    start insmod_sh_bluey_init
+
+# services for loading the bluey specific modules
+service insmod_sh_bluey_init /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.bluey.init.cfg
+    class main
+    user root
+    group root system
+    disabled
+    oneshot

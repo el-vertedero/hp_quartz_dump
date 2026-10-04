@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/keyboard_proxy_service/vendor.google.desktop.keyboard_proxy_service.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop.keyboard_proxy_service</name>
+        <fqname>IKeyboardProxyService/default</fqname>
+    </hal>
+</manifest>

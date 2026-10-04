@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mixer enum_mixer_numeric_fallback="true">
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<path name="jabra-speak-810-output" />
+	<path name="jabra-speak-810-input" />
+</mixer>

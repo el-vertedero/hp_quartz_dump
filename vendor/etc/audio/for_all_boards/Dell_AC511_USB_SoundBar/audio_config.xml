@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:SoundBar</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Dell AC511 USB SoundBar Output</SectionName>
+				<PlaybackPCM>hw:SoundBar,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Dell AC511 USB SoundBar Input</SectionName>
+				<CapturePCM>hw:SoundBar,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

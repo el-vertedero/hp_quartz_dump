@@ -1,0 +1,60 @@
+# Copyright (C) 2026 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This RC file is created for branching from the original
+# `snapshot_collector.rc` file based on Soong variable. Branching Init RC file
+# in this way is not scalable. This is meant to be a temporary short-term
+# solution.
+
+
+# Start every time vendor.desktop.snapshot_collector.start=true
+on property:vendor.desktop.snapshot_collector.start=true
+  chown vendor_snapshot vendor_snapshot /sys/class/devcoredump/devcd${vendor.desktop.snapshot_collector.failing_instance_number}/data
+  mkdir /data/vendor_ce/${vendor.desktop.snapshot_collector.user_id}/dumps 0777 vendor_snapshot vendor_snapshot
+  mkdir /data/vendor_ce/${vendor.desktop.snapshot_collector.user_id}/dumps/dropbox 0777 vendor_snapshot vendor_snapshot
+  mkdir /data/vendor_ce/${vendor.desktop.snapshot_collector.user_id}/dumps/dropbox/tmp 0700 vendor_snapshot vendor_snapshot
+  mkdir /data/vendor_ce/${vendor.desktop.snapshot_collector.user_id}/dumps/dropbox/.ratelimit_history 0700 vendor_snapshot vendor_snapshot
+  start snapshot_collector
+  setprop vendor.desktop.snapshot_collector.start false
+
+service snapshot_collector /vendor/bin/snapshot_collector -u ${vendor.desktop.snapshot_collector.user_id} process-devcoredump -d ${vendor.desktop.snapshot_collector.failing_instance_number}
+    user vendor_snapshot
+    group vendor_snapshot system
+    capabilities SYSLOG
+    oneshot
+
+on init
+  setprop vendor.desktop.snapshot_collector.on_boot_triggered false
+
+on property:sys.boot_completed=1 && \
+   property:init.svc.statsd=running && \
+   property:init.svc.perfetto_prev_boot_dump_for_bugreport=stopped && \
+   property:init.svc.mdtool=stopped && \
+   property:vendor.desktop.snapshot_collector.on_boot_triggered=false
+  setprop vendor.desktop.snapshot_collector.on_boot_triggered true
+  start snapshot_collector_on_boot
+
+service snapshot_collector_on_boot /vendor/bin/snapshot_collector on-boot
+  user vendor_snapshot
+  group vendor_snapshot system log
+  capabilities SYSLOG
+  oneshot
+
+service snapshot_collector_service /vendor/bin/snapshot_collector snapshot-collector-service
+  interface aidl com.google.android.snapshot_collector.ISnapshotCollector/default
+  class hal
+  user vendor_snapshot
+  group vendor_snapshot system cros_ec
+  disabled
+  oneshot

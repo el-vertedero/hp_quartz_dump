@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/camera/camera_tool/vendor.google.desktop.camera-tool-executor.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop</name>
+        <fqname>ICameraToolExecutor/default</fqname>
+    </hal>
+</manifest>

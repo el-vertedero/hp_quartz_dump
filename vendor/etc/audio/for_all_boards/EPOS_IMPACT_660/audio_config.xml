@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:E660</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>EPOS IMPACT 660 Output</SectionName>
+				<PlaybackPCM>hw:E660,0</PlaybackPCM>
+				<PlaybackMixerElem>Speaker Volume</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>EPOS IMPACT 660 Input</SectionName>
+				<CapturePCM>hw:E660,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

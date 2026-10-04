@@ -1,0 +1,10 @@
+<CameraConfiguration>
+  <media-profile-suffix>_camera_yhed-1</media-profile-suffix>
+  <cameras1>
+    <interface>INTERFACE_USB</interface>
+    <position>FACING_FRONT</position>
+    <autofocus-support>PRESENT</autofocus-support>
+    <p1080-support>PRESENT</p1080-support>
+    <p4k-support>NOT_PRESENT</p4k-support>
+  </cameras1>
+</CameraConfiguration>

@@ -1,0 +1,9 @@
+# Create and mount working paths for vpd tools.
+on post-fs-data
+    mkdir /data/vendor/vpd
+    mkdir /data/vendor/vpd/tmp
+    mount tmpfs tmpfs /data/vendor/vpd/tmp nosuid nodev noexec rw context=u:object_r:firmware_tool_data_file:s0
+    restorecon /data/vendor/vpd
+
+on shutdown
+    umount /data/vendor/vpd/tmp

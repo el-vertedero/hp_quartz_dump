@@ -1,0 +1,9 @@
+<manifest version="2.0" type="device">
+    <!-- Codec2 HAl service -->
+    <hal format="aidl">
+        <name>android.hardware.media.c2</name>
+        <version>2</version>
+        <fqname>IComponentStore/default</fqname>
+    </hal>
+</manifest>
+

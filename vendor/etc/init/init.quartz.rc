@@ -1,0 +1,21 @@
+on property:vendor.thermal.link_ready=1
+    # Ensure frequency mappings are readable
+    chown root system /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+    chmod 0444 /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+    chown root system /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
+    chmod 0444 /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
+    chown root system /sys/devices/system/cpu/cpufreq/policy8/scaling_available_frequencies
+    chmod 0444 /sys/devices/system/cpu/cpufreq/policy8/scaling_available_frequencies
+    chown root system /sys/devices/platform/soc/3d00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/available_frequencies
+    chmod 0444 /sys/devices/platform/soc/3d00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/available_frequencies
+
+    # Ensure cooling devices are writable
+    chown root system /dev/thermal/cdev-by-name/cpu-cluster0/cur_state
+    chmod 0664 /dev/thermal/cdev-by-name/cpu-cluster0/cur_state
+    chown root system /dev/thermal/cdev-by-name/cpu-cluster1/cur_state
+    chmod 0664 /dev/thermal/cdev-by-name/cpu-cluster1/cur_state
+    chown root system /dev/thermal/cdev-by-name/cpu-cluster2/cur_state
+    chmod 0664 /dev/thermal/cdev-by-name/cpu-cluster2/cur_state
+    chown root system /dev/thermal/cdev-by-name/gpu/cur_state
+    chmod 0664 /dev/thermal/cdev-by-name/gpu/cur_state
+

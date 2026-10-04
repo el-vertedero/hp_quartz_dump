@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/snapshot/collector/com.google.android.snapshot_collector-service.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>com.google.android.snapshot_collector</name>
+        <fqname>ISnapshotCollector/default</fqname>
+    </hal>
+</manifest>

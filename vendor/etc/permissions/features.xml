@@ -1,0 +1,8 @@
+<permissions>
+  <feature name="android.hardware.touchscreen"/>
+  <feature name="android.hardware.touchscreen.multitouch"/>
+  <feature name="android.hardware.touchscreen.multitouch.distinct"/>
+  <feature name="android.hardware.touchscreen.multitouch.jazzhand"/>
+  <feature name="android.hardware.camera.any"/>
+  <feature name="android.hardware.camera.front"/>
+</permissions>

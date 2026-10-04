@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:DAC</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>XtremPro X1 USB DAC</SectionName>
+				<PlaybackPCM>hw:DAC,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+	</HiFi>
+</audio_config>

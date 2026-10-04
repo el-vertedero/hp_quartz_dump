@@ -1,0 +1,11 @@
+# Save the device variant information in system properties (setprop)
+service vendor.set_pnp_config /vendor/bin/set_pnp_config
+    class default
+    user root
+    group root
+    oneshot
+    disabled
+
+# Set the config on init
+on init
+    start vendor.set_pnp_config

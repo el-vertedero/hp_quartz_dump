@@ -1,0 +1,5 @@
+service vendor.dumpstate-default /vendor/bin/hw/android.hardware.dumpstate-service-desktop
+    class hal
+    user nobody
+    group system ap_firmware cros_ec readtracefs vendor_snapshot
+    interface aidl android.hardware.dumpstate.IDumpstateDevice/default

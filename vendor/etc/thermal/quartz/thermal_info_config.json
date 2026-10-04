@@ -1,0 +1,127 @@
+{
+    "version": "1.2.1",
+    "comment": "Initial thermal configuration for Quartz",
+    "Sensors": [
+        {
+            "Name": "sys-therm-6",
+            "Type": "UNKNOWN"
+        },
+        {
+            "Name": "cpu-0-0-0-thermal",
+            "Type": "UNKNOWN"
+        },
+        {
+            "Name": "ec-temp-ambient",
+            "Type": "UNKNOWN",
+            "TempPath": "/sys/class/hwmon/hwmon0/temp2_input"
+        },
+        {
+            "Name": "VIRTUAL-CPU",
+            "Type": "CPU",
+            "VirtualSensor": true,
+            "Formula": "MAXIMUM",
+            "Combination": ["sys-therm-6"],
+            "Coefficient": [1],
+            "Multiplier": 0.001
+        },
+        {
+            "Name": "VIRTUAL-CPU-FREQ",
+            "Type": "SKIN",
+            "VirtualSensor": true,
+            "Formula": "MINIMUM",
+            "Combination": ["cpu-0-0-0-thermal"],
+            "Coefficient": [1],
+            "Multiplier": 0.001,
+            "HotThreshold":  ["NaN", 66, 69, 72, 75, 80, 85],
+            "HotHysteresis": [    0,  3,  2,  2,  2,  4,  4],
+            "PollingDelay": 1000,
+            "PassiveDelay": 100,
+            "LogLevel": 5,
+            "BindedCdevInfo": [
+                {
+                    "CdevRequest": "cpu-cluster0",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                },
+                {
+                    "CdevRequest": "cpu-cluster1",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                },
+                {
+                    "CdevRequest": "cpu-cluster2",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                }
+            ]
+        },
+                {
+            "Name": "VIRTUAL-SKIN-FREQ",
+            "Type": "SKIN",
+            "VirtualSensor": true,
+            "Formula": "MINIMUM",
+            "Combination": ["ec-temp-ambient"],
+            "Coefficient": [1],
+            "Offset": 150,
+            "Multiplier": 0.001,
+            "HotThreshold":  ["NaN", 60, 63, 65, 68, 71, 78],
+            "HotHysteresis": [    0,  2,  2,  2,  2,  2,  5],
+            "PollingDelay": 5000,
+            "PassiveDelay": 1000,
+            "BindedCdevInfo": [
+                {
+                    "CdevRequest": "cpu-cluster0",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                },
+                {
+                    "CdevRequest": "cpu-cluster1",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                },
+                {
+                    "CdevRequest": "cpu-cluster2",
+                    "LimitInfoFrequency": [3417600, 3206400, 2976000, 2707200, 1920000, 1670400, 710400]
+                }
+            ]
+        },
+        {
+            "Name": "VIRTUAL-GPU-FREQ",
+            "Type": "SKIN",
+            "VirtualSensor": true,
+            "Formula": "MINIMUM",
+            "Combination": ["ec-temp-ambient"],
+            "Coefficient": [1],
+            "Offset": 150,
+            "Multiplier": 0.001,
+            "HotThreshold":  ["NaN", 53, 57, 61, 65, 74, 80],
+            "HotHysteresis": [    0,  4,  3,  3,  3,  5,  4],
+            "PollingDelay": 5000,
+            "PassiveDelay": 1000,
+            "LogLevel": 5,
+            "BindedCdevInfo": [
+                {
+                    "CdevRequest": "gpu",
+                    "LimitInfoFrequency": [1250000000, 1250000000, 1100000000, 925000000, 687000000, 687000000, 390000000]
+                }
+            ]
+        }
+    ],
+    "CoolingDevices": [
+        {
+            "Name": "cpu-cluster0",
+            "Type": "CPU",
+            "ScalingAvailableFrequenciesPath": "/sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies"
+        },
+        {
+            "Name": "cpu-cluster1",
+            "Type": "CPU",
+            "ScalingAvailableFrequenciesPath": "/sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies"
+        },
+        {
+            "Name": "cpu-cluster2",
+            "Type": "CPU",
+            "ScalingAvailableFrequenciesPath": "/sys/devices/system/cpu/cpufreq/policy8/scaling_available_frequencies"
+        },
+        {
+            "Name": "gpu",
+            "Type": "GPU",
+            "ScalingAvailableFrequenciesPath": "/sys/devices/platform/soc/3d00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/devfreq/available_frequencies"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+<!--
+    Input:
+        hardware/qcom/desktop/mdtool/com.google.android.mdtool-service.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>com.google.android.mdtool</name>
+        <fqname>IMdtool/default</fqname>
+    </hal>
+</manifest>

@@ -1,0 +1,17 @@
+{
+  "config":{
+    "hw_platform": ["CRD", "MTP"],
+    "soc_id": ["615", "555"]
+  },
+  "power":{
+    "owner": "power_manager",
+    ".island":{
+      "owner": "power_manager",
+      "enable_island":{ "type": "int", "ver": "0",
+        "data": "1"
+      },
+     "island_debug_enable":{ "type": "int", "ver": "0",
+        "data": "0"}
+    }
+  }
+}

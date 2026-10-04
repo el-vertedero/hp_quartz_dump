@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mixer enum_mixer_numeric_fallback="true">
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<ctl name="Line Playback Switch" value="0" />
+	<path name="dock-headphone">
+		<ctl name="Line Playback Switch" value="0" />
+	</path>
+	<path name="dock-line-out">
+		<ctl name="Line Playback Switch" value="1" />
+	</path>
+	<path name="dock-microphone">
+		<ctl name="Line Playback Switch" value="0" />
+	</path>
+</mixer>

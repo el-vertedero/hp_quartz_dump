@@ -1,0 +1,5 @@
+service vendor.google.desktop.ec-executor /vendor/bin/hw/vendor.google.desktop.ec-executor
+    class hal
+    user system
+    group root
+    interface aidl vendor.google.desktop.IEcExecutor/default

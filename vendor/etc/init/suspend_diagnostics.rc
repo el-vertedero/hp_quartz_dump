@@ -1,0 +1,4 @@
+service suspend_diagnostics /vendor/bin/hw/suspend_diagnostics
+    class hal
+    user system
+    group system

@@ -1,0 +1,19 @@
+# Copyright (C) 2025 The Android Open Source Project
+
+on boot
+    start ueventmond_start
+
+service ueventmond_start /vendor/bin/ueventmond --start
+    user vendor_snapshot
+    group vendor_snapshot
+    oneshot
+
+on property:vendor.desktop.snapshot_collector.ueventmond.start=true
+    start ueventmond
+    setprop vendor.desktop.snapshot_collector.ueventmond.start false
+
+service ueventmond /vendor/bin/ueventmond
+    user vendor_snapshot
+    group vendor_snapshot
+    class late_start
+    disabled

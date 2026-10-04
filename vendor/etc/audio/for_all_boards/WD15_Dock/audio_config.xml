@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Dock</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Dock Headphone</SectionName>
+				<PlaybackPCM>hw:Dock,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+			<Section>
+				<SectionName>Dock Line Out</SectionName>
+				<PlaybackPCM>hw:Dock,1</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Dock Microphone</SectionName>
+				<CapturePCM>hw:Dock,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

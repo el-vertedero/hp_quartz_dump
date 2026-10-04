@@ -1,0 +1,36 @@
+# Configure dalvik parameters based on the amount of installed memory. The
+# highmem config is the 6GB phone config and the low memory config is the 2GB
+# phone config. We use more conservative tunings than phones due to the fact
+# that dektop users often have more apps running and are thus generally more
+# memory constrained.
+#
+# TODO(b/470440739): These values likely need proper tuning. Also, it may
+# make sense to have separate configs for 8GiB/16GiB/32GiB.
+on init
+    # Same for both highmem and lowmem config
+    setprop dalvik.vm.heapsize 512m
+
+    # Highmem dalvik config
+    setprop dalvik.vm.heapstartsize 16m
+    setprop dalvik.vm.heapgrowthlimit 256m
+
+# The init language doesn't have a property!= trigger, so use the fact that
+# actions are executed in source order to override the default highmem config
+# with the lowmem config
+on init && property:ro.boot.ddr_size=4GB
+    setprop dalvik.vm.heapstartsize 8m
+    setprop dalvik.vm.heapgrowthlimit 192m
+
+on property:sys.boot_completed=1
+    exec_background - root system -- /vendor/bin/sys_tuner
+
+on property:vendor.sys_tuner.done=1
+    # lmk properties are only writable from the vendor_init context, so
+    # proxy sys_tuner's settings via init. Note that ro. properties are
+    # really write-once, so we can set the properties once at boot.
+
+    setprop ro.lmk.thrashing_limit ${vendor.sys_tuner.thrashing_limit}
+    setprop ro.lmk.swap_free_low_percentage ${vendor.sys_tuner.swap_free_low_percentage}
+    setprop lmkd.reinit 1
+
+    setprop mmd.zram.writeback.nr_tags ${vendor.sys_tuner.nr_tags}

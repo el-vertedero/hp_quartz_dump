@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--
+Copyright (C) 2026 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+    <SoundCardName>hamoax1e80100cr</SoundCardName>
+    <HiFi>
+        <Speaker>
+            <PlaybackPCM><!-- UNUSED --></PlaybackPCM>
+        </Speaker>
+        <SpeakerSafe>
+            <PlaybackPCM><!-- UNUSED --></PlaybackPCM>
+        </SpeakerSafe>
+        <!-- Omit Headphone if the device does not have 3.5mm jack -->
+        <Headphone>
+            <PlaybackPCM><!-- UNUSED --></PlaybackPCM>
+            <PlaybackMixerElem><!-- UNUSED --></PlaybackMixerElem>
+            <JackDev><!-- UNUSED --></JackDev>
+            <JackSwitch>0<!-- UNUSED --></JackSwitch>
+        </Headphone>
+        <InternalMic>
+            <CapturePCM><!-- UNUSED --></CapturePCM>
+            <CaptureChannelMap><!-- UNSUPORRTED --></CaptureChannelMap>
+
+            <!-- DO NOT CHANGE, Please use ACDB tuning -->
+            <IntrinsicSensitivity>0</IntrinsicSensitivity>
+        </InternalMic>
+        <!-- Omit Mic if the device does not have 3.5mm jack -->
+        <Mic>
+            <CapturePCM><!-- UNUSED --></CapturePCM>
+            <CaptureMixerElem><!-- UNUSED --></CaptureMixerElem>
+            <JackDev><!-- UNUSED --></JackDev>
+        </Mic>
+        <HDMI1>
+            <PlaybackPCM><!-- UNUSED --></PlaybackPCM>
+            <JackDev><!-- UNUSED --></JackDev>
+        </HDMI1>
+        <FrontMic>
+            <CapturePCM><!-- UNUSED --></CapturePCM>
+            <CaptureChannelMap><!-- UNSUPORRTED --></CaptureChannelMap>
+
+            <!-- DO NOT CHANGE, Please use ACDB tuning -->
+            <IntrinsicSensitivity>0</IntrinsicSensitivity>
+        </FrontMic>
+        <RearMic>
+            <CapturePCM><!-- UNUSED --></CapturePCM>
+            <CaptureChannelMap><!-- UNSUPORRTED --></CaptureChannelMap>
+
+            <!-- DO NOT CHANGE, Please use ACDB tuning -->
+            <IntrinsicSensitivity>0</IntrinsicSensitivity>
+        </RearMic>
+        <SCOLineOut>
+            <PlaybackPCM><!-- UNUSED --></PlaybackPCM>
+        </SCOLineOut>
+        <SCOLineIn>
+            <CapturePCM><!-- UNUSED --></CapturePCM>
+        </SCOLineIn>
+    </HiFi>
+</audio_config>

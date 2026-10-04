@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Icicle</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Icicle Output</SectionName>
+				<PlaybackPCM>hw:Icicle,0</PlaybackPCM>
+				<PlaybackMixerElem>Playback Volume,0</PlaybackMixerElem>
+				<PlaybackChannelMap>
+					<FL>0</FL>
+					<FR>1</FR>
+					<RL>2</RL>
+					<RR>3</RR>
+					<FC>4</FC>
+				</PlaybackChannelMap>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Icicle Input</SectionName>
+				<CapturePCM>hw:Icicle,0</CapturePCM>
+				<CaptureChannelMap>
+					<FL>0</FL>
+					<FR>1</FR>
+					<RL>2</RL>
+					<RR>3</RR>
+				</CaptureChannelMap>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

@@ -1,0 +1,969 @@
+// List of USB devices for which it is safe to enable autosuspend.
+{
+  "rules": [
+    // Host Controllers and internal hubs
+    {
+      // most older x86 boards
+      "name": "Linux Host Controller (UHCI)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "1d6b",
+        "product_id": "0001"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // all boards
+      "name": "Linux Host Controller (EHCI)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "1d6b",
+        "product_id": "0002"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // most newer boards
+      "name": "Linux Host Controller (XHCI)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "1d6b",
+        "product_id": "0003"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // most Exynos boards
+      "name": "SMSC (Internal HSIC Hub)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0424",
+        "product_id": "3503"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // all x86 boards
+      "name": "Intel (Rate Matching Hub)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "05e3",
+        "product_id": "0610"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // WWAN (LTE)
+    {
+      "name": "Quectel (EM060)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "2c7c",
+        "product_id": "0128"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Fibocom (FM101-GL MBIM)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "2cb7",
+        "product_id": "01a2"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Fibocom (FM101-GL ADB)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "2cb7",
+        "product_id": "01a4"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Rolling Wireless (RW101)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "33f8",
+        "product_id": "01a2"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Rolling Wireless (RW135)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "33f8",
+        "product_id": "0115"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Rolling Wireless (RW135R)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "33f8",
+        "product_id": "1003"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Rolling Wireless (RW350R USB)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "33f8",
+        "product_id": "0802"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Mass Storage
+    {
+      // lumpy, link, peppy
+      "name": "Genesys (SD card reader)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "05e3",
+        "product_id": "0727"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // mario, alex
+      "name": "Realtek (SD card reader)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0bda",
+        "product_id": "0138"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // helios
+      "name": "Realtek (SD card reader)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0bda",
+        "product_id": "0136"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // falco
+      "name": "Realtek (SD card reader)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0bda",
+        "product_id": "0177"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // pirrha
+      "name": "Realtek (SD card reader)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0bda",
+        "product_id": "0129"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Security Key
+    {
+      "name": "Yubico.com",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "1050",
+        "product_id": "0211"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Yubico.com (HID firmware)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "1050",
+        "product_id": "0200"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Google Titan key",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5026"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // USB Audio Devices
+    {
+      "name": "Google USB-C to 3.5mm Digital Headphone Jack Adapter 'Mir'",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5025"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Google USB-C to 3.5mm Digital Headphone Jack Adapter 'Mir' (HID only)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5029"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Google USB-C to 3.5mm Digital Headphone Jack Adapter 2018 'Condor'",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5034"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Google Pixel USB-C Earbuds 'Blackbird'",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5033"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Libratone Q Adapt In-Ear USB-C Earphones, Made for Google",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "03eb",
+        "product_id": "2433"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Moshi USB-C to 3.5 mm Adapter/Charger, Made for Google",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "282b",
+        "product_id": "48f0"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Moshi USB-C to 3.5 mm Adapter/Charger, Made for Google (HID only)",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "282b",
+        "product_id": "0026"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "AiAiAi TMA-2 C60 Cable, Made for Google",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0572",
+        "product_id": "1a08"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Apple USB-C to 3.5mm Headphone Jack Adapter",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "05ac",
+        "product_id": "110a"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // RGB Keyboard
+    {
+      "name": "Google Prism",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5022"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Folio / Detachable Keyboard
+    {
+      "name": "Sapphire Folio Keyboard",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "17ef",
+        "product_id": "62cc"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "120000"
+      }
+    },
+    // FPMCUs
+    // sanok
+    {
+      "name": "FPMCU",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5401"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "12000"
+      }
+    },
+    // srebrna
+    {
+      "name": "FPMCU",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5402"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "12000"
+      }
+    },
+    // chobienia
+    {
+      "name": "FPMCU",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5403"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "12000"
+      }
+    },
+    // chudow
+    {
+      "name": "FPMCU",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5404"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "12000"
+      }
+    },
+    // stobnica
+    {
+      "name": "FPMCU",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "18d1",
+        "product_id": "5406"
+      },
+      "attributes": {
+        "power/control": "auto",
+        "power/autosuspend_delay_ms": "12000"
+      }
+    },
+    // Bluetooth
+    {
+      "name": "MT7925",
+      "match_criteria": {
+        "subsystem": "usb",
+        "vendor_id": "0e8d",
+        "product_id": "e025"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+
+    // List of PCI devices for which it is safe to enable autosuspend.
+    // Intel
+    {
+      "name": "Host bridge",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "590c"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "i915",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "591e"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "proc_thermal",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "1903"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "SPT PCH xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d2f"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "CNP PCH xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9ded"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "intel_pmc_core",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d21"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "i801_smbus",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d23"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "iwlwifi",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "095a"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "GMM",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "1911"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Thermal",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d31"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "MME",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d3a"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "CrOS EC",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d4b"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "PCH SPI",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9d24"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "SATA",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02d3"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "RAM memory",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02ef"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "ISA bridge",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "0284"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Communication controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02e0"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Network controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02f0"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Serial bus controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02a4"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "USB controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02ed"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "JSL xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "4ded"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Volteer xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "a0ed"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Brya xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "51ed"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "ADL-N PCH xHCI controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "54ed"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Graphics",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9b41"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "DSP",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02f9"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Host bridge",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9b61"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "Host bridge",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "9b71"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "PCI Bridge",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "02b0"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "Graphics",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "46a8"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "Core 12G GNA",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "464f"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "PCH Shared SRAM",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "51ef"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "PCH eSPI",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "5182"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "Host and DRAM controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "4601"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "Core 12G DTT",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "461d"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "Wifi",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "51f0"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "PCH SPI",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "8086",
+        "device_id": "51a4"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Samsung
+    {
+      "name": "NVMe KUS030205M-B001",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "144d",
+        "device_id": "a806"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      "name": "NVMe MZVLB256HAHQ",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "144d",
+        "device_id": "a808"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // brya
+      "name": "NVMe MZ9LQ256HBJD-00BH1",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "144d",
+        "device_id": "a809"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Lite-on
+    {
+      "name": "3C07110288",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "14a4",
+        "device_id": "9100"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Seagate
+    {
+      "name": "ZP256CM30011",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "7089",
+        "device_id": "5012"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Kingston
+    {
+      "name": "RBUSNS8154P3128GJ3",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "2646",
+        "device_id": "5008"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Genesys Logic
+    {
+      // brya
+      "name": "SD Host Controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "17a0",
+        "device_id": "9755"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    // Phison
+    {
+      // redrix
+      "name": "E13 NVMe Controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "1987",
+        "device_id": "5013"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    },
+    {
+      // vell
+      "name": "E18 PCIe4 NVMe Controller",
+      "match_criteria": {
+        "subsystem": "pci",
+        "vendor_id": "1987",
+        "device_id": "5018"
+      },
+      "attributes": {
+        "power/control": "auto"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+service hdcp-provisioning-service /vendor/bin/hdcp-provisioning-service
+	class main
+	user system
+	group system drmrpc
+        oneshot
+	seclabel u:r:hdcp_provisioning:s0

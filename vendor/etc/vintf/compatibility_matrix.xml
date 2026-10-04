@@ -1,0 +1,49 @@
+<!--
+    Input:
+        system/desktop/security/hwsec_cert_helper/compatibility_matrix_gsc.xml
+        vendor/google/desktop/video/drm-network/com.android.desktop.drm_network.compat.xml
+        vendor/google/desktop/camera/effect/com.android.desktop.video_chat.compat.xml
+        vendor/google/desktop/snapshot/com.google.android.snapshot.compat.xml
+-->
+<compatibility-matrix version="9.0" type="device">
+    <hal format="aidl">
+        <name>android.system.desktop.security.gsc</name>
+        <interface>
+            <name>IGsc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>com.android.desktop.drm_network</name>
+        <interface>
+            <name>IDrmNetworkService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>com.android.desktop.video_chat</name>
+        <version>2</version>
+        <interface>
+            <name>IVideoChatManager</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>com.google.android.aqueduct</name>
+        <interface>
+            <name>IAqueduct</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl">
+        <name>com.google.android.snapshot</name>
+        <version>5</version>
+        <interface>
+            <name>ISnapshot</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <system-sdk>
+        <version>37</version>
+    </system-sdk>
+</compatibility-matrix>

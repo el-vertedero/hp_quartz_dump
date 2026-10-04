@@ -1,0 +1,7 @@
+service vendor.google.desktop.futility-executor /vendor/bin/hw/vendor.google.desktop.futility-executor
+    class hal
+    user root
+    group root ap_firmware system cros_ec
+    interface aidl vendor.google.desktop.IFutilityExecutor/default
+    disabled
+    oneshot

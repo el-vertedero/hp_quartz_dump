@@ -1,0 +1,14 @@
+service vendor.power_attr_manager /vendor/bin/power_attr_manager
+    class main
+    user system
+    group system
+    capabilities NET_ADMIN
+    disabled
+
+on property:sys.boot_completed=1
+    # Copy AConfig flag value to "vendor.power_attr_manager.enabled" system property
+    # because AConfig flag does not support init "on property" trigger yet.
+    exec /vendor/bin/power_attr_manager --set-property
+
+on property:vendor.power_attr_manager.enabled=true
+    enable vendor.power_attr_manager

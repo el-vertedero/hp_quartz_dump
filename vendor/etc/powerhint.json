@@ -1,0 +1,137 @@
+{
+    "Nodes": [
+        {
+            "Name": "ScalingGovernor",
+            "Path": "vendor.powerhal.governor",
+            "Values": [
+                "performance",
+                "walt",
+                "powersave"
+            ],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "Type": "Property"
+        },
+        {
+            "Name": "AcPolicy",
+            "Path": "vendor.powerhal.acpolicy",
+            "Values": [
+                "AC",
+                "DC"
+            ],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "Type": "Property"
+        },
+        {
+            "Name": "CPUBigClusterMaxFreq",
+            "Paths": [
+                "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
+                "/sys/devices/system/cpu/cpu8/cpufreq/scaling_max_freq"
+            ],
+            "Values": [
+                "4012800",
+                "3417600",
+                "3206400",
+                "2976000",
+                "2707200",
+                "2515200",
+                "2188800",
+                "1920000",
+                "1670400",
+                "1440000",
+                "1190400",
+                "998400",
+                "806400",
+                "710400"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPUBigClusterMinFreq",
+            "Paths": [
+                "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq",
+                "/sys/devices/system/cpu/cpu8/cpufreq/scaling_min_freq"
+            ],
+            "Values": [
+                "4012800",
+                "3417600",
+                "3206400",
+                "2976000",
+                "2707200",
+                "2515200",
+                "2188800",
+                "1920000",
+                "1670400",
+                "1440000",
+                "1190400",
+                "998400",
+                "806400",
+                "710400"
+            ],
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPULittleClusterMaxFreq",
+            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+            "Values": [
+                "3417600",
+                "3206400",
+                "2976000",
+                "2707200",
+                "2515200",
+                "2188800",
+                "1920000",
+                "1670400",
+                "1440000",
+                "1190400",
+                "998400",
+                "806400",
+                "710400"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPULittleClusterMinFreq",
+            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+            "Values": [
+                "3417600",
+                "3206400",
+                "2976000",
+                "2707200",
+                "2515200",
+                "2188800",
+                "1920000",
+                "1670400",
+                "1440000",
+                "1190400",
+                "998400",
+                "806400",
+                "710400"
+            ],
+            "ResetOnInit": true
+        }
+    ],
+    "Actions": [
+        {
+            "PowerHint": "FIXED_PERFORMANCE",
+            "Node": "ScalingGovernor",
+            "Duration": 0,
+            "Value": "performance"
+        },
+        {
+            "PowerHint": "PROFILE_AC_POLICY",
+            "Node": "AcPolicy",
+            "Duration": 0,
+            "Value": "AC"
+        },
+        {
+            "PowerHint": "LOW_POWER",
+            "Node": "CPUBigClusterMaxFreq",
+            "Duration": 0,
+            "Value": "3417600"
+        }
+    ]
+}

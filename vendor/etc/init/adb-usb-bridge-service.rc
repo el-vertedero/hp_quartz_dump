@@ -1,0 +1,13 @@
+service adb-usb-bridge /vendor/bin/adb-usb-bridge
+    class core
+    disabled
+    user nobody
+    group usb system
+    task_profiles ServiceCapacityLow
+    gentle_kill
+
+on property:init.svc.adbd=running
+    start adb-usb-bridge
+
+on property:init.svc.adbd=stopped
+    stop adb-usb-bridge

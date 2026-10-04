@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/power/thermal_profile_setter/src/manifest_thermal_profile_setter_aidl.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.thermal_profile</name>
+        <fqname>IThermalProfileSetter/default</fqname>
+    </hal>
+</manifest>

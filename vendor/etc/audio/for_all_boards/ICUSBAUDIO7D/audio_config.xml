@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:ICUSBAUDIO7D</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Speaker-Headset</SectionName>
+				<PlaybackPCM>hw:ICUSBAUDIO7D,0</PlaybackPCM>
+				<PlaybackMixerElem>Speaker</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Line In</SectionName>
+				<CapturePCM>hw:ICUSBAUDIO7D,0</CapturePCM>
+				<CaptureMixerElem>Line</CaptureMixerElem>
+			</Section>
+			<Section>
+				<SectionName>Mic</SectionName>
+				<CapturePCM>hw:ICUSBAUDIO7D,0</CapturePCM>
+				<CaptureMixerElem>Mic</CaptureMixerElem>
+			</Section>
+			<Section>
+				<SectionName>SPDIF In</SectionName>
+				<CapturePCM>hw:ICUSBAUDIO7D,0</CapturePCM>
+				<CaptureMixerElem>IEC958 In</CaptureMixerElem>
+			</Section>
+			<Section>
+				<SectionName>PCM</SectionName>
+				<CapturePCM>hw:ICUSBAUDIO7D,0</CapturePCM>
+				<CaptureMixerElem>PCM</CaptureMixerElem>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

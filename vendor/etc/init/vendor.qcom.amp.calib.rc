@@ -1,0 +1,7 @@
+service vendor.qcom.amp.calib /vendor/bin/hw/vendor.qcom.amp.calib
+    class hal
+    user audioserver
+    group audio
+    interface aidl com.android.desktop.audio.IAmpCalibration/default
+    oneshot
+    disabled

@@ -1,0 +1,7 @@
+service vendor.google.desktop.keyboard_proxy_service /vendor/bin/hw/vendor.google.desktop.keyboard_proxy_service
+    class hal
+    user system
+    group input system
+    interface aidl vendor.google.desktop.keyboard_proxy_service.IKeyboardProxyService/default
+    disabled
+    oneshot

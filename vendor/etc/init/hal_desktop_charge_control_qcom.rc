@@ -1,0 +1,16 @@
+service vendor.google.desktop.charge-control-hal-qcom /vendor/bin/hw/vendor.google.desktop.charge-control-hal.qcom
+    class hal
+    user system
+    group system
+
+on property:sys.boot_completed=1
+    chown root system /sys/class/qcom-battery/charge_control_en
+    chmod ug+rw /sys/class/qcom-battery/charge_control_en
+    chown root system /sys/class/power_supply/battery/charge_control_start_threshold
+    chmod ug+rw /sys/class/power_supply/battery/charge_control_start_threshold
+    chown root system /sys/class/power_supply/battery/charge_control_end_threshold
+    chmod ug+rw /sys/class/power_supply/battery/charge_control_end_threshold
+    chown root system /sys/class/power_supply/usb/input_current_limit
+    chmod ug+rw /sys/class/power_supply/usb/input_current_limit
+    chown root system /sys/class/power_supply/usb-2/input_current_limit
+    chmod ug+rw /sys/class/power_supply/usb-2/input_current_limit

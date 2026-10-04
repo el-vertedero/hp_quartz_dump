@@ -1,0 +1,4 @@
+service touchpad-inhibitor /vendor/bin/hw/touchpad-inhibitor
+    class core
+    user system
+    group input

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:USB</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Chameleon Software Volume USB Output</SectionName>
+				<PlaybackPCM>hw:USB,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Chameleon Software Volume USB Input</SectionName>
+				<CapturePCM>hw:USB,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

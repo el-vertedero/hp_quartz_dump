@@ -1,0 +1,20 @@
+{
+  "_FILE_DESCRIPTION": "Hardware component map for the quartz project.",
+  "_FORMAT_GUIDE": {
+    "Top-Level Key": "Field name in ufsc_schema.json.",
+    "Inner Key": "Hardware ID string.",
+    "Inner Value": "Integer index to pack."
+  },
+  "FINGERPRINT_INTERFACE": {
+    "ABSENT": 0,
+    "USB": 1
+  },
+  "STORAGE_TYPE": {
+    "ABSENT": 0,
+    "NVME": 1
+  },
+  "WIFI_INTERFACE": {
+    "ABSENT": 0,
+    "PCIE": 1
+  }
+}

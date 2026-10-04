@@ -1,0 +1,11 @@
+<!--
+    Input:
+        vendor/google/desktop/camera/hal_usb/android.hardware.camera.provider-usb-service.android-desktop.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>android.hardware.camera.provider</name>
+        <version>3</version>
+        <fqname>ICameraProvider/usb/0</fqname>
+    </hal>
+</manifest>

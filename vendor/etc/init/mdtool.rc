@@ -1,0 +1,17 @@
+# Copyright (C) 2026 The Android Open Source Project
+
+on property:vold.post_fs_data_done=1
+    start mdtool
+
+service mdtool /vendor/bin/mdtool dump-once --output-dir=/data/vendor/snapshot
+    user root
+    group root system
+    oneshot
+
+service mdtool_service /vendor/bin/mdtool mdtool-service
+    interface aidl com.google.android.mdtool.IMdtool/default
+    class hal
+    user root
+    group root system
+    disabled
+    oneshot

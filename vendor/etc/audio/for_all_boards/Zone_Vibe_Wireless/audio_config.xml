@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Wireless</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Zone Vibe Wireless Output</SectionName>
+				<PlaybackPCM>hw:Wireless,0</PlaybackPCM>
+				<PlaybackMixerElem>PCM,0</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Zone Vibe Wireless Input</SectionName>
+				<CapturePCM>hw:Wireless,0</CapturePCM>
+				<CaptureMixerElem>Headset,0</CaptureMixerElem>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

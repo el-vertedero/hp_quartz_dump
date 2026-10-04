@@ -1,0 +1,23 @@
+# Load common Android Desktop vendor kernel modules
+on early-init
+    start insmod_sh_desktop_earlyinit
+
+on init
+    start insmod_sh_arch_init
+
+# Service for loading modules on all platforms in the background starting at early-init
+service insmod_sh_desktop_earlyinit /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.common.cfg
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+# Service for loading architecture dependent modules in the background starting at init
+service insmod_sh_arch_init /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+

@@ -1,0 +1,5 @@
+service vendor.boot-default /vendor/bin/hw/android.hardware.boot-service.android-desktop
+    class early_hal
+    user root
+    group root ap_firmware system
+

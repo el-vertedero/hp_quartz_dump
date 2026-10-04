@@ -1,0 +1,9 @@
+<!--
+    Input:
+        device/google/desktop/bluey/manifest.xml
+-->
+<manifest version="9.0" type="device" target-level="202604">
+    <sepolicy>
+        <version>202604</version>
+    </sepolicy>
+</manifest>

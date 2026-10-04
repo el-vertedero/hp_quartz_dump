@@ -1,0 +1,7 @@
+service vendor.google.desktop.camera-tool-executor /vendor/bin/hw/vendor.google.desktop.camera-tool-executor
+    class hal
+    user root
+    group root
+    interface aidl vendor.google.desktop.ICameraToolExecutor/default
+    disabled
+    oneshot

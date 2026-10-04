@@ -1,0 +1,16 @@
+user=system domain=serviceability seinfo=platform name=vendor.google.desktop.serviceability
+user=_app domain=futility_executor seinfo=platform name=vendor.google.desktop.futility-executor
+user=_app domain=ec_executor seinfo=platform name=vendor.google.desktop.ec-executor
+user=_app domain=camera_tool_executor seinfo=platform name=vendor.google.desktop.camera-tool-executor
+user=_app domain=vendor_oemlock seinfo=platform name=vendor.google.desktop.oemlock-service
+user=_app seinfo=platform name=com.qualcomm.timeservice domain=vendor_timeservice_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=.qtidataservices domain=vendor_qtidataservices_app type=app_data_file levelFrom=all
+user=oem_2918 seinfo=platform name=.cacertservice domain=vendor_cacertservice_app type=app_data_file levelFrom=all
+user=radio seinfo=platform name=.imshelperservice domain=vendor_imshelper_app type=radio_data_file
+user=_app seinfo=platform name=com.qualcomm.qti.qms.service.trustzoneaccess domain=vendor_tzas_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qti.ltebc domain=vendor_embmssl_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qualcomm.qti.qms.service.connectionsecurity domain=vendor_cs_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=.qms domain=vendor_qms_app type=app_data_file levelFrom=all
+user=system seinfo=platform name=com.qualcomm.qti.perfdump domain=vendor_perfdump_app type=system_app_data_file
+user=_app seinfo=platform name=.pasr domain=vendor_powerservice_app type=app_data_file levelFrom=all
+user=_app seinfo=platform name=.powermodule domain=vendor_powermodule_app type=app_data_file levelFrom=all

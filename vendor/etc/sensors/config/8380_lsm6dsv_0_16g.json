@@ -1,0 +1,21 @@
+{
+  "config":
+  {
+    "hw_platform": ["CRD", "MTP"],
+    "soc_id": ["555", "615"],
+    "ro.product.device": ["bluey"]
+  },
+  "lsm6dsv_0":{
+    "owner": "lsm6dsv",
+    ".accel":{
+      "owner": "lsm6dsv",
+      ".config":{
+        "owner": "lsm6dsv",
+        "res_idx":{ "type": "int", "ver": "0",
+          "data": "3"
+        }
+      }
+    }
+  }
+}
+

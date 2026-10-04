@@ -1,0 +1,168 @@
+import /vendor/etc/ueventd
+
+driver cdc_mbim
+    devname uevent_devname
+    dirname /dev/radio
+
+driver cdc_acm
+    devname uevent_devname
+    dirname /dev/radio
+
+subsystem wwan
+    devname uevent_devname
+    dirname /dev/radio
+
+subsystem usbmon
+    devname uevent_devpath
+    dirname /dev
+
+# serial devices that may allow apps to use
+/dev/ttyS*                0660   root       system
+/dev/ttyUSB*              0660   root       system
+/dev/ttyACM*              0660   root       system
+/dev/ttyGS*               0660   root       system
+
+/dev/tpm* 0660 hsm hsm
+/dev/media* 0660 system system
+/dev/v4l-subdev* 0660 system system
+/dev/ipu-psys0 0660 system system
+/dev/radio/* 0660 system radio
+/dev/usbmon* 0660 system system
+/dev/gpiochip* 0660 system system
+
+/dev/suspend_notifier 0660 system system
+
+# Set up secure storage and persist partitions.
+/dev/block/by-name/desktop_security_persist 0660 system system
+/dev/block/by-name/desktop_security_storage 0660 system system
+
+# /sys contains thousands of files and restorecon takes time.
+# Parallelize directories with about more than hundred files.
+# Note that some of the paths below may not exist on some platforms.
+parallel_restorecon_dir /sys
+parallel_restorecon_dir /sys/devices
+parallel_restorecon_dir /sys/devices/LNXSYSTM:00
+parallel_restorecon_dir /sys/devices/LNXSYSTM:00/LNXSYBUS:00
+parallel_restorecon_dir /sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00
+parallel_restorecon_dir /sys/devices/pci0000:00
+parallel_restorecon_dir /sys/devices/platform
+parallel_restorecon_dir /sys/devices/platform/BOOT0000:00
+parallel_restorecon_dir /sys/devices/platform/soc
+parallel_restorecon_dir /sys/devices/system
+parallel_restorecon_dir /sys/devices/system/cpu
+parallel_restorecon_dir /sys/devices/system/memory
+
+parallel_restorecon_dir /sys/devices/virtual
+parallel_restorecon_dir /sys/devices/virtual/bdi
+parallel_restorecon_dir /sys/devices/virtual/block
+parallel_restorecon_dir /sys/devices/virtual/devlink
+parallel_restorecon_dir /sys/devices/virtual/net
+
+parallel_restorecon enabled
+parallel_ueventd_main_loop enabled
+
+/sys/bus/usb/devices/* power/wakeup	0660 root system
+/sys/bus/usb/devices/* authorized	0660 root system
+/sys/bus/usb/devices/* power/autosuspend_delay_ms 0660 root system
+/sys/bus/usb/devices/* power/control	0660 root system
+/sys/bus/pci/devices/* power/autosuspend_delay_ms 0660 root system
+/sys/bus/pci/devices/* power/control	0660 root system
+/sys/bus/i2c/devices/* power/wakeup	0660 root system
+/sys/bus/thunderbolt/devices* authorized	0660 root system
+/sys/bus/pci/devices/0000* t7xx_mode    0660 root radio
+/sys/class/typec/port* data_role    0664 root system
+/sys/class/typec/port* power_role   0664 root system
+
+# Backlight
+/sys/class/backlight/* brightness 0664 system system
+/sys/class/backlight/* bl_power 0664 system system
+
+# Allow system to write to alt-mode priority and mode selection fields.
+/sys/class/typec/port* port*.*/priority     0664 root system
+/sys/class/typec/port*-partner port*-partner.*/active 0664 root system
+
+# sensors
+# +  Sample pipes:
+/dev/iio:device*             0660   system     system
+# + Operation:
+/sys/bus/iio/devices/iio:device*    buffer/enable        0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer/hwfifo_timeout        0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer/length        0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/enable                              0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/in_proximity0_en                    0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/in_proximity1_en                    0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/in_proximity2_en                    0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/in_proximity3_en                    0660    system  system
+/sys/bus/iio/devices/iio:device*    buffer0/in_timestamp_en                     0660    system  system
+/sys/bus/iio/devices/iio:device*    sampling_frequency        0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity_change_either_en        0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity0_change_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity1_change_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity2_change_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity3_change_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity_thresh_either_en        0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity_thresh_either_value     0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity0_thresh_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity0_thresh_either_hysteresis    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity0_thresh_either_value    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity1_thresh_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity1_thresh_either_hysteresis    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity1_thresh_either_value    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity2_thresh_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity2_thresh_either_hysteresis    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity2_thresh_either_value    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity3_thresh_either_en       0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity3_thresh_either_hysteresis    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/in_proximity3_thresh_either_value    0660    system  system
+/sys/bus/iio/devices/iio:device*    events/thresh_falling_period         0660    system  system
+/sys/bus/iio/devices/iio:device*    events/thresh_rising_period          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_timestamp_en        0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_accel_x_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_accel_y_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_accel_z_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_angl_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_magn_x_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_magn_y_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_magn_z_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_anglvel_x_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_anglvel_y_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_anglvel_z_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_illuminance_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_illuminance_red_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_illuminance_green_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_illuminance_blue_en          0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_proximity0_en              0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_proximity1_en              0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_proximity2_en              0660    system  system
+/sys/bus/iio/devices/iio:device*    scan_elements/in_proximity3_en              0660    system  system
+/sys/bus/iio/devices/iio:device*    trigger/current_trigger        0660    system  system
+/sys/devices/trigger*   sampling_frequency    0660   system     system
+# + Calibration:
+/sys/bus/iio/devices/iio:device*    in_accel_x_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_accel_x_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_accel_y_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_accel_y_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_accel_z_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_accel_z_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_x_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_x_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_y_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_y_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_z_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_anglvel_z_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_blue_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_blue_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_green_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_green_calibscale        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_red_calibbias        0660    system  system
+/sys/bus/iio/devices/iio:device*    in_illuminance_red_calibscale        0660    system  system
+
+# Bluetooth
+/sys/class/bluetooth/hci* reset 0200 bluetooth bluetooth
+
+# AP firmware
+/dev/mtd* 0664 system system
+/proc/mtd 0444 system ap_firmware
+/dev/nvram 0664 system system

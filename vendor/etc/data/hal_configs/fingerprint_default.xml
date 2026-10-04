@@ -1,0 +1,5 @@
+<FingerprintConfiguration>
+    <board>niedzica</board>
+    <fingerprint-sensor-type>POWER_BUTTON</fingerprint-sensor-type>
+    <sensor-location>POWER_BUTTON_TOP_RIGHT_KEY</sensor-location>
+</FingerprintConfiguration>

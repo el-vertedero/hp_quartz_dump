@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/storage/disk_info/disk_info_service/com.google.desktop.disk_info.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>com.google.desktop.disk_info</name>
+        <fqname>IDiskInfoService/default</fqname>
+    </hal>
+</manifest>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Loopback</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Loopback Playback</SectionName>
+				<PlaybackPCM>hw:Loopback,0</PlaybackPCM>
+				<PlaybackChannels>8</PlaybackChannels>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Loopback Capture</SectionName>
+				<CapturePCM>hw:Loopback,1</CapturePCM>
+				<CaptureChannels>8</CaptureChannels>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

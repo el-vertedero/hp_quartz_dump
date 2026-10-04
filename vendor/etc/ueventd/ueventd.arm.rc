@@ -1,0 +1,9 @@
+/dev/cros_ec 0660 system cros_ec
+/dev/cros_fp 0600 system system
+/dev/cros_ish 0600 system vendor_cros_ish
+
+# SPI-NOR FLASH diagnostics
+/sys/devices/*/*/*/spi_master/spi*/spi* spi-nor/jedec_id 0444 system ap_firmware
+/sys/devices/*/*/*/spi_master/spi*/spi* spi-nor/manufacturer 0444 system ap_firmware
+/sys/devices/*/*/*/spi_master/spi*/spi* spi-nor/partname 0444 system ap_firmware
+/sys/devices/*/*/*/spi_master/spi*/spi* spi-nor/sfdp 0444 system ap_firmware

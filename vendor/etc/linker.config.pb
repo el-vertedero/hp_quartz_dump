@@ -1,0 +1,2 @@
+liboemcrypto.solibpalclient.solibsndcardparser.solibagm_mixer_plugin.solibqti_vndfwk_detect.solibqti_vndfwk_detect_vendor.sobtaudio_offload_if.solibar-pal.solibagmipcservice.solibpalipcservice.solibpaleventnotifier.solibsoundtriggerhal.qti.soliblistensoundmodelaidl.so
+libqasr.so

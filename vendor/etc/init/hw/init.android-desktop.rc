@@ -1,0 +1,38 @@
+# This file is loaded only on hardware devices.
+
+on early-boot
+    # Create a hrtimer for the hinge sensor, if needed. Done before boot, where SensorHAL (class hal) starts.
+    mkdir /config/iio/triggers/hrtimer/hinge_angle
+
+    # Setup lightbar, if present.
+    chown system /sys/class/chromeos/cros_ec/lightbar/brightness
+    chown system /sys/class/chromeos/cros_ec/lightbar/interval_msec
+    chown system /sys/class/chromeos/cros_ec/lightbar/led_rgb
+    chown system /sys/class/chromeos/cros_ec/lightbar/program
+    chown system /sys/class/chromeos/cros_ec/lightbar/sequence
+    chown system /sys/class/chromeos/cros_ec/lightbar/userspace_control
+
+on init
+    # We don't want to burn through power by boosting all RT tasks to
+    # the highest possible cpufreq like upstream does by default. If
+    # we need to boost a task then we'll boost it.
+    write /proc/sys/kernel/sched_util_clamp_min_rt_default 0
+
+# TODO(dubielm): The following is a workaround for b/329842143 - circle to
+# search doesn't work after reboot untill the default digital assistant app is
+# deselected and selected again by the user.
+on property:sys.boot_completed=1
+    exec u:r:init:s0 -- /system/bin/cmd role remove-role-holder android.app.role.ASSISTANT com.google.android.googlequicksearchbox
+
+# Do this here for now, not in init.common.rc, since cuttlefish does
+# its own swapon_all setup: b/375987833#comment11
+on property:sys.boot_completed=1 && property:mmd.enabled_aconfig=*
+    swapon_all /vendor/etc/fstab.zram
+
+service init_provisioned_config /vendor/bin/init_provisioned_config
+    user system
+    group system
+    oneshot
+
+on property:sys.boot_completed=1
+    start init_provisioned_config

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Adapter</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>USB-C Headphone</SectionName>
+				<PlaybackPCM>hw:Adapter,0</PlaybackPCM>
+				<PlaybackRate>48000</PlaybackRate>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>USB-C Mic</SectionName>
+				<CapturePCM>hw:Adapter,0</CapturePCM>
+				<IntrinsicSensitivity>-2600</IntrinsicSensitivity>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

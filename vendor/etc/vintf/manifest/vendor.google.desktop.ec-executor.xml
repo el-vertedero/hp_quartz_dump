@@ -1,0 +1,11 @@
+<!--
+    Input:
+        vendor/google/desktop/ec-executor/vendor.google.desktop.ec-executor.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop</name>
+        <version>2</version>
+        <fqname>IEcExecutor/default</fqname>
+    </hal>
+</manifest>

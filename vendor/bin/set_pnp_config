@@ -1,0 +1,84 @@
+#!/vendor/bin/sh
+
+# Copyright (C) 2025 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Configures the correct XML variant for Media Profile,
+# based on the existence of model-based or SKU-based media profile XML.
+# The correct XML variant is stored in a temporary property key because
+# scripts has no permission to modify ro.* properties.
+
+# A script to choose proper PnP configuration files for the device model
+# and optionally SKU.
+
+MODEL_SKU="$(getprop ro.boot.product.vendor.sku | tr '[:upper:]' '[:lower:]')"
+RAW_HWID="$(getprop ro.boot.product.hardware.id)"
+HWID="$(echo -n "${RAW_HWID}" | tr '[:space:]' '_')"
+
+# Fallback to ro.boot.product.hardware.id
+if [ -z "${MODEL_SKU}" ]; then
+    MODEL="$(echo "${RAW_HWID}" | tr '[:upper:]' '[:lower:]' | cut -d' ' -f1 | cut -d'-' -f1)"
+else
+    MODEL="$(echo ${MODEL_SKU} | cut -d'_' -f1)"
+fi
+
+# Assumption: the file will contain string of format "0-X", hence X being the last CPU id
+if [ -e /sys/devices/system/cpu/possible ]; then
+    LAST_CPU=$(cat /sys/devices/system/cpu/possible | cut -d"-" -f2)
+    if [ ! -z "$LAST_CPU" ]; then
+        CPU_COUNT=$((LAST_CPU + 1))
+    fi
+fi
+
+# Choose Thermal HAL configuration
+if [ -e "/vendor/etc/thermal_info_config_cpus_${CPU_COUNT}.json" ]; then
+    setprop vendor.thermal.config "thermal_info_config_cpus_${CPU_COUNT}.json"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_info_config.json" ]; then
+    setprop vendor.thermal.config "thermal/${MODEL}/thermal_info_config.json"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_info_config_cpus_${CPU_COUNT}.json" ]; then
+    setprop vendor.thermal.config "thermal/${MODEL}/thermal_info_config_cpus_${CPU_COUNT}.json"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_info_config_${HWID}.json" ]; then
+    setprop vendor.thermal.config "thermal/${MODEL}/thermal_info_config_${HWID}.json"
+fi
+
+# Choose Thermal Profiles configuration
+if [ -e "/vendor/etc/thermal_profile_config_cpus_${CPU_COUNT}.xml" ]; then
+    setprop vendor.desktop.thermal_profiles.config "thermal_profile_config_cpus_${CPU_COUNT}.xml"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_profile_config.xml" ]; then
+    setprop vendor.desktop.thermal_profiles.config "thermal/${MODEL}/thermal_profile_config.xml"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_profile_config_cpus_${CPU_COUNT}.xml" ]; then
+    setprop vendor.desktop.thermal_profiles.config "thermal/${MODEL}/thermal_profile_config_cpus_${CPU_COUNT}.xml"
+fi
+if [ -e "/vendor/etc/thermal/${MODEL}/thermal_profile_config_${HWID}.xml" ]; then
+    setprop vendor.desktop.thermal_profiles.config "thermal/${MODEL}/thermal_profile_config_${HWID}.xml"
+fi
+
+# Choose Power HAL configuration
+if [ -e "/vendor/etc/powerhint_cpus_${CPU_COUNT}.json" ]; then
+    setprop vendor.powerhal.config "powerhint_cpus_${CPU_COUNT}.json"
+fi
+if [ -e "/vendor/etc/power/${MODEL}/powerhint.json" ]; then
+    setprop vendor.powerhal.config "power/${MODEL}/powerhint.json"
+fi
+if [ -e "/vendor/etc/power/${MODEL}/powerhint_cpus_${CPU_COUNT}.json" ]; then
+    setprop vendor.powerhal.config "power/${MODEL}/powerhint_cpus_${CPU_COUNT}.json"
+fi
+if [ -e "/vendor/etc/power/${MODEL}/powerhint_${HWID}.json" ]; then
+    setprop vendor.powerhal.config "power/${MODEL}/powerhint_${HWID}.json"
+fi

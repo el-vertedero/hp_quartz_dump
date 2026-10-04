@@ -1,0 +1,7 @@
+service vendor.google.desktop.vpd_executor.vpd-executor /vendor/bin/hw/vendor.google.desktop.vpd_executor.vpd-executor
+    class hal
+    user root
+    group root system
+    interface aidl vendor.google.desktop.vpd_executor.IVpdExecutor/default
+    disabled
+    oneshot

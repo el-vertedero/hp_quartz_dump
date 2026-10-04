@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<!-- Copyright (C) 2026 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- TODO(sashamcintosh): Remove unnecessary sections of this file after more extensive testing. -->
+<displayConfiguration>
+    <!-- Mapping of screen brightness (0.0 to 1.0) to actual nits.
+         Requires at least 2 points. Interpolation: 'linear' or default (spline).
+         Since we do mapping in HWC, we can just leave this as linear. -->
+    <screenBrightnessMap interpolation="linear">
+        <point>
+            <value>0.0</value>
+            <nits>1.0</nits>
+        </point>
+        <point>
+            <value>1.0</value>
+            <nits>1000.0</nits>
+        </point>
+    </screenBrightnessMap>
+
+    <!-- Settings for High Brightness Mode (HBM). -->
+    <highBrightnessMode enabled="true">
+        <transitionPoint>0.65</transitionPoint>
+        <minimumLux>10000</minimumLux>
+        <timing>
+            <!-- Allow for 5 minutes out of every 20 minutes -->
+            <timeWindowSecs>1200</timeWindowSecs>
+            <timeMaxSecs>300</timeMaxSecs>
+            <timeMinSecs>60</timeMinSecs>
+        </timing>
+        <allowInLowPowerMode>false</allowInLowPowerMode>
+        <minimumHdrPercentOfScreen>0</minimumHdrPercentOfScreen>
+        <!-- sdrHdrRatioMap, backed by spline, must have at least two entries. -->
+        <sdrHdrRatioMap>
+            <point>
+                <sdrNits>1.000</sdrNits>
+                <hdrRatio>1.000</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>200.000</sdrNits>
+                <hdrRatio>1.000</hdrRatio>
+            </point>
+        </sdrHdrRatioMap>
+    </highBrightnessMode>
+
+    <!-- Configuration for HDR content brightness behavior. -->
+    <hdrBrightnessConfig>
+        <brightnessMap>
+            <point>
+                <first>500.0</first>
+                <second>0.3</second>
+            </point>
+            <point>
+                <first>800.0</first>
+                <second>0.6</second>
+            </point>
+        </brightnessMap>
+        <brightnessIncreaseDebounceMillis>5000</brightnessIncreaseDebounceMillis>
+        <screenBrightnessRampIncrease>0.04</screenBrightnessRampIncrease>
+        <brightnessDecreaseDebounceMillis>5000</brightnessDecreaseDebounceMillis>
+        <screenBrightnessRampDecrease>0.04</screenBrightnessRampDecrease>
+        <minimumHdrPercentOfScreenForNbm>0</minimumHdrPercentOfScreenForNbm>
+        <minimumHdrPercentOfScreenForHbm>0</minimumHdrPercentOfScreenForHbm>
+        <allowInLowPowerMode>false</allowInLowPowerMode>
+    </hdrBrightnessConfig>
+
+    <!-- Rates of change for brightness ramps (brightness units per second). -->
+    <screenBrightnessRampFastDecrease>0.7</screenBrightnessRampFastDecrease>
+    <screenBrightnessRampFastIncrease>0.7</screenBrightnessRampFastIncrease>
+    <screenBrightnessRampSlowDecrease>0.05</screenBrightnessRampSlowDecrease>
+    <screenBrightnessRampSlowIncrease>0.05</screenBrightnessRampSlowIncrease>
+
+    <!-- Maximum duration in milliseconds for a brightness increase animation. -->
+    <screenBrightnessRampIncreaseMaxMillis>2000</screenBrightnessRampIncreaseMaxMillis>
+</displayConfiguration>

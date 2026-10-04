@@ -1,0 +1,26 @@
+{
+    "stream_manipulators": [
+        {
+            "name": "Include",
+            "config": "/vendor/etc/camera/common_post_process.json"
+        },
+        {
+            "name": "VcEffects",
+            "config": {
+                "segmentation_gpu_api": "OpenGl",
+                "relighting_gpu_api": "OpenCl",
+                "segmentation_delegate": "Gpu",
+                "relighting_delegate": "Gpu",
+                "retouch_delegate": "Gpu",
+                "enable_latency_logs": false
+            }
+        },
+        {
+            "name": "AutoFraming",
+            "config": {
+                "process_frame_rate": 0,
+                "enable_logs": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+service fwupd /vendor/bin/fwupd-binder -vv
+    user root
+    group system
+    setenv FWUPD_LOCKDIR /data/vendor/fwupd/run
+    setenv FWUPD_LOCALSTATEDIR /data/vendor/fwupd
+    setenv FWUPD_DATADIR /vendor/usr/share/fwupd
+    disabled
+    seclabel u:r:fwupd:s0
+
+service fwupd_script /vendor/bin/fwupd_blocking_update
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:fwupd_script:s0
+
+service fwupd_splash_screen /system_ext/bin/fwupd_splash
+    class graphics
+    user graphics
+    group graphics
+    disabled
+    oneshot
+    # Reusing bootanim domain because fwupd_splash requires direct Binder access
+    # to SurfaceFlinger and graphics allocator HALs during early boot.
+    # TODO(harshams): Define a dedicated domain in system_ext for this service
+    seclabel u:r:bootanim:s0
+
+on boot
+    start fwupd
+    # Start the daemon in the background first
+    start fwupd_script
+
+on post-fs-data
+    mkdir /data/vendor/fwupd 0770 root system
+    mkdir /data/vendor/fwupd/run 0770 root system
+    restorecon_recursive /data/vendor/fwupd
+
+on property:vendor.fwupd.state=updating
+	stop zygote
+	stop bootanim
+	start fwupd_splash_screen
+
+on property:vendor.fwupd.state=complete
+	stop fwupd_splash_screen
+	start bootanim
+	start zygote

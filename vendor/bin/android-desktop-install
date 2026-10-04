@@ -1,0 +1,627 @@
+#!/bin/sh -u
+# Copyright 2023 The ChromiumOS Authors
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+#
+# A script to install from removable media to hard disk.
+# Usage:
+#   android-desktop-install [SRC [DST]] [FLAG_INT]
+#     <SRC>: Device path for source.
+#     <DST>: Device path for destination.
+#     <FLAG_INT>: Flag via integer value.
+#
+# Notes:
+#   <SRC> can be a block device (e.g., /dev/sdb) or a raw image file.
+#   Image files (e.g., "android-desktop*_image.bin") are automatically loop-mounted
+#   and detached on exit.
+#   If <SRC> is omitted, it defaults to the current running device.
+#   If <DST> is omitted, it attempts to auto-discover the target internal drive
+#   (e.g., /dev/nvme0n1 or /dev/sda).
+#   <FLAG_INT>:
+#     0th bit: No userdata wipe
+#     1th bit: No base table (GPT) creation
+
+BIT_0_NOUSERDATAWIPE=0x0001
+BIT_1_NOBASETABLECREATE=0x0002
+
+NICE_SOURCE_PATH="/vendor/bin"
+
+# Helper to nicely source files.
+nice_source() {
+  local file=$1
+  if [ -f "${NICE_SOURCE_PATH}/${file}" ]; then
+    source "${NICE_SOURCE_PATH}/${file}"
+  elif [ -f "$(dirname "$0")/${file}" ]; then
+    source "$(dirname "$0")/${file}"
+  fi
+}
+
+nice_source "partition-common-sgdisk.sh"
+nice_source "partition-common-cgpt.sh"
+nice_source "partition-common.sh"
+nice_source "partition-script.sh"
+
+# Source blocksize
+SRC_BLKSIZE=512
+
+if [ -w /mnt ]; then
+  TMPROOT=/mnt
+else
+  TMPROOT=/tmp
+fi
+TMPMNT=${TMPROOT}/installer/install-mount-point
+# Partition numbers that have assumptions about them. This list should be kept
+# to a minimal. Check copy_partition for most special casing.
+
+WAKE_LOCK_ID=android-desktop-install
+WAKE_LOCK_PATH=/sys/power/wake_lock
+WAKE_UNLOCK_PATH=/sys/power/wake_unlock
+
+die() {
+  echo "$*" >&2
+  exit 1
+}
+
+# Get the specified env var for the specified partition.
+#  $1 the field name such as "PARTITION_SIZE", "FS_FORMAT"
+#  $2 the partition such as "1", or "ROOT_A"
+_get_field() {
+  local field part
+  field="$1"
+  part="$2"
+  eval echo \""\${${field}_${part}}"\"
+}
+
+get_format() {
+  _get_field FORMAT "$@"
+}
+
+get_fs_format() {
+  _get_field FS_FORMAT "$@"
+}
+
+get_partition_size() {
+  _get_field PARTITION_SIZE "$@"
+}
+
+# Update a specific partition in the destination device.
+write_partition() {
+  local part="$1"
+  local src="$2"
+  local dst="$3"
+  local src_part="$(make_partition_dev ${src} ${part})"
+  local dst_part="$(make_partition_dev ${dst} ${part})"
+
+  # TODO(b/505555547) revert this change once the kernel crash is resolved.
+  local dd_cmd="dd if=${src_part} of=${dst_part} conv=fsync bs=8M"
+  if [ "$(getprop ro.product.device)" = "bluey" ]; then
+    dd_cmd="${dd_cmd} oflag=direct iflag=direct"
+  fi
+  ${dd_cmd}
+}
+
+# Like mount but keeps track of the current mounts so that they can be cleaned
+# up automatically.
+tracked_mount() {
+  local last_arg
+  eval last_arg=\$$#
+  MOUNTS="${last_arg}${MOUNTS:+ }${MOUNTS:-}"
+  mount "$@"
+}
+
+# Unmount with tracking.
+tracked_umount() {
+  # dash does not support ${//} expansions.
+  local new_mounts
+  for mount in $MOUNTS; do
+    if [ "$mount" != "$1" ]; then
+      new_mounts="${new_mounts:-}${new_mounts+ }$mount"
+    fi
+  done
+  MOUNTS=${new_mounts:-}
+
+  umount "$1"
+}
+
+# Mount the existing loop device at the mountpoint in $TMPMNT.
+# Args: optional 'rw'. If present, mount read-write, otherwise read-only.
+mount_on_loop_dev() {
+  local rw_flag=${1-ro}
+  set -- -o nosuid,nodev
+  if [ "${rw_flag}" != "rw" ]; then
+    set -- "$@",ro,exec
+  else
+    set -- "$@",rw,noexec
+  fi
+  tracked_mount "$@" "${LOOP_DEV}" "${TMPMNT}"
+}
+
+# Unmount loop-mounted device.
+umount_from_loop_dev() {
+  mount | grep -q " on ${TMPMNT} " && tracked_umount "${TMPMNT}"
+}
+
+# Check if all arguments are non-empty values
+check_non_empty_values() {
+  local value
+  for value in "$@"; do
+    if [ -z "$value" ]; then
+      return ${FLAGS_FALSE}
+    fi
+  done
+  return ${FLAGS_TRUE}
+}
+
+# Undo all mounts and loops and runs hw diagnostics on failure.
+cleanup_on_failure() {
+  set +e
+  cleanup
+}
+
+# Undo all mounts and loops.
+cleanup() {
+  set +e
+
+  local mount_point
+  for mount_point in ${MOUNTS:-}; do
+    umount "${mount_point}" || /bin/true
+  done
+  MOUNTS=""
+
+  if printf "%s" "${SRC:-}" | grep -Eq "/dev/loop[0-9]+$"; then
+    losetup -d "$SRC"
+  fi
+
+  # Remove the wakelock.
+  if [ -e "${WAKE_UNLOCK_PATH}" ]; then
+    echo "${WAKE_LOCK_ID}" > "${WAKE_UNLOCK_PATH}"
+  fi
+}
+
+get_sys_block_path()
+{
+  local dev_path="$1"
+  local base_name
+  base_name="$(basename "${dev_path}")"
+  echo "/sys/block/${base_name}"
+}
+
+check_removable() {
+  local removable
+  local device
+  device="$(get_sys_block_path "${DST}")"
+
+  if ! removable="$(cat "$device/removable")"; then
+    die "Error: Invalid destination device (must be whole device): ${DST}"
+  fi
+
+  if [ "${removable}" != "0" ]; then
+    die "Error: Attempt to install to a removeable device: ${DST}"
+  fi
+}
+
+mkfs() {
+  local fs_format="$1"
+  local device="$2"
+  local label="$3"
+
+  # We always make any ext[2/3/4] partitions ext4.
+  case "${fs_format}" in
+  ext[234])
+    mkfs.ext4 -F -L "${label}" "${device}"
+    ;;
+  esac
+}
+
+# Reinits the userdata partition with an ext4 filesystem.
+reset_userdata() {
+  echo "Clearing the userdata partition..."
+  # state options are stored in $@.
+  set --
+
+  DEV=$(make_partition_dev "${DST}" "${PARTITION_NUM_USERDATA}")
+
+  if [ ! -b "${DEV}" ]; then
+    die "Error: userdata partition (${DEV}) must be a block device."
+  fi
+  # Zero out the beginning of the userdata partition.
+  dd if=/dev/zero of="${DEV}" bs=1M count=2
+
+  sync
+}
+
+# Re-inits the metadata partition with an ext4 filesystem.
+reset_metadata() {
+  echo "Clearing the metadata partition..."
+  set --
+
+  DEV=$(make_partition_dev "${DST}" "${PARTITION_NUM_METADATA}")
+
+  # Zero out the beginning of the metadata partition.
+  if [ ! -b "${DEV}" ]; then
+    die "Error: metadata partition (${DEV}) must be a block device."
+  fi
+  dd if=/dev/zero of="${DEV}" bs=1M count=2
+
+  # Reformat with the metadata filesystem.
+  mkfs ext4 "${DEV}" "metadata"
+
+  sync
+}
+
+# Remove contnet of the misc partition
+reset_misc() {
+  echo "Clearing the misc partition..."
+  # state options are stored in $@.
+  set --
+
+  DEV=$(make_partition_dev "${DST}" "${PARTITION_NUM_MISC}")
+
+  if [ ! -b "${DEV}" ]; then
+    die "Error: misc partition (${DEV}) must be a block device."
+  fi
+  # Zero out the misc partition.
+  dd if=/dev/zero of="${DEV}" bs=512 count=$((${DATA_SIZE_MISC} / 512))
+
+  sync
+}
+
+# Send the hex encoded TPM command and returns the hex encoded response.
+# Input: $1 - Hex string of the command (e.g., "8001...")
+# Output: Hex string of the response on stdout.
+write_tpm_raw() {
+  local cmd="$1"
+  local len
+
+  # Calculate binary length.
+  len="$(printf '%s' "${cmd}" | xxd -p -r | wc -c)"
+
+  exec 3<> /dev/tpm0
+
+  # Send command.
+  printf '%s' "${cmd}" | xxd -p -r | dd bs="${len}" count=1 >&3
+
+  # Read response.
+  xxd -p -c 0 <&3
+  exec 3>&-
+}
+
+# Extracts the status code from the response and returns the status code.
+# Input: $1 - Hex string of the full TPM response.
+# Returns: 0 for Success (TPM_RC_SUCCESS), 1 for any error.
+tpm_response_to_status_code() {
+  local hex_status
+  # Standard TPM 2.0 Response Header:
+  # Bytes 0-1: Tag
+  # Bytes 2-5: Response Size
+  # Bytes 6-9: Response Code (What we want)
+
+  # Extract bytes 6-9 (chars 13-20)
+  hex_status=$(printf '%s' "${1}" | cut -b 13-20)
+
+  # Convert hex string to decimal integer using POSIX printf
+  local status_code
+  status_code=$(printf "%d" "0x${hex_status}")
+
+  # Normalize: 0 is Success, anything else is Failure (1).
+  if [ "${status_code}" -eq 0 ]; then
+    return 0
+  else
+    # Output the actual error code to stderr for debugging
+    echo "TPM Error: ${status_code} (0x${hex_status})" >&2
+    return 1
+  fi
+}
+
+delete_trusty_storage_super_block_mac_tdp() {
+  local resp
+  resp="$(write_tpm_raw "80010000001f20000000004d02010000000000000000000000000000000000")"
+
+  tpm_response_to_status_code "${resp}"
+
+}
+
+delete_trusty_storage_super_block_mac_td() {
+  local resp
+  resp="$(write_tpm_raw "80010000001f20000000004d02020000000000000000000000000000000000")"
+
+  tpm_response_to_status_code "${resp}"
+}
+
+# Reset secure storage
+reset_secure_storage() {
+  echo "Clearing the secure storage..."
+
+  # Reset the secure storage MACs stored in the GSC. This write a TPM command
+  # straight to the device to avoid pulling in more dependencies
+  echo "Clearing external MACs."
+  # If this is running in recovery or provisioning, gscd won't be running. Ignore the failure.
+  stop android.system.desktop.security.gscd || true
+
+  #TODO: b/449615780 we can remove this if when ocelot has an alos only provisioning image
+  if ! dmesg | grep -q "board=ocelot"; then
+    delete_trusty_storage_super_block_mac_tdp
+    delete_trusty_storage_super_block_mac_td
+  fi
+
+  echo "Zero security persist partition."
+  zero_partition "${PARTITION_NUM_DESKTOP_SECURITY_PERSIST}" "${DATA_SIZE_DESKTOP_SECURITY_PERSIST}"
+  echo "Zero security storage partition."
+  zero_partition "${PARTITION_NUM_DESKTOP_SECURITY_STORAGE}" "${DATA_SIZE_DESKTOP_SECURITY_STORAGE}"
+
+  sync
+}
+
+# Helper to zero out a specific partition.
+# $1 - Partition number we are copying to.
+# $2 - Partition size.
+zero_partition() {
+  local part_num="$1"
+  local size="$2"
+  local dev=$(make_partition_dev "${DST}" "${part_num}")
+  if [ ! -b "${dev}" ]; then
+    die "Error: partition (${dev}) must be a block device."
+  fi
+  # Zero out the partition.
+  dd if=/dev/zero of="${dev}" bs=512 count=$((${size} / 512))
+}
+
+# Copy partition from src to dst (figures out partition offsets). Note, this
+# has some special casing for rootfs, kernel, and stateful partitions. In
+# addition, it only copies partitions that are equally sized over one another.
+# $1 - Partition number we are copying to.
+# $2 - src image
+# $3 - dst image.
+copy_partition() {
+  local part_num=$1
+  local src=$2
+  local dst=$3
+
+  echo "Installing partition ${part_num} to ${dst} partition ${part_num}"
+
+  case "${part_num}" in
+  "")
+    echo "Error: Empty part_num is passed. Skip copying."
+    return
+    ;;
+  "${PARTITION_NUM_USERDATA}")
+    echo "Nothing to copy for stateful, skipping."
+    ;;
+  *)
+    write_partition "${part_num}" "${src}" "${dst}"
+    ;;
+  esac
+}
+
+# Get the device path from a root device path.
+# $1 - The root device path (e.g., /sys/block/sda)
+get_device_path() {
+  local rootdev="$1"
+  local base_name
+  base_name="$(basename "${rootdev}")"
+
+  local dev="/dev/block/${base_name}"
+  if [ ! -e "${dev}" ]; then
+    dev="/dev/${base_name}"
+  fi
+  echo "${dev}"
+}
+
+# Find the drive to install based on the build write_cgpt.sh
+# script. If not found, return ""
+get_fixed_dst_drive() {
+  local dev rootdev
+
+  if [ -n "${DEFAULT_ROOTDEV}" ]; then
+    # No " here, the variable may contain wildcards.
+    for rootdev in ${DEFAULT_ROOTDEV}; do
+      [ -d "${rootdev}" ] || continue
+      dev=$(get_device_path "${rootdev}")
+
+      if [ -b "${dev}" ]; then
+        break
+      else
+        dev=""
+      fi
+    done
+  else
+    dev=""
+  fi
+  echo "${dev}"
+}
+
+# Find root partition of the block device that we are installing from
+get_root_device() {
+  rootdev -s -d
+}
+
+check_dst() {
+  if [ -z "${DST}" ]; then
+    die "Error: can not determine destination device."
+  fi
+
+  # Check out the dst device.
+  if [ ! -b "${DST}" ]; then
+    die "Error: Unable to find destination block device: ${DST}"
+  fi
+
+  if [ "${DST}" = "${SRC}" ]; then
+    die "Error: src and dst are the same: ${SRC} = ${DST}"
+  fi
+}
+
+# Reload the system partitions after the partition table was modified (so the
+# device nodes like /dev/sda1 can be accessed).
+reload_partitions() {
+  # Reload the partition table on block devices only.
+  blockdev --rereadpt "${DST}"
+}
+
+main() {
+  # Be aggressive.
+  set -eu
+
+  # Take the wakelock to prevent the device from suspending while we are installing.
+  if [ -e "${WAKE_LOCK_PATH}" ]; then
+    echo "${WAKE_LOCK_ID}" > "${WAKE_LOCK_PATH}"
+  fi
+
+  mkdir -p "${TMPMNT}"
+
+  # We untrap on success and run cleanup ourselves. Otherwise, on any failure,
+  # run our custom trap method to gather any diagnostic data before cleaning up.
+  # Also, cleanup mounts if install is interrupted.
+  trap cleanup_on_failure INT TERM EXIT
+
+  load_base_vars
+
+  SRC=""
+  DST=""
+  local flag_int=0
+
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      [0-3]|0x[0-3])
+        flag_int=$(( flag_int | $1 ))
+        ;;
+      *)
+        if [ -z "${SRC}" ]; then
+          SRC="$1"
+        elif [ -z "${DST}" ]; then
+          DST="$1"
+        else
+          die "Error: Too many arguments: $1"
+        fi
+        ;;
+    esac
+    shift
+  done
+
+  if [ -z "${SRC}" ]; then
+    SRC="$(get_root_device)"
+  fi
+
+  if [ -z "${DST}" ]; then
+    DST="$(get_fixed_dst_drive)"
+  fi
+
+  check_dst
+  check_removable
+
+  if [[ -f "${SRC}" ]]; then
+    modprobe loop
+    SRC="$(losetup -P -f --show "${SRC}")"
+  fi
+
+  # Ask for confirmation to be sure.
+  echo "This will install from '${SRC}' to '${DST}'."
+  echo "This will erase all data at this destination: ${DST}"
+
+  if [ $(( $flag_int & $BIT_1_NOBASETABLECREATE )) -ne 0 ]; then
+    echo ">> Skipping GPT creation"
+  else
+    echo ">> Writing partition table to ${DST}"
+    # Zap the gpt at the destination device.
+    sgdisk --zap "${DST}" || { cgpt create -z "${DST}"; cgpt boot -p "${DST}"; }
+
+    write_base_table "${DST}"
+    # Retry reloading partitions as blockdev --rereadpt can fail if the kernel
+    # hasn't fully processed the table write yet.
+    local reload_retries=5
+    while ! reload_partitions; do
+      echo ">> Failed to reload partition table on ${DST}, retrying in 1s..."
+      sleep 1
+      reload_retries=$(( reload_retries - 1 ))
+      if [ "${reload_retries}" -eq 0 ]; then
+        die "Error: Failed to reload partition table on ${DST} after multiple retries."
+      fi
+    done
+    # There will be a race here between the partition creation
+    # and ueventd removing and recreating the /dev{/block,}/... paths.
+    # Sleep for a few seconds here to ensure /dev{/block,}/ paths have had a chance to:
+    #  - be removed by ueventd
+    #  - be added by ueventd
+    DEV=$(make_partition_dev "${DST}" "${PARTITION_NUM_USERDATA:-1}")
+    wait_count=4
+    while [ ! -b "${DEV}" ] && [ $(( wait_count = wait_count - 1 )) -gt 0 ]; do
+      echo ">> Waiting for block devices to be created"
+      sleep 1
+    done
+  fi
+
+  if [ $(( $flag_int & $BIT_0_NOUSERDATAWIPE )) -ne 0 ]; then
+    echo ">> Skipping userdata wipe"
+    reset_metadata
+  else
+    # Ask for confirmation before resetting metadata and userdata partitions
+    echo "Do you want to reset userdata and metadata partitions? (y/N)"
+    read -n 1 -r
+    echo
+    if [[ $REPLY = [Yy] ]]; then
+      echo ">> Resetting userdata and metadata partitions"
+      reset_userdata
+      reset_metadata
+    fi
+  fi
+
+  # Copy over the kernel and ramdisk partitions.
+  echo ">> Copying boot.img to ${DST}"
+  copy_partition "${PARTITION_NUM_BOOT_A}" "${SRC}" "${DST}"
+  echo ">> Copying vendor_boot.img to ${DST}"
+  copy_partition "${PARTITION_NUM_VENDOR_BOOT_A}" "${SRC}" "${DST}"
+  echo ">> Copying init_boot.img to ${DST}"
+  copy_partition "${PARTITION_NUM_INIT_BOOT_A}" "${SRC}" "${DST}"
+  echo ">> Copying vbmeta.img to ${DST}"
+  copy_partition "${PARTITION_NUM_VBMETA_A}" "${SRC}" "${DST}"
+  for var in $(set | grep -o "^PARTITION_NUM_SUPER[a-zA-Z0-9_]*"); do
+    part_num="$(eval echo "\$${var}")"
+    if [ -n "${part_num}" ]; then
+      suffix="${var#PARTITION_NUM_}"
+      nice_name="$(echo "${suffix}" | tr '[:upper:]' '[:lower:]')"
+      echo ">> Copying ${nice_name} to ${DST}"
+      copy_partition "${part_num}" "${SRC}" "${DST}"
+    fi
+  done
+  echo ">> Copying pvmfw.img to ${DST}"
+  copy_partition "${PARTITION_NUM_PVMFW_A}" "${SRC}" "${DST}"
+  if [[ -n "${PARTITION_NUM_EFI_SYSTEM:-}" ]]; then
+    echo ">> Copying ESP to ${DST}"
+    copy_partition "${PARTITION_NUM_EFI_SYSTEM}" "${SRC}" "${DST}"
+  fi
+  if [[ -n "${PARTITION_NUM_DTBO_A:-}" ]]; then
+    copy_partition "${PARTITION_NUM_DTBO_A}" "${SRC}" "${DST}"
+  fi
+
+  if [[ -n "${INSTALLABLE_PARTITIONS}" ]]; then
+    i=1
+    for part in ${INSTALLABLE_PARTITIONS}; do
+      img=$(echo "${INSTALLABLE_PARTITION_IMAGES}" | cut -d' ' -f$i)
+      echo ">> Copying ${img} to ${DST} in partition ${part}"
+      copy_partition "${part}" "${SRC}" "${DST}"
+      i=$((i + 1))
+    done
+  fi
+
+  if [[ -n "${PARTITION_NUM_OTA_RECOVERY_A:-}" ]]; then
+    echo ">> Copying ota_recovery_a to ${DST}"
+    copy_partition "${PARTITION_NUM_OTA_RECOVERY_A}" "${SRC}" "${DST}"
+  fi
+
+  # Clear content of misc partition
+  reset_misc
+
+  # Clear secure storage
+  reset_secure_storage
+
+  # Force data to disk before we declare done.
+  sync
+  cleanup
+  trap - EXIT
+
+  echo "------------------------------------------------------------"
+  echo ""
+  echo "Installation to '${DST}' complete."
+  echo "Please shutdown, remove the USB device, cross your fingers, and reboot."
+}
+
+main "$@"

@@ -1,0 +1,2 @@
+on early-init
+    setprop ro.vendor.trusty.security_vm_cid "VSOCK:200:0"

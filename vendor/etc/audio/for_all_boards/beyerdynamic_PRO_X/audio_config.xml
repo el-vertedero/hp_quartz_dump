@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:X</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>beyerdynamic PRO X Output</SectionName>
+				<PlaybackPCM>hw:X,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>beyerdynamic PRO X Input</SectionName>
+				<CapturePCM>hw:X,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

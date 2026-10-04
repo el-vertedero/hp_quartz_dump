@@ -1,0 +1,380 @@
+#!/vendor/bin/sh
+
+# ==============================================================================
+# CONFIGURATION
+# ==============================================================================
+LOG_TAG="FWUPD_BOOT"
+DATA_DIR="/data/vendor/fwupd"
+BLOCKLIST_DIR="$DATA_DIR/blocklist"
+RETRY_FILE="$DATA_DIR/update_retry_count"
+PERSISTENT_LOG="$DATA_DIR/update_sequence.log"
+
+MAX_RETRIES=2
+START_TIME=$(date +%s%3N)
+
+# Metrics Configuration
+SESSION_RESULT_SUCCESS=1
+SESSION_RESULT_PARTIAL_FAIL=2
+SESSION_RESULT_ABORTED_MAX_RETRIES=3
+SESSION_RESULT_WATCHDOG_KILLED=4
+SESSION_RESULT_DAEMON_FAILURE=5
+
+DEVICE_RESULT_SUCCESS=1
+DEVICE_RESULT_FAILED=2
+DEVICE_RESULT_SKIPPED_BLOCKLISTED=3
+
+# Metrics tracking
+TOTAL_GET_UPDATES_DURATION_MS=0
+ATTEMPTED_UPDATES_COUNT=0
+METRICS_REPORTED=0
+UPDATED_STATE_TO_UPDATING=0
+
+# ==============================================================================
+# 0. ENVIRONMENT SETUP (CRITICAL FOR GLIB/FWUPD)
+# ==============================================================================
+# fwupd requires these to be set, or it may crash/assert on Android init
+export HOME=/data/vendor/fwupd
+export TMPDIR=/data/vendor/fwupd/run
+export XDG_CACHE_HOME=/data/vendor/fwupd/cache
+export XDG_CONFIG_HOME=/data/vendor/fwupd/config
+export FWUPD_LOCKDIR=/data/vendor/fwupd/run
+export FWUPD_LOCALSTATEDIR=/data/vendor/fwupd
+export FWUPD_DATADIR=/vendor/usr/share/fwupd
+
+# ==============================================================================
+# 1. SETUP LOGGING
+# ==============================================================================
+log_info() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S.%N')] $1"
+}
+
+log_warn() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S.%N')] [WARN] $1"
+}
+
+# Ensure the directory exists
+mkdir -p "$BLOCKLIST_DIR"
+
+# Ensure log size is under 1MB (1,048,576 bytes)
+if [ -f "$PERSISTENT_LOG" ]; then
+    LOG_SIZE=$(stat -c%s "$PERSISTENT_LOG" 2>/dev/null || echo 0)
+    if [ "$LOG_SIZE" -gt 1048576 ]; then
+        # Keep last 500KB to stay well under 1MB
+        tail -c 524288 "$PERSISTENT_LOG" > "$PERSISTENT_LOG.tmp" && mv "$PERSISTENT_LOG.tmp" "$PERSISTENT_LOG"
+    fi
+fi
+
+echo "" >> "$PERSISTENT_LOG"
+echo "=== FWUPD SESSION START: $(date) ===" >> "$PERSISTENT_LOG"
+
+# Redirect script output to the persistent log
+exec >> "$PERSISTENT_LOG" 2>&1
+log_info "Script execution started at $(date)"
+
+# ==============================================================================
+# GLOBAL WATCHDOG & CLEANUP
+# ==============================================================================
+_cleanup() {
+    # Prevent multiple executions of cleanup
+    [ -n "$CLEANUP_DONE" ] && return
+    CLEANUP_DONE=true
+
+    log_info "Cleaning up before exit..."
+
+    # Ensure the splash screen is stopped only if it was started
+    if [ "$UPDATED_STATE_TO_UPDATING" -eq 1 ]; then
+        setprop vendor.fwupd.state "complete"
+    fi
+
+    # If metrics haven't been reported yet, it means we exited unexpectedly (e.g. signal)
+    if [ "$METRICS_REPORTED" -eq 0 ]; then
+        log_info "Reporting session metric from cleanup trap (likely signal)."
+        END_TIME=$(date +%s%3N)
+        TOTAL_DURATION=$((END_TIME - START_TIME))
+        /vendor/bin/fwupd_metrics session "$TOTAL_DURATION" "$SESSION_RESULT_WATCHDOG_KILLED" "$TOTAL_GET_UPDATES_DURATION_MS" "$ATTEMPTED_UPDATES_COUNT"
+        METRICS_REPORTED=1
+    fi
+}
+
+# Trap signals and exit to ensure cleanup always runs
+trap _cleanup EXIT
+trap 'exit 1' TERM INT
+
+# ==============================================================================
+# HELPER FUNCTIONS
+# ==============================================================================
+cleanup_and_exit() {
+    local EXIT_CODE=$1
+    local RESET_RETRY=$2
+    local REBOOT_REQUESTED=$3
+    local SESSION_RESULT=$4
+
+    if [ "$RESET_RETRY" = "true" ]; then
+        log_info "Resetting retry counter."
+        rm -f "$RETRY_FILE"
+    fi
+
+    END_TIME=$(date +%s%3N)
+    DURATION=$((END_TIME - START_TIME))
+    log_info "Boot check completed in $DURATION ms with result $SESSION_RESULT."
+
+    if [ "$METRICS_REPORTED" -eq 0 ]; then
+        /vendor/bin/fwupd_metrics session "$DURATION" "$SESSION_RESULT" "$TOTAL_GET_UPDATES_DURATION_MS" "$ATTEMPTED_UPDATES_COUNT"
+        METRICS_REPORTED=1
+    fi
+
+    if [ "$REBOOT_REQUESTED" -eq 1 ]; then
+        log_info "Triggering REBOOT..."
+        sync
+        sleep 1
+        setprop sys.powerctl reboot,fwupd_update
+    fi
+
+    log_info "Exiting script ($EXIT_CODE)."
+    exit "$EXIT_CODE"
+}
+
+# ==============================================================================
+# 2. FAST EXIT CHECKS
+# ==============================================================================
+# Check 1: Retry Count
+if [ -f "$RETRY_FILE" ]; then
+    CURRENT_COUNT=$(cat "$RETRY_FILE")
+    if [ -z "$CURRENT_COUNT" ]; then CURRENT_COUNT=0; fi
+else
+    CURRENT_COUNT=0
+fi
+
+log_info "Current Retries: $CURRENT_COUNT / $MAX_RETRIES"
+
+if [ "$CURRENT_COUNT" -ge "$MAX_RETRIES" ]; then
+    log_info "CRITICAL: Max retries reached. The update is failing consistently."
+    cleanup_and_exit 0 "true" 0 "$SESSION_RESULT_ABORTED_MAX_RETRIES"
+fi
+
+# Increment and Save
+NEW_COUNT=$((CURRENT_COUNT + 1))
+echo "$NEW_COUNT" > "$RETRY_FILE"
+
+# Panel-Follower Touchscreen Readiness for ARM devices (Sysfs Polling)
+# @TODO (b/547679951, prajnavohra): Add support for non-ARM devices.
+
+log_info "Detecting panel-follower touchscreen..."
+
+# Identify if this platform has an I2C panel-follower touchscreen (Device Tree).
+# @TODO: (b/547681792, prajnavohra): Add support for SPI
+PANEL_FOLLOWER_DEV=""
+for dev in /sys/bus/i2c/devices/*; do
+    if [ -e "$dev/of_node/panel" ]; then
+        PANEL_FOLLOWER_DEV="$dev"
+        break
+    fi
+done
+
+# If panel-follower touchscreen is detected, poll for driver node to be created.
+# For non-follower platforms (e.g. x86), this block is skipped immediately
+if [ -n "$PANEL_FOLLOWER_DEV" ]; then
+    log_info "Detected panel-follower touchscreen at $PANEL_FOLLOWER_DEV. Waiting for driver..."
+
+    POLL_INTERVAL_MS=100
+    POLL_INTERVAL_SEC="0.1"
+    MAX_WAIT_MS=3000
+    MAX_WAIT_SEC="3.0"
+    MAX_CYCLES=$(( MAX_WAIT_MS / POLL_INTERVAL_MS ))
+    CYCLES=0
+    FOUND=0
+
+    while [ "$FOUND" -eq 0 ] && [ "$CYCLES" -lt "$MAX_CYCLES" ]; do
+        if [ -e "$PANEL_FOLLOWER_DEV"/*:[0-9A-F]*/driver ]; then
+            FOUND=1
+            break
+        fi
+        sleep "$POLL_INTERVAL_SEC"
+        CYCLES=$((CYCLES + 1))
+    done
+
+    if [ "$FOUND" -eq 1 ]; then
+        log_info "Touchscreen hardware ready in $((CYCLES * POLL_INTERVAL_MS)) ms."
+    else
+        log_warn "Enumeration timeout after ${MAX_WAIT_SEC}s (proceeding anyway)."
+    fi
+else
+    log_info "No panel-follower touchscreen detected (skipping wait)."
+fi
+
+# Wait for Daemon
+log_info "Pinging fwupd daemon..."
+DAEMON_READY=0
+for i in $(seq 1 20); do
+    fwupdmgr get-devices > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        DAEMON_READY=1
+        break
+    fi
+    sleep 0.2
+done
+
+if [ $DAEMON_READY -eq 0 ]; then
+    log_info "Daemon failed to respond. Aborting."
+    cleanup_and_exit 1 "true" 0 "$SESSION_RESULT_DAEMON_FAILURE"
+fi
+
+# ==============================================================================
+# 5. PERFORM UPDATES
+# ==============================================================================
+ALL_UPDATE_SUCCESS=1
+REBOOT_REQUIRED=0
+ATTEMPTED_FILES=""
+
+while true; do
+    log_info "Checking for available updates..."
+
+    GET_UPDATES_START=$(date +%s%3N)
+    # Capture JSON
+    UPDATES_JSON=$(/vendor/bin/fwupdmgr get-updates --json 2>&1)
+    GET_UPDATES_END=$(date +%s%3N)
+    TOTAL_GET_UPDATES_DURATION_MS=$((TOTAL_GET_UPDATES_DURATION_MS + (GET_UPDATES_END - GET_UPDATES_START)))
+
+    # Check for empty releases
+    if echo "$UPDATES_JSON" | tr -d ' \n\r\t' | grep -F '{"Releases":[]}'; then
+        log_info "No more updates returned by daemon."
+        break
+    fi
+
+    # Parse all updates and find the first one not yet attempted
+    # We use a stateful approach to pair Names with Files
+    UPDATE_DATA=$(echo "$UPDATES_JSON" | sed -n -E \
+        -e 's/.*"Name" *: *"([^"]*)".*/NAME:\1/p' \
+        -e 's/.*"VendorId" *: *"([^"]*)".*/VID:\1/p' \
+        -e 's/.*"ProductId" *: *"([^"]*)".*/PID:\1/p' \
+        -e 's/.*"([^"]*([0-9a-f]{40,64}))".*/CHECKSUM:\2/p' \
+        -e 's/.*file:\/\/([^"]*)".*/FILE:\1/p')
+
+    SELECTED_NAME=""
+    SELECTED_FILE=""
+    SELECTED_CHECKSUM=""
+    SELECTED_VID=""
+    SELECTED_PID=""
+
+    CURRENT_NAME="Unknown Device"
+    CURRENT_CHECKSUM=""
+    CURRENT_VID="0000"
+    CURRENT_PID="0000"
+
+    while read -r line; do
+        case "$line" in
+            NAME:*)
+                CURRENT_NAME="${line#NAME:}"
+                # Reset device-specific metadata when a new device is encountered
+                CURRENT_VID="0000"
+                CURRENT_PID="0000"
+                ;;
+            VID:*)  CURRENT_VID="${line#VID:}" ;;
+            PID:*)  CURRENT_PID="${line#PID:}" ;;
+            CHECKSUM:*)
+                # The JSON has an array of checksums. We only need the first one we see.
+                if [ -z "$CURRENT_CHECKSUM" ]; then
+                    CURRENT_CHECKSUM="${line#CHECKSUM:}"
+                fi
+                ;;
+            FILE:*)
+                FILE_PATH="${line#FILE:}"
+                if ! echo " $ATTEMPTED_FILES " | grep -q -F " $FILE_PATH "; then
+                    SELECTED_NAME="$CURRENT_NAME"
+                    SELECTED_CHECKSUM="$CURRENT_CHECKSUM"
+                    SELECTED_FILE="$FILE_PATH"
+                    SELECTED_VID="$CURRENT_VID"
+                    SELECTED_PID="$CURRENT_PID"
+                    break
+                fi
+                # Reset checksum for the next release, but keep VID/PID for the same device
+                CURRENT_CHECKSUM=""
+                ;;
+        esac
+    done <<EOF
+$UPDATE_DATA
+EOF
+
+    if [ -z "$SELECTED_FILE" ]; then
+        log_info "No more new updates to attempt in this cycle."
+        break
+    fi
+
+    # Mark as attempted
+    ATTEMPTED_FILES="$ATTEMPTED_FILES $SELECTED_FILE"
+    ATTEMPTED_UPDATES_COUNT=$((ATTEMPTED_UPDATES_COUNT + 1))
+
+    # Fallback just in case parsing failed, use filename as checksum
+    if [ -z "$SELECTED_CHECKSUM" ]; then
+        SELECTED_CHECKSUM=$(basename "$SELECTED_FILE")
+    fi
+    BLOCKLIST_FILE="$BLOCKLIST_DIR/blocklist_${SELECTED_CHECKSUM}.flag"
+
+    # (TODO: rishabhagr) Blocklist file will not be checked during boot.
+    # Blocklist file will still be created to get metrics
+
+    # if [ -f "$BLOCKLIST_FILE" ]; then
+    #     log_info "SKIPPING $SELECTED_NAME. Checksum $SELECTED_CHECKSUM is blocked due to previous failures."
+    #     continue # Skip this file and go to the next one in the while loop
+    # fi
+
+    if [ -f "$SELECTED_FILE" ]; then
+        log_info "Install update for: $SELECTED_NAME ($SELECTED_FILE)"
+
+        setprop vendor.fwupd.state "updating"
+        UPDATED_STATE_TO_UPDATING=1
+
+        # Sleep is added to make sure the above property is changed and all instructions are executed before attempting installation.
+        sleep 1
+        FLASH_START=$(date +%s%3N)
+        /vendor/bin/fwupdmgr local-install "$SELECTED_FILE"
+        RESULT=$?
+        FLASH_END=$(date +%s%3N)
+        FLASH_DURATION=$((FLASH_END - FLASH_START))
+
+        log_info "Update result for $SELECTED_NAME: $RESULT (Duration: $FLASH_DURATION ms)"
+
+        if [ $RESULT -eq 0 ]; then
+            log_info "Success for $SELECTED_NAME."
+            REBOOT_REQUIRED=1
+            /vendor/bin/fwupd_metrics device "$SELECTED_VID" "$SELECTED_PID" "$DEVICE_RESULT_SUCCESS" "$FLASH_DURATION" "$NEW_COUNT"
+        else
+            log_info "FAILED to update $SELECTED_NAME (Error: $RESULT)"
+            ALL_UPDATE_SUCCESS=0
+            if [ "$NEW_COUNT" -eq 2 ]; then
+                log_info "Firmware failed 2 times. Permanently blocking: $SELECTED_NAME for file: $SELECTED_FILE"
+                touch "$BLOCKLIST_FILE"
+            fi
+            /vendor/bin/fwupd_metrics device "$SELECTED_VID" "$SELECTED_PID" "$DEVICE_RESULT_FAILED" "$FLASH_DURATION" "$NEW_COUNT"
+        fi
+        sleep 1
+    else
+        log_info "Error: File $SELECTED_FILE not found for $SELECTED_NAME."
+        ALL_UPDATE_SUCCESS=0
+        /vendor/bin/fwupd_metrics device "$SELECTED_VID" "$SELECTED_PID" "$DEVICE_RESULT_FAILED" 0 "$NEW_COUNT"
+        # Continue to next update
+    fi
+done
+
+# ==============================================================================
+# 6. FINAL DECISION
+# ==============================================================================
+
+if [ $REBOOT_REQUIRED -eq 1 ]; then
+    log_info "Reboot required to finalize updates."
+    if [ $ALL_UPDATE_SUCCESS -eq 1 ]; then
+        log_info "All updates applied successfully. Rebooting..."
+        cleanup_and_exit 0 "true" 1 "$SESSION_RESULT_SUCCESS"
+    else
+        log_info "Some updates failed, but at least one succeeded. Rebooting and will retry remaining on next boot."
+        cleanup_and_exit 1 "false" 1 "$SESSION_RESULT_PARTIAL_FAIL"
+    fi
+else
+    if [ $ALL_UPDATE_SUCCESS -eq 1 ]; then
+        log_info "All updates processed successfully (none required reboot or none found)."
+        cleanup_and_exit 0 "true" 0 "$SESSION_RESULT_SUCCESS"
+    else
+        log_info "Some updates failed to apply. Retrying on next boot."
+        cleanup_and_exit 1 "false" 0 "$SESSION_RESULT_PARTIAL_FAIL"
+    fi
+fi

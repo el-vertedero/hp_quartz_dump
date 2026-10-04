@@ -1,0 +1,57 @@
+{
+  "profiles": [
+    {
+      "name": "VIDEO_PLAYBACK",
+      "conditions": [
+        {
+          "source": "MEDIA_SESSION",
+          "state": "PLAYING"
+        },
+        {
+          "source": "TOP_APP",
+          "fullscreen": true
+        },
+        {
+          "source": "POWER_SOURCE",
+          "charger": false
+        }
+      ],
+      "actions": [
+        {
+          "type": "POWER_HINT",
+          "name": "PROFILE_VIDEO_PLAYBACK"
+        }
+      ]
+    },
+    {
+      "name": "AC_POLICY",
+      "conditions": [
+        {
+          "source": "POWER_SOURCE",
+          "charger": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "POWER_HINT",
+          "name": "PROFILE_AC_POLICY"
+        }
+      ]
+    },
+    {
+      "name": "TOP_APP_CHANGED",
+      "conditions": [
+        {
+          "source": "TOP_APP"
+        }
+      ],
+      "actions": [
+        {
+          "type": "VENDOR_NOTIFICATION",
+          "name": "TOP_APP_CHANGED",
+          "trigger-on-event": true
+        }
+      ]
+    }
+  ]
+}

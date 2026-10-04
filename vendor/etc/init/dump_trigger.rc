@@ -1,0 +1,20 @@
+# Copyright (C) 2025 The Android Open Source Project
+
+on property:vendor.desktop.snapshot_collector.start_wifi_dump=true
+  start dump_trigger_wifi_dump
+  setprop vendor.desktop.snapshot_collector.start_wifi_dump false
+
+on property:vendor.desktop.snapshot_collector.clear_wifi_buffer=true
+  start dump_trigger_wifi_clear
+  setprop vendor.desktop.snapshot_collector.clear_wifi_buffer false
+
+service dump_trigger_wifi_dump /vendor/bin/dump_trigger wifi-dump
+    user vendor_snapshot
+    group wifi
+    oneshot
+
+service dump_trigger_wifi_clear /vendor/bin/dump_trigger wifi-clear
+    user vendor_snapshot
+    group wifi
+    capabilities NET_ADMIN
+    oneshot

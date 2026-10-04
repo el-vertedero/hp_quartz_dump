@@ -1,0 +1,17 @@
+[
+    {
+        "name": "PowerAdvisor",
+        "config": {}
+    },
+    {
+        "name": "StreamAdapter",
+        "config": {
+            "max_video_process_width": 1920,
+            "max_video_process_height": 1200
+        }
+    },
+    {
+        "name": "CropRotate",
+        "config": {}
+    }
+]

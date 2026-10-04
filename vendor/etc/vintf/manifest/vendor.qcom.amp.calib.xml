@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/audio/dras/src/services/qcom/amp_calib/vendor.qcom.amp.calib.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>com.android.desktop.audio</name>
+        <fqname>IAmpCalibration/default</fqname>
+    </hal>
+</manifest>

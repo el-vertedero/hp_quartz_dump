@@ -1,0 +1,75 @@
+#!/vendor/bin/sh
+
+# Copyright (C) 2025 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Checks whether the media profile variant from the CSV mapping
+# is valid. If so, then execute setprop.
+try_media_profiles_variant() {
+  local media_profiles_key="$1"
+  local mapping=$(grep -m 1 -e "$media_profiles_key" "$profile_map")
+
+  if [ -z "$mapping" ]; then
+    return 1
+  fi
+
+  local variant=$(echo "$mapping" | sed 's/.*,.*,\(.*\)/\1/' )
+
+  if [ ! -e "/vendor/etc/media_profiles_desktop_${variant}.xml" ]; then
+    return 1
+  fi
+
+  setprop vendor.media.xml_variant.profiles "_desktop_${variant}"
+}
+
+# Expects a media_profiles_map_${board}.csv to be located in /vendor/etc.
+# Example of such CSV:
+# -- media_profiles_map_brya.csv --
+# model,sku,profile
+# *,*,one_camera_1080p_high_bitrate
+# anahera,*,one_camera_720p_high_bitrate
+# crota,720927,one_camera_720p_high_bitrate
+# -----
+# We will try to find the most specific mapping if possible,
+# if not it will use the one with wildcards (*).
+#
+# model = vendor.device.product.name
+# sku = vendor.device.sku.id
+# board = ro.product.vendor.name
+#
+# The correct XML variant is stored in a temporary property key because
+# scripts has no permission to modify ro.* properties.
+get_variant_media_profiles() {
+  local profile_map="/vendor/etc/media_profiles_map_${board}.csv"
+  if [ ! -e "$profile_map" ]; then
+    return
+  fi
+
+  local sku_media_profiles_key="$model,$sku,"
+  local model_media_profiles_key="$model,\*,"
+  local ref_board_media_profiles_key="\*,\*,"
+
+  # Tries the most specific first.
+  try_media_profiles_variant "$sku_media_profiles_key" || \
+  try_media_profiles_variant "$model_media_profiles_key" || \
+  try_media_profiles_variant "$ref_board_media_profiles_key"
+}
+
+get_variant_camera() {
+  local board="$1"
+  local model="$2"
+  local sku=$(echo "$3" | grep -oE '[0-9]+')
+
+  get_variant_media_profiles
+}

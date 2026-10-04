@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Seri</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Plantronics Blackwire 5220 Seri Output</SectionName>
+				<PlaybackPCM>hw:Seri,0</PlaybackPCM>
+				<PlaybackMixerElem>Headset,0</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Plantronics Blackwire 5220 Seri Input</SectionName>
+				<CapturePCM>hw:Seri,0</CapturePCM>
+				<CaptureMixerElem>Headset,0</CaptureMixerElem>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

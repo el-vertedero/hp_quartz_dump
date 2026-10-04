@@ -1,0 +1,147 @@
+command_collector {
+  command: "/vendor/bin/disk_info --health"
+  interval_seconds: 21600
+  match_rules {
+    regex: "(?smi)^Number of Media Errors:\\s+(\\d+).*?^Number of Error Log Entries:\\s+(\\d+)"
+    atomizer: NVME_ERROR_ATOMIZER
+  }
+  match_rules {
+    regex: "(?smi)^Total Number of Errors:\\s+(\\d+)"
+    atomizer: UFS_ERROR_ATOMIZER
+  }
+}
+command_collector {
+  command: "/vendor/bin/disk_info --filesystem_info userdata"
+  interval_seconds: 21600
+  match_rules {
+    regex: ".*Error Count:\\s*(\\d+),\\s*Last Error From:\\s*([^,]*),\\s*Last Error Code:\\s*(\\d+).*"
+    atomizer: FS_EXT4_ERROR_ATOMIZER
+  }
+}
+command_collector {
+  command: "/vendor/bin/disk_info --filesystem_info metadata"
+  interval_seconds: 21600
+  match_rules {
+    regex: ".*Error Count:\\s*(\\d+),\\s*Last Error From:\\s*([^,]*),\\s*Last Error Code:\\s*(\\d+).*"
+    atomizer: FS_EXT4_ERROR_ATOMIZER
+  }
+}
+system_log_collector {
+  interval_seconds: 21600
+  match_rules {
+    regex: ".*device-mapper:\\s+bow:\\s+Unable\\s+to\\s+find\\s+free\\s+space\\s+to\\s+back\\s+up.*"
+    atomizer: DM_BOW_NO_FREE_SPACE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+bow:\\s+Cannot\\s+read\\s+page\\s+(\\d+).*"
+    atomizer: DM_BOW_READ_PAGE_FAILED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+bow:\\s+Write\\s+failure\\s+with\\s+error\\s+(\\d+).*"
+    atomizer: DM_BOW_WRITE_FAILED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity:\\s+\\d+:\\d+:\\s+metadata\\s+block\\s+(\\d+).*"
+    atomizer: DM_VERITY_METADATA_CORRUPTED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity:\\s+\\d+:\\d+:\\s+data\\s+block\\s+(\\d+).*"
+    atomizer: DM_VERITY_DATA_BLOCK_CORRUPTED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*dm-verity device corrupted.*"
+    atomizer: DM_VERITY_DEVICE_CORRUPTED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity-fec:\\s+\\d+:\\d+:\\s+FEC\\s+(\\d+):\\s+read\\s+failed:\\s+(-?\\d+).*"
+    atomizer: DM_VERITY_FEC_READ_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity-fec:\\s+\\d+:\\d+:\\s+FEC\\s+\\d+:\\s+corrected\\s+(\\d+).*"
+    atomizer: DM_VERITY_FEC_CORRECTED_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity-fec:\\s+\\d+:\\d+:\\s+FEC\\s+(\\d+):\\s+failed\\s+to\\s+correct:\\s+(-?\\d+).*"
+    atomizer: DM_VERITY_FEC_FAILED_TO_CORRECT_ATOMIZER
+  }
+  match_rules {
+    regex: ".*device-mapper:\\s+verity-fec:\\s+\\d+:\\d+:\\s+FEC\\s+(\\d+):\\s+failed\\s+to\\s+correct\\s+\\((\\d+)\\s+erasures\\).*"
+    atomizer: DM_VERITY_FEC_FAILED_TO_CORRECT_ERASURES_ATOMIZER
+  }
+}
+system_log_collector {
+  interval_seconds:21600
+  match_rules {
+    regex: ".*nvme.*:\\s+Read\\(0x.*\\)\\s+@\\s+LBA\\s+\\d+.*Unrecovered\\s+Read\\s+Error.*"
+    atomizer: NVME_FATAL_READ_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+Write\\(0x.*\\)\\s+@\\s+LBA\\s+\\d+.*Write\\s+Fault.*"
+    atomizer: NVME_FATAL_WRITE_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+controller is down;.*CSTS=0x[a-fA-F0-9]+,.*PCI_STATUS=0x[a-fA-F0-9]+.*"
+    atomizer: NVME_FATAL_CONTROLLER_DOWN_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+I/O tag\\s+\\d+.*opcode\\s+0x[a-fA-F0-9]+.*QID\\s+\\d+\\s+timeout, reset controller.*"
+    atomizer: NVME_FATAL_TIMEOUT_RESET_CONTROLLER_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+Disabling\\s+device\\s+after\\s+reset\\s+failure:\\s+(-?\\d+).*"
+    atomizer: NVME_FATAL_DISABLE_DEVICE_RESET_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+failure state error detected, request disconnect.*"
+    atomizer: NVME_FATAL_REQUEST_DISCONNECT_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+frozen state error detected, reset controller.*"
+    atomizer: NVME_FATAL_REQUEST_RESET_ATOMIZER
+  }
+  match_rules {
+    regex: ".*nvme.*:\\s+resetting controller due to persistent internal error.*"
+    atomizer: NVME_FATAL_RESET_INTERNAL_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*ufshc:\\s+OCS error\\s+from\\s+controller\\s*=\\s*0x[a-fA-F0-9]+ for tag\\s+\\d+.*"
+    atomizer: UFS_FATAL_OCS_ERROR_FROM_CONTROLLER_ATOMIZER
+  }
+  match_rules {
+    regex: ".*ufshc:\\s+ufshcd_err_handler:\\s+reset\\s+and\\s+restore\\s+failed\\s+with\\s+err\\s+(-?\\d+).*"
+    atomizer: UFS_FATAL_RESET_RESTORE_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*ufshc:\\s+ufshcd_check_errors:.*Auto Hibern8 Enter failed.*status:\\s+0x[a-fA-F0-9]+.*"
+    atomizer: UFS_FATAL_AUTO_HIBERN8_ENTER_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*ufshc:\\s+ufshcd_check_errors:.*Auto Hibern8 Exit failed.*status:\\s+0x[a-fA-F0-9]+.*"
+    atomizer: UFS_FATAL_AUTO_HIBERN8_EXIT_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*ufshc:\\s+ufshcd_err_handler:\\s+Failed\\s+to\\s+restore\\s+power\\s+mode,.*err\\s*=\\s*(-?\\d+).*"
+    atomizer: UFS_FATAL_POWER_MODE_RESTORE_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*mmcblk\\d+:\\s+recovery failed!.*"
+    atomizer: MMC_FATAL_RECOVERY_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*mmc\\d+:\\s+error\\s+(-?\\d+)\\s+whilst\\s+initialising\\s+MMC\\s+card.*"
+    atomizer: MMC_FATAL_MMC_CARD_INIT_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*mmc\\d+:\\s+error\\s+(-?\\d+)\\s+whilst\\s+initialising\\s+SD\\s+card.*"
+    atomizer: MMC_FATAL_SD_CARD_INIT_FAILURE_ATOMIZER
+  }
+  match_rules {
+    regex: ".*mmc\\d+:\\s+Card stuck being busy! Not ready.*"
+    atomizer: MMC_FATAL_CARD_NOT_READY_ATOMIZER
+  }
+  match_rules {
+    regex: ".*mmc\\d+:\\s+Sanitize\\s+failed\\s+err=(-?\\d+).*"
+    atomizer: MMC_FATAL_SANITIZE_FAILURE_ATOMIZER
+  }
+  log_source: LOG_SOURCE_PSTORE
+}

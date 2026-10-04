@@ -1,0 +1,61 @@
+
+camera_modules {
+  key: "0bda:5637"
+  value {
+    lens_info {
+      available_focal_lengths: 1.85
+      available_apertures: 2.0
+      minimum_focus_distance: 0.3
+      optimal_focus_distance: 0.5
+    }
+    sensor_info {
+      physical_size {
+        width: 3.223008
+        height: 2.017728
+      }
+      pixel_array_size {
+        width: 2888
+        height: 1808
+      }
+      active_array {
+        left: 4
+        top: 4
+        right: 2884
+        bottom: 1804
+      }
+    }
+    enable_face_detection: true
+    facing: FACING_FRONT
+    quirks: QUIRK_SKIP_5x4_RESOLUTION
+  }
+}
+camera_modules {
+  key: "1bcf:28dc"
+  value {
+    lens_info {
+      available_focal_lengths: 1.24
+      available_apertures: 2.0
+      minimum_focus_distance: 0.204
+      optimal_focus_distance: 0.5
+    }
+    sensor_info {
+      physical_size {
+        width: 2.16832
+        height: 1.22752
+      }
+      pixel_array_size {
+        width: 1936
+        height: 1096
+      }
+      active_array {
+        left: 8
+        top: 8
+        right: 1928
+        bottom: 1088
+      }
+    }
+    enable_face_detection: true
+    facing: FACING_FRONT
+  }
+}
+

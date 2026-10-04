@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/vpd-executor/service/vendor.google.desktop.vpd_executor.vpd-executor.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop.vpd_executor</name>
+        <fqname>IVpdExecutor/default</fqname>
+    </hal>
+</manifest>

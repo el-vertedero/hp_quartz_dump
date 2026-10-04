@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Series</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Poly Blackwire 8225 Series Output</SectionName>
+				<PlaybackPCM>hw:Series,0</PlaybackPCM>
+				<PlaybackMixerElem>Headset Earphone</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Poly Blackwire 8225 Series Input</SectionName>
+				<CapturePCM>hw:Series,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

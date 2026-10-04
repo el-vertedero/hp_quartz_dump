@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:BR21</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>JieLi BR21 Output</SectionName>
+				<PlaybackPCM>hw:BR21,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>JieLi BR21 Input</SectionName>
+				<CapturePCM>hw:BR21,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

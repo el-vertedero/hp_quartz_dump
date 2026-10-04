@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/i2c-executor/vendor.google.desktop.i2cexecutor.i2c-executor.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>vendor.google.desktop.i2cexecutor</name>
+        <fqname>II2CExecutor/default</fqname>
+    </hal>
+</manifest>

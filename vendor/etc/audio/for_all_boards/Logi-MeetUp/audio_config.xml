@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:LogiMeetUp</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Logitech MeetUp Speakerphone Output</SectionName>
+				<PlaybackPCM>hw:LogiMeetUp,0</PlaybackPCM>
+				<PlaybackMixerElem>PCM,0</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Logitech MeetUp Speakerphone Input</SectionName>
+				<CapturePCM>hw:LogiMeetUp,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

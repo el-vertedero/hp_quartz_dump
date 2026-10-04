@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:E60</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>EPOS IMPACT 60 Output</SectionName>
+				<PlaybackPCM>hw:E60,0</PlaybackPCM>
+				<PlaybackMixerElem>Speaker Volume</PlaybackMixerElem>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>EPOS IMPACT 60 Input</SectionName>
+				<CapturePCM>hw:E60,0</CapturePCM>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

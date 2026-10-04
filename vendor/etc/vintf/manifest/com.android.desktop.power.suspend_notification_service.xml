@@ -1,0 +1,10 @@
+<!--
+    Input:
+        vendor/google/desktop/power/suspend_notification/com.android.desktop.power.suspend_notification_service.xml
+-->
+<manifest version="9.0" type="device">
+    <hal format="aidl">
+        <name>com.android.desktop.power</name>
+        <fqname>ISuspendNotificationService/default</fqname>
+    </hal>
+</manifest>

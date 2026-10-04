@@ -1,0 +1,5 @@
+service vendor.lights.android-desktop /vendor/bin/hw/android.hardware.lights-service.android-desktop
+    interface aidl android.hardware.light.ILights/default
+    class hal
+    user system
+    group system

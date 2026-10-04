@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:earbuds</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Google Pixel earbuds Output</SectionName>
+				<PlaybackPCM>hw:earbuds,0</PlaybackPCM>
+				<UseSoftwareVolume>1</UseSoftwareVolume>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Google Pixel earbuds Input</SectionName>
+				<CapturePCM>hw:earbuds,0</CapturePCM>
+				<IntrinsicSensitivity>-3100</IntrinsicSensitivity>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

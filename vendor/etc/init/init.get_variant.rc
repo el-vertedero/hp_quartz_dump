@@ -1,0 +1,17 @@
+# Save the device variant information in system properties (setprop)
+service vendor.get_variant /vendor/bin/get_variant
+    class default
+    user root
+    group root
+    oneshot
+    disabled
+
+# We need the model and SKU variant as soon as possible
+on early-init
+    start vendor.get_variant
+
+# We are sure at post-fs, the get_variant script is done.
+# Waiting for the property is somehow much slower.
+on post-fs
+    setprop ro.media.xml_variant.profiles ${vendor.media.xml_variant.profiles}
+

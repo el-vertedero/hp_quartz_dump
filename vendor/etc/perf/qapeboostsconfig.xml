@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * All rights reserved.
+ * Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!-- versionCode rule: YYYYMMDD + 2-digit sequence number -->
+<!-- hamoa AU26: generated from AU20 hamoa reference and regression-adjusted using /local/mnt/workspace/perfd failures. Do not treat as blind AU20 copy. -->
+<QapeBoostConfigs versionCode="2025111101">
+    <QapePerfBoost>
+
+        <!-- Game Play Generic Profiles-->
+        <!-- Reference profiles-->
+
+        <!-- MPCTLV3_SCHED_PIPELINE_UTIL_THRES -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_BIG -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_PRIME -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_GOLD -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_PRIME -->
+        <!-- MPCTLV3_SCHED_MANY_WAKEUP_THRESHOLD-->
+        <Config
+            Id="0x1" Enable="true" Timeout="0" Target="hamoa" Class="0"
+            Resources="0x43C34000, 350, 0x40818000, 900000, 0x40818200, 900000, 0x63C5C200, 8, 0, 2227200, 6, 2227200, 7, 2227200, 8, 2227200, 0x63C5C000, 8, 0, 2227200, 6, 2227200, 7, 2227200, 8, 2227200, 0x40C9C000, 4" />
+
+        <!-- MPCTLV3_SCHED_PIPELINE_UTIL_THRES -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_BIG -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_PRIME -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_PRIME -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_GOLD -->
+        <!-- MPCTLV3_SCHED_MANY_WAKEUP_THRESHOLD-->
+        <Config
+            Id="0x1" Enable="true" Timeout="0" Target="hamoa" Class="1"
+            Resources="0x43C34000, 350, 0x40818000, 1056000, 0x40818200, 960000, 0x63C5C200, 8, 0, 2438400, 6, 2438400, 7, 2438400, 8, 2438400, 0x63C5C000, 8, 0, 2496000, 6, 2496000, 7, 2496000, 8, 2496000, 0x40C9C000, 4" />
+
+        <!-- MPCTLV3_SCHED_PIPELINE_UTIL_THRES -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_BIG -->
+        <!-- MPCTLV3_WALT_HISPEED_COND_FREQ_PRIME -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_GOLD -->
+        <!-- MPCTLV3_SCHED_LEGACY_FREQ_LEVELS_PRIME -->
+        <!-- MPCTLV3_SCHED_MANY_WAKEUP_THRESHOLD-->
+        <Config
+            Id="0x1" Enable="true" Timeout="0" Target="hamoa" Class="2"
+            Resources="0x43C34000, 350, 0x40818000, 1401000, 0x40818200, 1363000, 0x63C5C200, 8, 0, 2438400, 6, 2668800, 7, 2880000, 8, 3129600, 0x63C5C000, 8, 0, 2496000, 6, 2745600, 7, 2899200, 8, 3033600, 0x40C9C000, 4" />
+
+        <ApiProfiles Enable="true" Target="hamoa">
+            <LOAD_RATE_CPU>0x40C68000, 0, 0x40C68100, 0, 0x40C68200, 0, 0x40C68300, 0, 0x40414000, 0</LOAD_RATE_CPU>
+            <LOAD_RATE_GPU>0X42828000, 0</LOAD_RATE_GPU>
+            <LOAD_RATE_MEM>0x43458000, 0x193200, 0x4348C000, 0x104410, 0x43488000, 0x40BE38</LOAD_RATE_MEM>
+            <HIGH_CPU_UTIL>0x40C80000, 0</HIGH_CPU_UTIL>
+            <LOW_LAT>0x40CD0000, 0</LOW_LAT>
+            <LOW_CPU_UTIL>0x42C2C000, 0</LOW_CPU_UTIL>
+            <THREAD_PIPELINE>0x42C30000, 0, 0x40CF8200, 0x81B320</THREAD_PIPELINE>
+            <CONTENT_FPS>0x42C3C000, 0</CONTENT_FPS>
+            <PIPELINE_NUMBER>0X43C18000, 0</PIPELINE_NUMBER>
+            <AUTO_PIPELINE>0X43C34000, 350</AUTO_PIPELINE>
+        </ApiProfiles>
+    </QapePerfBoost>
+</QapeBoostConfigs>

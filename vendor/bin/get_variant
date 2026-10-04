@@ -1,0 +1,11 @@
+#!/vendor/bin/sh
+# A script to save the device variant information in system properties (setprop).
+PRODUCT_NAME=`cat /sys/firmware/devicetree/base/firmware/chromeos/hardware-id | tr '[:upper:]' '[:lower:]' | cut -d' ' -f1 | cut -d'-' -f1`
+SKU=`printf "%d" "0x$(xxd -p -g4 /sys/firmware/devicetree/base/firmware/coreboot/sku-id)"`
+
+setprop vendor.device.product.name "$PRODUCT_NAME"
+setprop vendor.device.sku.id "$SKU"
+
+source /vendor/bin/get_variant_camera
+get_variant_camera $(getprop ro.product.product.name) $PRODUCT_NAME $SKU
+

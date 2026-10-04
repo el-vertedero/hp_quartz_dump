@@ -1,0 +1,9 @@
+# Create and mount working paths for fwtool.
+on post-fs-data
+    mkdir /data/vendor/fwtool
+    mkdir /data/vendor/fwtool/tmp
+    mount tmpfs tmpfs /data/vendor/fwtool/tmp nosuid nodev noexec rw context=u:object_r:firmware_tool_data_file:s0
+    restorecon /data/vendor/fwtool
+
+on shutdown
+    umount /data/vendor/fwtool/tmp

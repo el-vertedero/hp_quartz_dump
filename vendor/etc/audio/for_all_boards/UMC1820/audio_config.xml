@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:UMC1820</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>UMC1820 Output</SectionName>
+				<PlaybackPCM>hw:UMC1820,0</PlaybackPCM>
+				<PlaybackMixerElem>UMC1820 Output,0</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>UMC1820 Input</SectionName>
+				<CapturePCM>hw:UMC1820,0</CapturePCM>
+				<CaptureMixerElem>Mic,0</CaptureMixerElem>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

@@ -1,0 +1,17 @@
+#
+# Copyright (c) 2019 Qualcomm Technologies, Inc.
+# All Rights Reserved.
+# Confidential and Proprietary - Qualcomm Technologies, Inc.
+#
+
+# For more context on why we do this see b/516633575
+on post-fs-data && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    setprop persist.vendor.delta_time.enable true
+    exec_background - root root -- /vendor/bin/sh -c "timeout 60 sh -c 'until [ -c /dev/rtc0 ]; do sleep 1; done'; log -t time_daemon 'starting'; start time_daemon"
+
+service time_daemon /vendor/bin/time_daemon
+    class main
+    user system
+    group system
+    capabilities SYS_TIME
+    disabled

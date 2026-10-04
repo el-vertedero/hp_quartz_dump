@@ -1,0 +1,49 @@
+# This file is loaded on all bluey devices.
+
+import /vendor/etc/init/hw/init.qcom.rc
+
+on init
+    # Enable Profile Detection
+    setprop vendor.desktop.profile_detection.config "power/perf_policy.json"
+    setprop vendor.desktop.profile_detection.enabled 1
+    # Mapping YUV to NV12
+    setprop vendor.gralloc.camera_preview_uses_usb_hal 1
+
+# On userdebug builds we set ro.boot.console via bootconfig.
+# Specify the baud rate and enable ISIG flag for console.
+on post-fs && property:ro.build.type=userdebug
+    exec -- /system/bin/stty -F /dev/ttyMSM0 115200 isig
+    restart console
+
+# Expand /data filesystem
+on post-fs-data && property:ro.debuggable=1
+    exec -- /system/bin/resize2fs /dev/block/mapper/userdata
+
+on post-fs-data
+    # Enable WLAN SSR
+    write /sys/kernel/cnss/recovery 1
+    # Enable WLAN cold boot calibration
+    write /sys/kernel/cnss/fs_ready 1
+
+# b/476896883 Use QC stub audio HAL on ORB
+on property:vendor.device.product.name=quenbi
+    setprop vendor.audio.hal.stubmode 1
+
+# Initialize Power HAL
+on property:vendor.powertool.init=1
+    setprop vendor.powerhal.init 1
+
+# Workaround for b/504496347 and b/507275645
+on property:sys.boot_completed=1
+   restart vendor.health-default
+
+# Workaround for b/505906560 and the real-SoC config not in EC.
+# This should be read/synchronized with ADSP configuration.
+on boot
+    setprop vendor.cros_ec.display_soc.min_real_pct 4
+    setprop vendor.cros_ec.display_soc.max_real_pct 97
+
+# Enable the minidump and set the location to NVMe partition.
+on property:sys.boot_completed=1
+    write /sys/kernel/dload/dload_mode mini
+    write /sys/kernel/dload/emmc_dload 1

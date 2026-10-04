@@ -1,0 +1,6 @@
+service suspend_notification_service /vendor/bin/hw/suspend_notification_service
+    interface aidl com.android.desktop.power.ISuspendNotificationService/default
+    class hal
+    user system
+    group system
+    oneshot

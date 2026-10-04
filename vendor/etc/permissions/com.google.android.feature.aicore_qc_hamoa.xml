@@ -1,0 +1,4 @@
+<permissions>
+    <feature name="com.google.android.feature.AICORE_QC" />
+    <feature name="com.google.android.feature.AICORE_QC_HAMOA" />
+</permissions>

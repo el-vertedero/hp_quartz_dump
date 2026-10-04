@@ -1,0 +1,12 @@
+{
+  "config":{
+    "hw_platform": ["CRD", "MTP"],
+    "soc_id": ["615", "555"]
+  },
+  "qsh_ble_config":{
+    "owner": "qsh_ble",
+    "uart_instance":{ "type": "int", "ver": "0",
+        "data": "6"
+    }
+  }
+}

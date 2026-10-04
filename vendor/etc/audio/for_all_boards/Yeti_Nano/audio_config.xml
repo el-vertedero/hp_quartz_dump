@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<audio_config>
+	<!--Copyright 2024 The Chromium OS Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.-->
+	<SoundCardName>hw:Nano</SoundCardName>
+	<HiFi>
+		<USBOut>
+			<Section>
+				<SectionName>Yeti Nano Output</SectionName>
+				<PlaybackPCM>hw:Nano,0</PlaybackPCM>
+				<PlaybackRate>48000</PlaybackRate>
+				<PlaybackMixerElem>PCM,0</PlaybackMixerElem>
+			</Section>
+		</USBOut>
+		<USBIn>
+			<Section>
+				<SectionName>Yeti Nano Input</SectionName>
+				<CapturePCM>hw:Nano,0</CapturePCM>
+				<CaptureRate>48000</CaptureRate>
+				<CaptureMixerElem>Mic,0</CaptureMixerElem>
+			</Section>
+		</USBIn>
+	</HiFi>
+</audio_config>

@@ -1,0 +1,8 @@
+modalias_handling enabled
+
+/sys/class/input/input* inhibited 0664 system input
+
+/sys/class/backlight/* brightness 0664 system system
+/sys/devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a94000.spi/spi_master/spi13/spi13.0/cros-ec-dev.*.auto/cros-keyboard-leds.*.auto/leds/* brightness 0660 system system
+
+import /vendor/etc/ueventd.qcom.rc
