@@ -1,0 +1,26 @@
+{
+    "Image_Build_IDs": {
+        "acp": "ACPOLICY.XF.1.0-00728-PURWA-1",
+        "adsp": "ADSP.HT.5.9.c5-00032.4-HAMOA-1",
+        "aop": "AOP.HO.5.2-00050-HAMOA_E-1",
+        "apps_kernel": "KERNEL.PLATFORM.5.0.r8-06700-kernel.0-1",
+        "apps_vendor": "COMPUTE.AL.2.0.r1-02200-HAMOA.0-1",
+        "boot": "BOOT.MXF.2.4.3-00097-HAMOA-1",
+        "btfm": "BTFW.HAMILTON.2.0.1-00510-PATCHZ-2",
+        "cdsp": "CDSP.HT.2.9.c1-00083.1-HAMOA-1",
+        "common": "Hamoa.AL.2.0.r1-00042.2-STD.PROD-1",
+        "cpucp": "CPUCP.FW.1.0-00104-HAMOA.EXT-1",
+        "glue": "GLUE.HAMOA_AL.1.0-00073-NOOP_TEST-1",
+        "qcsec": "QCSEC.CB.1.0-00036-HAMOAAAAAANAZT-4",
+        "tfa": "TFA.XF.1.0-00063-HAMOA-1",
+        "tz": "TZ.XF.6.0-00457.3-HAMOA-1",
+        "tz_apps": "TZ.APPS.6.0-00137-HAMOA-1",
+        "wlan_hmt": "WLAN.HMT.2.0.c3-01308-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.178200.1"
+    },
+    "Metabuild_Info": {
+        "Meta_Build_ID": "Hamoa.AL.2.0.r1-00042.2-STD.PROD-1",
+        "Product_Flavor": "asic",
+        "Time_Stamp": "2026-09-11 03:18:01"
+    },
+    "Version": "1.0"
+}

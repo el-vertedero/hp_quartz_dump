@@ -1,0 +1,14 @@
+# desktop_system-user 17 CL3B.260622.273.R1 16471258 release-keys
+- manufacturer: hp
+- platform: hamoa
+- codename: quartz
+- flavor: desktop_system-user
+- release: 17
+- id: CL3B.260622.273.R1
+- incremental: 16471258
+- tags: release-keys
+- fingerprint: HP/quartz/quartz:17/CL3B.260622.273.R1/16471258:user/release-keys
+- is_ab: true
+- brand: HP
+- branch: desktop_system-user-17-CL3B.260622.273.R1-16471258-release-keys
+- repo: hp_quartz_dump

@@ -1,0 +1,10 @@
+# pKVM vendor modules only meant to be loaded by pKVM before init,
+# when explicitly requested. Block list the module to prevent from
+# loading the module again by first_stage_init.
+blocklist pkvm-geni.ko
+blocklist pkvm-smc-filter.ko
+blocklist qcom_smmu_v2_v3_dispatcher.ko
+blocklist pkvm_drng.ko
+blocklist pkvm-secure-memory-manager
+# Block snd-aloop to prevent automatic load at boot; allow manual loading via modprobe/insmod
+blocklist snd-aloop.ko

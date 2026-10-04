@@ -1,0 +1,11 @@
+# Soft dependencies extracted from modules themselves.
+softdep si_core_module pre: qcom-scm
+softdep si_core_module pre: arm_ffa arm_ffa_transport
+softdep qcom_pmu_lib pre: qcom_scmi_client
+softdep qcom_scm pre: arm_ffa arm_ffa_transport
+softdep smem pre: qcom_hwspinlock
+softdep dwc3_msm pre: phy-generic phy-msm-snps-hs phy-msm-ssusb-qmp eud
+softdep pinctrl_msm pre: qcom-pdc
+softdep qcom_scmi_vendor pre: qcom_cpucp
+softdep qcom_scmi_client pre: qcom_scmi_vendor
+softdep sched_walt pre: socinfo

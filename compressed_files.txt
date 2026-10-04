@@ -1,0 +1,9 @@
+system_ext/priv-app/SettingsGoogle/SettingsGoogle.apk.zst
+product/priv-app/DevicePersonalizationAiAiPrebuiltPixel2025/DevicePersonalizationAiAiPrebuiltPixel2025.apk.zst
+product/priv-app/ContextualCursorPrebuilt/ContextualCursorPrebuilt.apk.zst
+product/priv-app/PrebuiltBugle/PrebuiltBugle.apk.zst
+product/priv-app/Phonesky/Phonesky.apk.zst
+product/app/TrichromeLibrary/TrichromeLibrary.apk.zst
+product/app/Photos/Photos.apk.zst
+product/app/WebViewGoogle/WebViewGoogle.apk.zst
+system/system/etc/modem.img.zst
